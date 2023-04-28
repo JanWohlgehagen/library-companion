@@ -3,14 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginAndRegistrationComponent } from './login-and-registration/login-and-registration.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { AdminManageBooksComponent } from './admin-manage-books/admin-manage-books.component';
+import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
+import { UserCheckoutComponent } from './user-checkout/user-checkout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginAndRegistrationComponent,
+    AdminDashboardComponent,
+    UserDashboardComponent,
+    AdminManageBooksComponent,
+    AdminManageUsersComponent,
+    UserSettingsComponent,
+    UserBrowseBooksComponent,
+    UserCheckoutComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
