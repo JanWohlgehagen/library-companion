@@ -26,12 +26,18 @@ const validateFirebaseIdToken = async (req, res, next) => {
  }
 }
 
-app.get('/helloworld', validateFirebaseIdToken, (request, response) => {
- response.send('Hello world!')
-})
-
-
 exports.api = functions.https.onRequest(app);
 
-
-
+app.post('/CreateUser', validateFirebaseIdToken, (req, res) => {
+ var user = req.body;
+ admin.firestore().collection('Users').doc(user.id)
+     .set({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      admin: false,
+      joinDate: new Date(),
+      imageUrl: "https://st4.depositphotos.com/3369547/29902/v/450/depositphotos_299027320-stock-illustration-silhouette-person-avatar-isolated-icon.jpg"
+     })
+ res.send("done")
+})

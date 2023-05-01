@@ -12,6 +12,7 @@ import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-use
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
 import { UserCheckoutComponent } from './user-checkout/user-checkout.component';
+import { BookComponent } from './book/book.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UserCheckoutComponent } from './user-checkout/user-checkout.component';
     AdminManageUsersComponent,
     UserSettingsComponent,
     UserBrowseBooksComponent,
-    UserCheckoutComponent
+    UserCheckoutComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,

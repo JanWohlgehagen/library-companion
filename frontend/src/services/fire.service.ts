@@ -6,11 +6,12 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
 import * as config from '../../firebaseconfig.js';
+import {User} from "../Types/types";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class FireService {
   firebaseApplication;
   auth: firebase.auth.Auth;
   firestore: firebase.firestore.Firestore;
@@ -18,6 +19,7 @@ export class FirebaseService {
 
 
   baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
+
   constructor() {
     this.firebaseApplication = firebase.initializeApp(config.firebaseConfig);
     this.auth = firebase.auth();
@@ -43,6 +45,45 @@ export class FirebaseService {
         request.headers.Authorization = await this.auth.currentUser?.getIdToken() + ""
         return request;
       });
+  }
+
+
+  async register(name: string, email: string, password: string){
+    this.auth.createUserWithEmailAndPassword(email, password)
+      .then(result => {
+        if (result.user) {
+          return result.user.updateProfile({
+            displayName: name
+          }).then(() => {
+            let user : User = {
+              admin: false,
+              email: email,
+              id: result.user?.uid,
+              imageUrl: "",
+              joinDate: new Date(),
+              name: name
+            }
+            axios.post(this.baseAxiosURL+'CreateUser', user).then(success => {
+              console.log(success)
+            }).catch(err => {
+              console.log(err)
+            })
+          })
+        } else return
+      }).catch(function (error) {
+        console.log(error)
+    })
+  }
+
+  async login(email: string, password: string) {
+    this.auth.signInWithEmailAndPassword(email, password)
+      .then(result => {
+        if (this.auth.currentUser) {
+
+          /*this.setCurrentUser();
+          this.router.navigate(['Chat']);*/
+        }
+      })
   }
 
 
