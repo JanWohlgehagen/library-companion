@@ -18,6 +18,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIcon, MatIconModule} from "@angular/material/icon";
+import { BookInfoComponent } from './book-info/book-info.component';
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import {MatIcon, MatIconModule} from "@angular/material/icon";
     UserSettingsComponent,
     UserBrowseBooksComponent,
     UserCheckoutComponent,
-    BookComponent
+    BookComponent,
+    BookInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import {MatIcon, MatIconModule} from "@angular/material/icon";
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
