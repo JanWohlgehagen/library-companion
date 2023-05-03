@@ -5,6 +5,7 @@ export type User = {
   imageUrl: string,
   admin: boolean,
   joinDate: Date,
+  books?: Book[]
 }
 
 export type Author = {

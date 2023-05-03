@@ -1,1 +1,26 @@
-<p>admin-manage-users works!</p>
+<div style="margin-left: 5vw; margin-right: 5vw;" *ngFor="let u of Users">
+  <!-- Expansion panel for each user -->
+  <mat-expansion-panel style="margin-bottom: 1vh; min-height: 70px;"*ngIf="u.admin ==false ">
+    <mat-expansion-panel-header style="min-height: 70px">
+      <img src="{{u.imageUrl}}" style="max-width: 50px; border-radius:20px;  ">
+      {{u.name}}</mat-expansion-panel-header>
+    <!-- Books on User -->
+    <mat-card  *ngFor="let b of u.books" style="min-height: 80px; margin-bottom: 1vh;">
+      <div>
+        <div style="float:right; margin:10px; max-height: 60px; display:flex">
+          <button style="margin-right: 1.5vw;" mat-fab color="primary" (click)="extendBook()">Extend Booking</button>
+          <button mat-fab color color="warn" (click)="sendMail(u)">
+            <mat-icon>email</mat-icon>
+          </button>
+        </div>
+
+        <div style="max-width: 70%">
+          <img style="max-width: 60px;max-height: 60px; margin:1vh; float:left" src="{{b.imageUrl}}">
+          <mat-card-title>
+            {{b.title}}
+          </mat-card-title>
+        </div>
+      </div>
+    </mat-card>
+  </mat-expansion-panel>
+</div>
