@@ -23,6 +23,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { TitlePipePipe } from './pipes/title-pipe.pipe';
 import { AuthorPipe } from './pipes/author.pipe';
+import {MatRippleModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -39,20 +40,21 @@ import { AuthorPipe } from './pipes/author.pipe';
     TitlePipePipe,
     AuthorPipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgOptimizedImage,
-    MatToolbarModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    MatInputModule,
-    FormsModule,
-    MatGridListModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgOptimizedImage,
+        MatToolbarModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        MatGridListModule,
+        ReactiveFormsModule,
+        MatRippleModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

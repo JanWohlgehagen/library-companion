@@ -1,13 +1,17 @@
-
-
 /* main (middle) div with grid & search bar */
-
 .main{
   width: 70vw;
   height: 93vh;
   float: left;
   overflow-y: auto;
 }
+
+.search-form{
+  margin: auto;
+  display: flex;
+  padding: 2%;
+}
+
 
 .tile-content{
   word-wrap: break-word;
@@ -35,4 +39,25 @@
   justify-content: center;
 }
 
+.show-more-button{
+  width: 100%;
+  height: 5vh;
+  margin: 0 auto 3vh;
+  display: flex;
+  background-color: transparent;
+  border-style: none;
+}
 
+/* main (left) div */
+.main-left{
+  width: 15vw;
+  height: 93vh;
+  float: left;
+}
+
+/* main (right) div */
+.main-right{
+  width: 15vw;
+  height: 93vh;
+  float: right;
+}
