@@ -12,22 +12,19 @@
     <button mat-menu-item  (click)="firebaseservice.sign_out()"> <!--User is logged in-->
       <span>Log out</span>
     </button>
+    <ul>
+      <li><a routerLink="login-and-registration">Login and registration</a></li>
+      <li><a routerLink="admin-dashboard">Admin Dashboard</a></li>
+      <li><a routerLink="admin-dashboard/manage-books">Admin manage books</a></li>
+      <li><a routerLink="admin-dashboard/manage-users">Admin manage users</a></li>
+      <li><a routerLink="user-dashboard">user dashboard</a></li>
+      <li><a routerLink="user-dashboard/browse-books">user browse books</a></li>
+      <li><a routerLink="user-dashboard/checkout">user checkout</a></li>
+      <li><a routerLink="user-dashboard/settings">user settings</a></li>
+      <li><a routerLink="book">book</a></li>
+    </ul>
   </mat-menu>
 </mat-toolbar>
-
-<nav>
-  <ul>
-    <li><a routerLink="login-and-registration">Login and registration</a></li>
-    <li><a routerLink="admin-dashboard">Admin Dashboard</a></li>
-    <li><a routerLink="admin-dashboard/manage-books">Admin manage books</a></li>
-    <li><a routerLink="admin-dashboard/manage-users">Admin manage users</a></li>
-    <li><a routerLink="user-dashboard">user dashboard</a></li>
-    <li><a routerLink="user-dashboard/browse-books">user browse books</a></li>
-    <li><a routerLink="user-dashboard/checkout">user checkout</a></li>
-    <li><a routerLink="user-dashboard/settings">user settings</a></li>
-    <li><a routerLink="book">book</a></li>
-  </ul>
-</nav>
 
 
 <router-outlet></router-outlet>
