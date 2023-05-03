@@ -1,3 +1,20 @@
+<mat-toolbar color="primary" style="display: flex">
+  <span >Chatz</span>
+  <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
+  <img (click)="img_upload.click()" src="avatar" style="max-height: 60px; margin-right: 10px; border-radius: 15px">
+  <input #img_upload hidden type="file" (change)="firebaseservice.updateUserAvatar($event)">
+  <span>email placeholder</span>
+  <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon style="scale: 2">menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item  (click)="firebaseservice.sign_out()"> <!--User is logged in-->
+      <span>Log out</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
 <nav>
   <ul>
     <li><a routerLink="login-and-registration">Login and registration</a></li>

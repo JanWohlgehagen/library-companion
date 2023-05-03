@@ -47,7 +47,7 @@ export class FireService {
       });
   }
 
-
+//TODO - NOT FINISHED
   async register(name: string, email: string, password: string){
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(result => {
@@ -76,15 +76,16 @@ export class FireService {
   }
 
   async login(email: string, password: string) {
-    this.auth.signInWithEmailAndPassword(email, password)
-      .then(result => {
-        if (this.auth.currentUser) {
-
-          /*this.setCurrentUser();
-          this.router.navigate(['Chat']);*/
-        }
-      })
+    await this.auth.signInWithEmailAndPassword(email, password);
   }
 
 
+  updateUserAvatar($event) {
+    const img = $event.target.files[0];
+    console.log(img)
+  }
+
+  async sign_out() {
+    await this.auth.signOut();
+  }
 }

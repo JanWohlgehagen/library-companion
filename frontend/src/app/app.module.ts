@@ -14,6 +14,10 @@ import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.
 import { UserCheckoutComponent } from './user-checkout/user-checkout.component';
 import { BookComponent } from './book/book.component';
 import {NgOptimizedImage} from "@angular/common";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -28,12 +32,16 @@ import {NgOptimizedImage} from "@angular/common";
     UserCheckoutComponent,
     BookComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        NgOptimizedImage
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgOptimizedImage,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
