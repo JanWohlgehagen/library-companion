@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Author, Book, User} from "../../Types/types";
 import {MockDataService} from "../../mock_data/mock-data.service";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-user-browse-books',
@@ -9,16 +10,10 @@ import {MockDataService} from "../../mock_data/mock-data.service";
 })
 export class UserBrowseBooksComponent {
   public books: Book[];
-  public authors: Author[];
-  public users: User[];
+  searchText: any;
 
-  constructor(private mock: MockDataService) {
-    this.books = this.mock.get_books(10);
-    this.authors = this.mock.get_authors(5);
-    this.users = this.mock.get_users(50);
-    console.log(this.books)
-    console.log(this.authors)
-    console.log(this.users)
+  constructor(private mock: MockDataService, private formBuilder: FormBuilder) {
+    this.books = this.mock.get_books(25);
 
   }
 }

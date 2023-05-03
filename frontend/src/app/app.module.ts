@@ -17,7 +17,12 @@ import {NgOptimizedImage} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
-import {MatIcon, MatIconModule} from "@angular/material/icon";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatGridListModule} from "@angular/material/grid-list";
+import { TitlePipePipe } from './pipes/title-pipe.pipe';
+import { AuthorPipe } from './pipes/author.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,9 @@ import {MatIcon, MatIconModule} from "@angular/material/icon";
     UserSettingsComponent,
     UserBrowseBooksComponent,
     UserCheckoutComponent,
-    BookComponent
+    BookComponent,
+    TitlePipePipe,
+    AuthorPipe
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,11 @@ import {MatIcon, MatIconModule} from "@angular/material/icon";
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
+    MatGridListModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

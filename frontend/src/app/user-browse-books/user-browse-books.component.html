@@ -1,2 +1,36 @@
-<p>user-browse-books works!</p>
+<div style="width: 15vw; height: 93vh; background-color: aqua; float: left">left</div> <!-- div for the left bar -->
+
+<div class="main">
+  <div style="width: 100%; height: 15%;"> <!-- search field -->
+    <mat-form-field style="margin: auto; display: flex; padding: 2%;">
+      <span matIconPrefix><mat-icon>search</mat-icon></span>
+      <input matInput type="text" class="form-control" id="search-text" aria-describedby="search-text"
+             [(ngModel)]="searchText" placeholder="Enter text to search"
+             autofocus>
+    </mat-form-field>
+  </div>
+    <mat-grid-list cols="3" rowHeight="2:1;">
+      <mat-grid-tile *ngFor="let book of books | titlePipe: searchText">
+        <div class="tile-content">
+          <div class="tile-content-img">
+            <img ngSrc="{{book.imageUrl}}" height="200" width="100">
+          </div>
+          <div class="tile-content-text-title">
+            <p><strong>{{book.title}}</strong></p>
+          </div>
+          <div class="tile-content-text-body">
+            <p>Year: {{book.releaseYear | date:'YYYY'}}</p>
+          </div>
+          <div class="tile-content-text-body">
+            <p>ISBN: {{book.ISBN}}</p>
+          </div>
+          <div class="tile-content-text-body">
+            <p *ngFor="let author of book.authors" style="margin: 0;padding: 0">{{author.name}}</p>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+</div> <!-- div for the middle bar -->
+
+<div style="width: 15vw; height: 93vh; background-color: brown; float: right">right</div> <!-- div for the right bar -->
 
