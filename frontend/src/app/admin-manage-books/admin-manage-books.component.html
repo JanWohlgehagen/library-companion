@@ -1,1 +1,134 @@
-<p>admin-manage-books works!</p>
+<div class="leftMenuAdminBar" style="float: left; width: 15vw; height: 93%; background-color: aqua; box-sizing: border-box; padding: 10px">
+  <h3>
+    leftMenuAdminBar
+  </h3>
+</div>
+
+<div class="manageBooks" style="float: left; width: 85vw; height: 93%; background-color: pink; box-sizing: border-box; padding: 10px">
+  <div class="manageBooksInner" style="float: left; width: auto; height: auto; background-color: tan; box-sizing: border-box; padding: 10px">
+    <div class="topBarInner" style="float: left; width: 100%; height: auto; background-color: yellow; box-sizing: border-box; padding: 10px">
+      <h1 class="manageBooksText" style="float: left">
+        Manage Books
+      </h1>
+      <div class="topBarInnerRight" style="float: right; width: auto; height: auto; background-color: saddlebrown; box-sizing: border-box; padding: 10px">
+        <button mat-raised-button class="deleteBookBtn" style="float: right; width: auto; height: 56px; background-color: red; margin-inline: 5px">
+          delete book
+        </button>
+        <button mat-raised-button class="addBookBtn" style="float: right; width: auto; height: 56px; background-color: lawngreen; margin-inline: 5px">
+          add new book
+        </button>
+        <button mat-raised-button class="searchBookBtn" style="float: right; width: auto; height: 56px; background-color: navajowhite; margin-inline: 5px">
+          Search btn
+        </button>
+        <form class="searchBookInput"
+              style="float: right; width: auto; height: auto; margin-inline: 5px; margin-right: 50px">
+          <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <input type="text" matInput [formControl]="control" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let options of filtered | async" [value]="options">
+                {{options.title}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+<!--    <div class="titleDiv" style="float: left; width: 20vw; height: 10vw; background-color: wheat; box-sizing: border-box; padding: 10px">
+      Title
+      <form class="titleForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput [formControl]="control" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="display">
+            <mat-option *ngFor="let titleOptions of filtered | async" [value]="titleOptions">
+              {{titleOptions}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </div>-->
+    <div style="float: left">
+      id?: string,
+      title: string,
+      description: string,
+      authors: Author[],
+      releaseYear: Date,
+      imageUrl?: string,
+      publisher: string,
+      ISBN: number,
+      edition: number,
+      numberOfPages: number,
+      language?: string[],
+      tags?: string[],
+      lix?: number,
+      literaryType: string,
+    </div>
+  </div>
+</div>
+
+
+<!--
+<div class="working but no auto">
+  <div class="leftMenuAdminBar" style="float: left; width: 15vw; height: 93%; background-color: aqua">
+    leftMenuAdminBar
+  </div>
+
+  <div class="manageBooks" style="float: left; width: 85vw; height: 93%; background-color: pink; box-sizing: border-box; padding: 10px">
+    <div class="manageBooksInner" style="float: left; width: 83vw; height: 70vw; background-color: tan; box-sizing: border-box; padding: 10px">
+      <div class="topBarInner" style="float: left; width: 81vw; height: 10vw; background-color: yellow; box-sizing: border-box; padding: 10px">
+        <h1 class="manageBooksText" style="float: left">
+          Manage Books
+        </h1>
+        <div class="topBarInnerRight" style="float: right; width:37vw; height: 10vw; background-color: saddlebrown">
+          <button mat-raised-button class="deleteBookBtn" style="float: right; width: 5vw; height: 4.7vw; background-color: red">
+            delete book
+          </button>
+          <button mat-raised-button class="addBookBtn" style="float: right; width: 5vw; height: 4.7vw; background-color: lawngreen">
+            add new book
+          </button>
+          <button mat-raised-button class="searchBookBtn" style="float: right; width: 5vw; height: 4.7vw; background-color: navajowhite">
+            Search btn
+          </button>
+          <form class="searchBookInput"
+                style="float: right; width: 18vw; height: 4vw; background-color: rebeccapurple;">
+            <mat-form-field appearance="fill">
+              <mat-label>Search</mat-label>
+              <input type="text" matInput>
+            </mat-form-field>
+          </form>
+        </div>
+      </div>
+      <div class="titleDiv" style="float: left; width: 20vw; height: 10vw; background-color: wheat; box-sizing: border-box; padding: 10px">
+        Title
+        <form class="titleForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input type="text" matInput [formControl]="myTitleControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTitle">
+              <mat-option *ngFor="let titleOptions of filteredTitles | async" [value]="titleOptions">
+                {{titleOptions}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+      <div style="float: left">
+        id?: string,
+        title: string,
+        description: string,
+        authors: Author[],
+        releaseYear: Date,
+        imageUrl?: string,
+        publisher: string,
+        ISBN: number,
+        edition: number,
+        numberOfPages: number,
+        language?: string[],
+        tags?: string[],
+        lix?: number,
+        literaryType: string,
+      </div>
+    </div>
+  </div>
+</div>-->
