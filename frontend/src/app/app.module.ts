@@ -21,9 +21,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatGridListModule} from "@angular/material/grid-list";
-import { TitlePipePipe } from './pipes/title-pipe.pipe';
-import { AuthorPipe } from './pipes/author.pipe';
 import {MatRippleModule} from "@angular/material/core";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { BrowseBooksPipe } from './pipes/browse-books.pipe';
+import {MatCardModule} from "@angular/material/card";
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -37,24 +39,26 @@ import {MatRippleModule} from "@angular/material/core";
     UserBrowseBooksComponent,
     UserCheckoutComponent,
     BookComponent,
-    TitlePipePipe,
-    AuthorPipe
+    BrowseBooksPipe
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        NgOptimizedImage,
-        MatToolbarModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatInputModule,
-        FormsModule,
-        MatGridListModule,
-        ReactiveFormsModule,
-        MatRippleModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgOptimizedImage,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatRippleModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatDividerModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

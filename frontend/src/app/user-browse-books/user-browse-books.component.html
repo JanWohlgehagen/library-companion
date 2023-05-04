@@ -1,7 +1,44 @@
-<div style="" class="main-left"></div> <!-- div for the left bar -->
+<div style="" class="main-left">
+  <div style="height: 12%;"></div>
+  <div style="text-align: center">
+    <p style="margin-top: 0.5vh; margin-bottom: 0.5vh; font-size: 18px">
+      <Strong>Amount of items shown</Strong>
+    </p>
+    <mat-button-toggle-group name="increment factor" aria-label="Amount of items shown" (change)="set_amount_of_items_shown_increment_factor($event)" style="margin-bottom: 1.5vh;">
+      <mat-button-toggle class="toggle-button" checked=true value="15">15</mat-button-toggle>
+      <mat-button-toggle value="30">30</mat-button-toggle>
+      <mat-button-toggle value="60">60</mat-button-toggle>
+      <mat-button-toggle value="120">120</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <p style="margin-top: 0.5vh; margin-bottom: 0.5vh; font-size: 18px">
+      <Strong>Fiction of non-fiction</Strong>
+    </p>
+
+    <mat-button-toggle-group multiple name="increment factor" aria-label="Amount of items shown" (change)="filter_fiction($event)" style="margin-bottom: 1.5vh;">
+      <mat-button-toggle class="toggle-button" value="non-fiction">non-fiction</mat-button-toggle>
+      <mat-button-toggle value="fiction">fiction</mat-button-toggle>
+    </mat-button-toggle-group>
+
+
+
+    <p style="margin-top: 1.5vh; margin-bottom: 0.5vh; font-size: 18px">
+      <Strong>Sort by</Strong>
+    </p>
+
+    <mat-button-toggle-group vertical name="increment factor" aria-label="Amount of items shown" (change)="sort_books_by($event)" style="margin: auto;">
+      <mat-button-toggle class="toggle-button" value="title">Title</mat-button-toggle>
+      <mat-button-toggle value="releaseYear">Release Year</mat-button-toggle>
+      <mat-button-toggle value="ISBN">ISBN</mat-button-toggle>
+      <mat-button-toggle value="edition">Edition</mat-button-toggle>
+      <mat-button-toggle value="numberOfPages">Pages</mat-button-toggle>
+      <mat-button-toggle value="lix">LIX</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div> <!-- div for the left bar -->
 
 <div class="main" id="main">
-  <div style="width: 100%; height: 12%; border-radius: 15px; "> <!-- search field -->
+  <div style="width: 100%; height: 12%;"> <!-- search field -->
       <mat-form-field class="search-form" appearance="outline">
         <span matIconPrefix style="margin-left: 10px"><mat-icon>search</mat-icon></span>
         <input matInput type="text" id="search-text" aria-describedby="search-text"
@@ -10,16 +47,20 @@
       </mat-form-field>
   </div>
     <mat-grid-list cols="3" rowHeight="2:1;">
-      <mat-grid-tile *ngFor="let book of books | titlePipe: searchText | slice:0:amount_of_items_shown; let i=index">
+      <mat-grid-tile *ngFor="let book of books | browseBooks: searchText | slice:0:amount_of_items_shown; let i=index">
         <div class="tile-content">
           <div class="tile-content-img">
             <img ngSrc="{{book.imageUrl}}" height="200" width="100">
           </div>
+          <button mat-mini-fab color="primary" class="add-to-shopping-cart-button" (click)="add_item_to_cart(book)">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+
           <div class="tile-content-text-title">
             <p><strong>{{book.title}}</strong></p>
           </div>
           <div class="tile-content-text-body">
-            <p>Year: {{book.releaseYear | date:'YYYY'}}</p>
+            <p>Year: {{book.releaseYear | date:'YYYY'}}, edition: {{book.edition}}</p>
           </div>
           <div class="tile-content-text-body">
             <p>ISBN: {{book.ISBN}}</p>
@@ -33,8 +74,30 @@
     </mat-grid-list>
 
   <button mat-flat-button *ngIf="amount_of_items_shown<=books.length" (click)="increment_items_shown()" class="show-more-button">Show more books! ({{amount_of_items_shown}})</button>
-  <button mat-flat-button *ngIf="amount_of_items_shown>books.length" (click)="reset_items_shown()" class="show-more-button">Show less...</button>
+  <button mat-flat-button *ngIf="amount_of_items_shown>=books.length" (click)="reset_items_shown()" class="show-more-button">Show less...</button>
 </div> <!-- div for the middle bar -->
 
-<div class="main-right"></div> <!-- div for the right bar -->
+<div class="main-right" style="overflow-y: auto">
+  <div *ngIf="this.shopping_cart.length !=0" style="height: 12%; text-align: center; font-size: 24px">
+    <p style="margin-top: 10%; padding: 5%"><strong>Shopping Cart</strong></p>
+  </div> <!-- spacer -->
+  <div *ngIf="this.shopping_cart.length !=0">
+    <div *ngFor="let book of shopping_cart">
+      <div class="shopping_cart_item">
+        <div class="grid-tile-image">
+          <img ngSrc="{{book.imageUrl}}" height="100" width="50">
+        </div>
+        <div class="grid-tile-button">
+          <button mat-mini-fab (click)="remove_item_from_cart(book)"><mat-icon>delete</mat-icon></button>
+        </div>
+        <div class="grid-tile-text">
+          <p><strong>{{book.title}}</strong></p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+
+  </div>
+
+</div> <!-- div for the right bar -->
 

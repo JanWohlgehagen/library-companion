@@ -1,9 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {Author} from "../../Types/types";
 
 @Pipe({
-  name: 'titlePipe'
+  name: 'browseBooks'
 })
-export class TitlePipePipe implements PipeTransform {
+export class BrowseBooksPipe implements PipeTransform {
+
   /**
    * Pipe filters the list of elements based on the search text provided
    *
@@ -21,7 +23,17 @@ export class TitlePipePipe implements PipeTransform {
     searchText = searchText.toLocaleLowerCase();
 
     return items.filter(it => {
-      return it.title.toLocaleLowerCase().includes(searchText);
+      return this.subStringExist(it.authors, searchText) || it.title.toLocaleLowerCase().includes(searchText);
     });
+  }
+
+  private subStringExist(authors: Author[], searchText: string): boolean {
+    let found = false;
+
+    authors.forEach(item =>{
+      if (item.name.toLocaleLowerCase().includes(searchText))
+        found = true;
+    })
+    return found;
   }
 }
