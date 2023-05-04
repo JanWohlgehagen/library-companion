@@ -20,6 +20,7 @@
 .Book-description {
   grid-area: Book-description;
 
+
 }
 .book-buy {
   grid-area: book-buy;
@@ -51,12 +52,12 @@
 .buy-add {
   grid-area: buy-add;
   display: flex;
+  float: bottom
   }
 
 .grid-buy-container {
   display: grid;
   align-items: center;
-  justify-content: center;
   grid-template-columns: 50% 50%;
   grid-template-rows: 40px 210px;
   grid-template-areas:
@@ -64,26 +65,16 @@
     "buy-info buy-add"
 }
 
-
-.trigger {
-  font-size: 1em;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  min-height: 45px;
-  border: 2px solid #3ecf8e;
-  border-radius: 20px;
-  background-color: transparent;
+.gradient {
+  height: 14em;
+  padding-top: 10px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(2,0,36,1) 50%, rgba(195,195,195,0) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.trigger:active {
-  font-size: 1em;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  min-height: 45px;
-  border: 2px solid #3ecf8e;
-  border-radius: 20px;
-  background-color: aqua;
-
+.remove-gradient {
+  height: 14em;
+  padding-top: 10px;
 }

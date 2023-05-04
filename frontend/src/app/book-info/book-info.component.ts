@@ -20,10 +20,19 @@ export class BookInfoComponent implements OnInit{
 
   ngOnInit(): void {
     this.books = this.mockDataBook.get_books(1)
+
   }
 
-  showDescription(){
-    this.panelOpenState = !this.panelOpenState;
+  showMore(){
+    const descriptionText = document.getElementById("Description-text") as HTMLElement
+    if (descriptionText.style.overflow === "hidden"){
+      descriptionText.style.overflow = "visible"
+      descriptionText.className = "remove-gradient"
+    }else {
+      descriptionText.style.overflow = "hidden"
+      descriptionText.className = "gradient"
+    }
+
   }
 
 }

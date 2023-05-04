@@ -2,34 +2,34 @@
 <div class="grid-Info-container">
 
 <div class="book-info">
-    <table>
+  <table style="width: 15vw">
       <tr>
-        <td>Publisher:</td> <td>{{books[0].publisher}}</td>
+        <td>Publisher:</td> <td style="float: right">{{books[0].publisher}}</td>
       </tr>
 
       <tr>
-        <td>Language: </td> <td>{{books[0].language}}</td>
+        <td>Language: </td> <td style="float: right">{{books[0].language}}</td>
       </tr>
 
-      <tr> <td>Year:</td> <td>{{books[0].releaseYear | date}}</td>
+      <tr> <td>Year:</td> <td style="float: right">{{books[0].releaseYear | date}}</td>
       </tr>
 
-      <tr> <td>ISBN:</td> <td>{{books[0].ISBN}}</td>
+      <tr> <td>ISBN:</td> <td style="float: right">{{books[0].ISBN}}</td>
       </tr>
 
-      <tr> <td>Edition:</td> <td>{{books[0].edition}}</td>
+      <tr> <td>Edition:</td> <td style="float: right">{{books[0].edition}}</td>
       </tr>
 
-      <tr> <td>Pages:</td> <td>{{books[0].numberOfPages}}</td>
+      <tr> <td>Pages:</td> <td style="float: right">{{books[0].numberOfPages}}</td>
       </tr>
 
-      <tr> <td>Lix:</td> <td>{{books[0].lix}}</td>
+      <tr> <td>Lix:</td> <td style="float: right">{{books[0].lix}}</td>
       </tr>
 
-      <tr> <td>Author(s):</td> <td>{{books[0].authors[0].name}}</td>
+      <tr> <td>Author(s):</td> <td style="float: right">{{books[0].authors[0].name}}</td>
       </tr>
 
-      <tr> <td>Literary:</td> <td>{{books[0].literaryType}}</td>
+      <tr> <td>Literary:</td> <td style="float: right">{{books[0].literaryType}}</td>
       </tr>
 
     </table>
@@ -39,12 +39,9 @@
   <img style="max-height: 200px; height: 225px" src="{{books[0].imageUrl}}" alt="Book image">
 </div>
 
-<div class="Book-description active">
-    <button (click)="showDescription()" class="trigger"> Show Description</button>
-  <div *ngIf="panelOpenState">
-    <p>{{books[0].description}}</p>
-  </div>
-
+<div class="Book-description">
+  <h2>Description</h2> <span><button (click)="showMore()" style="background-color: transparent; border: 0; border-bottom: 2px solid"> Show more</button></span>
+  <div id="Description-text" class="gradient">{{books[0].description}}</div>
 </div>
 
 <div class="book-buy">
@@ -83,14 +80,9 @@
     </div>
 
     <div class="buy-add">
-      <div style="align-content: center">
-        <button mat-raised-button color="primary">Add to cart</button>
-      </div>
+        <button mat-raised-button style="background-color: #03e179; width: 200px; border-radius: 30px ">Add to cart</button>
     </div>
   </div>
 
 </div>
-
-
-
 </div>
