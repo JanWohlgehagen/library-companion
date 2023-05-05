@@ -14,7 +14,7 @@ export class UserBrowseBooksComponent {
   public books_cache: Book[];
   public amount_of_items_shown: number = 15;
   public amount_of_items_shown_increment_factor: number = 15;
-  public searchText: any;
+  public searchText: string = '';
   public shopping_cart: Book[] = [];
 
   constructor(private mock: MockDataService) {
@@ -60,6 +60,8 @@ export class UserBrowseBooksComponent {
   }
 
   remove_item_from_cart(book: Book) {
-    //TODO
+    this.shopping_cart = this.shopping_cart.filter(b => {
+      return b.id != book.id;
+    })
   }
 }

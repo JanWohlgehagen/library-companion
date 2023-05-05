@@ -12,7 +12,7 @@
     </mat-button-toggle-group>
 
     <p style="margin-top: 0.5vh; margin-bottom: 0.5vh; font-size: 18px">
-      <Strong>Fiction of non-fiction</Strong>
+      <Strong>Fiction or non-fiction</Strong>
     </p>
 
     <mat-button-toggle-group multiple name="increment factor" aria-label="Amount of items shown" (change)="filter_fiction($event)" style="margin-bottom: 1.5vh;">
@@ -77,26 +77,28 @@
   <button mat-flat-button *ngIf="amount_of_items_shown>=books.length" (click)="reset_items_shown()" class="show-more-button">Show less...</button>
 </div> <!-- div for the middle bar -->
 
-<div class="main-right" style="overflow-y: auto">
-  <div *ngIf="this.shopping_cart.length !=0" style="height: 12%; text-align: center; font-size: 24px">
-    <p style="margin-top: 10%; padding: 5%"><strong>Shopping Cart</strong></p>
+<div class="main-right" style="overflow-y: auto;">
+  <div *ngIf="this.shopping_cart.length !=0" style="height: 12%; text-align: center; font-size: 24px; position: relative">
+    <p style="padding-top: 5vh"><strong>Shopping Cart</strong></p>
   </div> <!-- spacer -->
-  <div *ngIf="this.shopping_cart.length !=0">
+  <div *ngIf="this.shopping_cart.length !=0" style="text-align: center">
     <div *ngFor="let book of shopping_cart">
       <div class="shopping_cart_item">
         <div class="grid-tile-image">
           <img ngSrc="{{book.imageUrl}}" height="100" width="50">
         </div>
         <div class="grid-tile-button">
-          <button mat-mini-fab (click)="remove_item_from_cart(book)"><mat-icon>delete</mat-icon></button>
+          <button color="warn" class="remove_from_cart_button" mat-mini-fab (click)="remove_item_from_cart(book)"><mat-icon >delete</mat-icon></button>
         </div>
         <div class="grid-tile-text">
           <p><strong>{{book.title}}</strong></p>
         </div>
+        <div class="grid-tile-divider">
+          <mat-divider></mat-divider>
+        </div>
       </div>
-      <mat-divider></mat-divider>
     </div>
-
+    <button mat-raised-button color="primary" class="go_to_checkout_button">Go to checkout</button>
   </div>
 
 </div> <!-- div for the right bar -->
