@@ -26,6 +26,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { BrowseBooksPipe } from './pipes/browse-books.pipe';
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {MatDividerModule} from "@angular/material/divider";
     MatRippleModule,
     MatButtonToggleModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatStepperModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

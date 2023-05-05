@@ -1,0 +1,55 @@
+/* main (middle) div with grid & search bar */
+.main {
+  width: 70vw;
+  height: 93vh;
+  float: left;
+  overflow-y: hidden;
+}
+
+.main-content{
+  background-color: whitesmoke;
+  overflow: hidden;
+}
+
+.stepper-form-div{
+  height: 60vh;
+  overflow-y: auto;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.next-confirm-button{
+  float: right;
+}
+
+.main-spacer-top{
+  height: 12%;
+}
+
+.user-img{
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #00b278;
+  height: 65px;
+  width: 65px;
+}
+
+/* main (left) div */
+.main-left{
+  width: 15vw;
+  height: 93vh;
+  float: left;
+}
+
+/* main (right) div */
+.main-right{
+  width: 15vw;
+  height: 93vh;
+  float: right;
+}

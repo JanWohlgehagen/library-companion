@@ -1,1 +1,51 @@
-<p>user-checkout works!</p>
+<div class="main-left"></div> <!-- left side bar -->
+
+<div class="main">
+  <div class="main-spacer-top"></div> <!-- top spacer main content div-->
+  <div class="main-content">
+    <mat-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <div class="stepper-form-div">
+          <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>User information</ng-template>
+          <img src="{{user.imageUrl}}" class="user-img">
+          <br><img src="{{user.imageUrl}}" class="user-img">
+          <br>
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="First name, Last name" formControlName="nameCtrl" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Jane.doe@example.com" formControlName="emailCtrl" required>
+          </mat-form-field>
+        </form>
+        </div>
+        <div>
+          <button mat-mini-fab matStepperPrevious disabled><mat-icon>arrow_back_ios</mat-icon></button>
+          <button mat-mini-fab matStepperNext class="next-confirm-button" color="primary"><mat-icon>arrow_forward_ios</mat-icon></button>
+        </div>
+      </mat-step>
+      <mat-step label="Shopping cart details">
+        <div class="stepper-form-div">
+
+        </div>
+        <div>
+          <button mat-mini-fab matStepperPrevious color="primary"><mat-icon>arrow_back_ios</mat-icon></button>
+          <button mat-mini-fab matStepperNext class="next-confirm-button" color="primary"><mat-icon>arrow_forward_ios</mat-icon></button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div class="stepper-form-div">
+
+        </div>
+        <ng-template matStepLabel>Order overview</ng-template>
+        <button mat-mini-fab matStepperPrevious color="primary"><mat-icon>arrow_back_ios</mat-icon></button>
+        <button mat-raised-button class="next-confirm-button" color="primary" (click)="confirm_order()">Confirm order</button>
+      </mat-step>
+    </mat-stepper>
+  </div> <!-- content div-->
+</div> <!-- main content div-->
+
+<div class="main-right"></div> <!-- right side bar -->
