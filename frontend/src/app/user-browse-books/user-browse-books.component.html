@@ -38,7 +38,7 @@
 </div> <!-- div for the left bar -->
 
 <div class="main" id="main">
-  <div style="width: 100%; height: 12%; position:sticky; top: 0; background-color: white; z-index: 2;"> <!-- search field -->
+  <div class="search-div"> <!-- search field -->
       <mat-form-field class="search-form" appearance="outline">
         <span matIconPrefix style="margin-left: 10px"><mat-icon>search</mat-icon></span>
         <input matInput type="text" id="search-text" aria-describedby="search-text"
@@ -78,17 +78,17 @@
 </div> <!-- div for the middle bar -->
 
 <div class="main-right" style="overflow-y: auto;">
-  <div *ngIf="this.shopping_cart.length !=0" style="height: 12%; text-align: center; font-size: 24px; position: relative">
+  <div *ngIf="this.shopping_cart.length !=0" class="shopping-cart-title">
     <p style="padding-top: 5vh"><strong>Shopping Cart</strong></p>
   </div> <!-- spacer -->
   <div *ngIf="this.shopping_cart.length !=0" style="text-align: center">
     <div *ngFor="let book of shopping_cart">
-      <div class="shopping_cart_item">
+      <div class="shopping-cart-item">
         <div class="grid-tile-image">
           <img ngSrc="{{book.imageUrl}}" height="100" width="50">
         </div>
         <div class="grid-tile-button">
-          <button color="warn" class="remove_from_cart_button" mat-mini-fab (click)="remove_item_from_cart(book)"><mat-icon >delete</mat-icon></button>
+          <button color="warn" class="remove-from-cart-button" mat-mini-fab (click)="remove_item_from_cart(book)"><mat-icon >delete</mat-icon></button>
         </div>
         <div class="grid-tile-text">
           <p><strong>{{book.title}}</strong></p>
@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-    <button mat-raised-button color="primary" class="go_to_checkout_button">Go to checkout</button>
+    <button mat-raised-button color="primary" class="go-to-checkout-button">Go to checkout</button>
   </div>
 
 </div> <!-- div for the right bar -->
