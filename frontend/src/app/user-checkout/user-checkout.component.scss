@@ -32,11 +32,16 @@
 }
 
 .user-img{
+  margin-top: 10vh;
   border-radius: 50%;
   border-style: solid;
   border-color: #00b278;
-  height: 65px;
-  width: 65px;
+  height: 90px;
+  width: 90px;
+}
+
+.user-inputs{
+  width: 15vw;
 }
 
 /* main (left) div */

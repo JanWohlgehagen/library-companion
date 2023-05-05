@@ -5,17 +5,17 @@
   <div class="main-content">
     <mat-stepper [linear]="true" #stepper>
       <mat-step [stepControl]="firstFormGroup">
-        <div class="stepper-form-div">
+        <div class="stepper-form-div" style="text-align: center;">
           <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>User information</ng-template>
           <img src="{{user.imageUrl}}" class="user-img">
           <br>
-          <mat-form-field appearance="outline">
+          <mat-form-field class="user-inputs" appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput placeholder="First name, Last name" formControlName="nameCtrl" required>
           </mat-form-field>
           <br>
-          <mat-form-field appearance="outline">
+          <mat-form-field class="user-inputs" appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput placeholder="Jane.doe@example.com" formControlName="emailCtrl" required>
           </mat-form-field>
