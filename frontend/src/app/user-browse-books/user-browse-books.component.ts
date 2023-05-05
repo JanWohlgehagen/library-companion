@@ -64,4 +64,8 @@ export class UserBrowseBooksComponent {
       return b.id != book.id;
     })
   }
+
+  go_to_checkout() {
+    //TODO
+  }
 }
