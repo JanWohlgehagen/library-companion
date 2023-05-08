@@ -26,9 +26,9 @@ export class FireService {
     this.firestore = firebase.firestore();
     this.storage = firebase.storage();
 
-   // this.firestore.useEmulator('localhost', 8080);
-    //this.auth.useEmulator('http://localhost:9099');
-    //this.storage.useEmulator('localhost', 9199);
+    this.firestore.useEmulator('localhost', 8080);
+    this.auth.useEmulator('http://localhost:9099');
+    this.storage.useEmulator('localhost', 9199);
 
 
     this.auth.onAuthStateChanged((user) =>{
