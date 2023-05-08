@@ -27,6 +27,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { BrowseBooksPipe } from './pipes/browse-books.pipe';
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { RegistrationComponent } from './registration/registration.component';
 
 
 @NgModule({
@@ -41,27 +43,29 @@ import {MatDividerModule} from "@angular/material/divider";
     UserBrowseBooksComponent,
     UserCheckoutComponent,
     BookInfoComponent,
-    BrowseBooksPipe
+    BrowseBooksPipe,
+    RegistrationComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgOptimizedImage,
-    MatToolbarModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatInputModule,
-    FormsModule,
-    MatGridListModule,
-    ReactiveFormsModule,
-    MatRippleModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatDividerModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgOptimizedImage,
+        MatToolbarModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatInputModule,
+        FormsModule,
+        MatGridListModule,
+        ReactiveFormsModule,
+        MatRippleModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatDividerModule,
+        MatCheckboxModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

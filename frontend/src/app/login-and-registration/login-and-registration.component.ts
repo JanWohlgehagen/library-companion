@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./login-and-registration.component.scss']
 })
 export class LoginAndRegistrationComponent {
+  email: any;
+  password: any;
+  checked: any;
 
 }
