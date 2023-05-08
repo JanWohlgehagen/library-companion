@@ -27,6 +27,7 @@ import { BrowseBooksPipe } from './pipes/browse-books.pipe';
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {MatStepperModule} from "@angular/material/stepper";
     MatCardModule,
     MatDividerModule,
     MatStepperModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

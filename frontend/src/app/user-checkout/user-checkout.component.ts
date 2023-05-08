@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {MockDataService} from "../../mock_data/mock-data.service";
-import {User} from "../../Types/types";
+import {Book, User} from "../../Types/types";
 import {MatStepper} from "@angular/material/stepper";
 
 @Component({
@@ -12,7 +12,11 @@ import {MatStepper} from "@angular/material/stepper";
 export class UserCheckoutComponent {
 
   public user: User;
+  public shopping_cart: Book [];
   public order_confirmed: boolean = false;
+  public user_name: string = '';
+  public user_email: string = '';
+  public lease_expiration: Date;
 
   firstFormGroup = this._formBuilder.group({
     nameCtrl: ['', Validators.required],
@@ -21,10 +25,24 @@ export class UserCheckoutComponent {
 
   constructor(private _formBuilder: FormBuilder, public mock: MockDataService) {
     this.user = this.mock.get_users(1)[0];
+    this.shopping_cart = this.mock.get_books(5);
+    this.lease_expiration = new Date()
+    this.lease_expiration.setDate(this.lease_expiration.getDate() + 28)
+
+    if(this.user){
+      this.user_name = this.user.name
+      this.user_email = this.user.email
+    }
   }
 
   confirm_order() {
     this.order_confirmed = true;
+  }
+
+  remove_item_from_cart(book: Book) {
+    this.shopping_cart = this.shopping_cart.filter(b => {
+      return b.id != book.id;
+    })
   }
 }
 
