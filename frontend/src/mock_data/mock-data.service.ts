@@ -185,6 +185,7 @@ function generateMockBookData() : Book {
       authors[Math.floor(Math.random() * authors.length)],
       authors[Math.floor(Math.random() * authors.length)],
     ],
+    availability: Math.random()<0.5,
     description: 'This books is about how one might cope with having a huge penis.',
     edition: Math.floor(Math.random() * 10) + 1,
     lix: Math.floor(Math.random() * 100),

@@ -5,7 +5,7 @@ export type User = {
   imageUrl: string,
   admin: boolean,
   joinDate: Date,
-  books?: Book[]
+  books?: BorrowedBook[]
 }
 
 export type Author = {
@@ -13,10 +13,19 @@ export type Author = {
   name: string,
 }
 
+export type BorrowedBook={
+  book: Book,
+  leaseDate: Date,
+  dueDate: Date,
+  overDue: boolean
+
+}
+
 export type Book = {
   id?: string,
   title: string,
   description: string,
+  availability: boolean,
   authors: Author[],
   releaseYear: Date,
   imageUrl?: string,

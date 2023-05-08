@@ -1,26 +1,75 @@
-<div style="margin-left: 5vw; margin-right: 5vw;" *ngFor="let u of Users">
-  <!-- Expansion panel for each user -->
-  <mat-expansion-panel style="margin-bottom: 1vh; min-height: 70px;"*ngIf="u.admin ==false ">
-    <mat-expansion-panel-header style="min-height: 70px">
-      <img src="{{u.imageUrl}}" style="max-width: 50px; border-radius:20px;  ">
-      {{u.name}}</mat-expansion-panel-header>
-    <!-- Books on User -->
-    <mat-card  *ngFor="let b of u.books" style="min-height: 80px; margin-bottom: 1vh;">
-      <div>
-        <div style="float:right; margin:10px; max-height: 60px; display:flex">
-          <button style="margin-right: 1.5vw;" mat-fab color="primary" (click)="extendBook()">Extend Booking</button>
-          <button mat-fab color color="warn" (click)="sendMail(u)">
-            <mat-icon>email</mat-icon>
-          </button>
-        </div>
+<div style="margin-left: 5vw; margin-right: 5vw; margin-top:2vh; overflow-y: auto">
+  <!-- Searchbar -->
 
-        <div style="max-width: 70%">
-          <img style="max-width: 60px;max-height: 60px; margin:1vh; float:left" src="{{b.imageUrl}}">
-          <mat-card-title>
-            {{b.title}}
-          </mat-card-title>
+  <mat-form-field style="min-width:90vw;">
+    <input matInput style="min-width: 88vw; " id="search-text" [formControl]="formControl"
+           aria-describedby="search-text"
+           autofocus type="text" placeholder="Username or Email">
+  </mat-form-field>
+
+  <!-- Pagination Buttons -->
+  <div style="margin-bottom:1vh">
+    <button matPrefix style="float:right; margin-right: 1vw;" mat-fab color="primary"
+            *ngIf="filteredUsers | async; let filteredUsers" [disabled]="end >= filteredUsers.length"
+            (click)="MoveForward()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+
+    <p style=" float:right; margin-right: 46%; margin-top: 15px;">{{start}} - {{end}}</p>
+    <button matSuffix style="margin-left: 1vw;" mat-fab color="primary" [disabled]="start ==0" (click)="MoveBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+  </div>
+
+  <!-- Users -->
+  <div style="max-width: 88vw" *ngFor="let u of filteredUsers | async | slice: start:end; let i=index">
+
+    <!-- Expansion panel for each user -->
+    <mat-expansion-panel style="  margin-bottom: 1vh; margin-left: 1vw; min-height: 70px;" *ngIf="u.admin ==false ">
+      <mat-expansion-panel-header style="min-height: 70px; display:flex;">
+        <img src="{{u.imageUrl}}" style="max-width: 50px; border-radius:20px;  ">
+        <p style="margin-top: 10px; margin-left: 10px">{{u.name}}</p>
+        <span style="flex: 1 1 auto"></span>
+        <button mat-fab color="warn" style="float:right; margin-right: 2%;max-width:35px; max-height:35px;" (click)="deleteUser(u)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </mat-expansion-panel-header>
+
+      <!-- Books on User -->
+      <mat-card *ngFor="let b of u.books" style="min-height: 80px; margin-bottom: 1vh;">
+        <div>
+          <div style="float:right; margin:10px; max-height: 60px; display:flex">
+            <button style="margin-right: 1.5vw;" mat-fab color="primary" (click)="extendBook(u,b)">Extend Booking
+            </button>
+            <button *ngIf="b.overDue" style="margin-right: 1.5vw;" mat-fab color="warn" (click)="sendMail(u,b)">
+              <mat-icon>email</mat-icon>
+            </button>
+          </div>
+
+          <div style="max-width: 70%">
+            <img style="max-width: 60px;max-height: 60px; margin:1vh; float:left" src="{{b.book.imageUrl}}">
+            <mat-card-title>
+              {{b.book.title}}
+            </mat-card-title>
+          </div>
         </div>
-      </div>
-    </mat-card>
-  </mat-expansion-panel>
+      </mat-card>
+    </mat-expansion-panel>
+  </div>
+  <!-- Pagination Buttons -->
+  <div style="margin-bottom:1vh">
+    <button matPrefix style="float:right; margin-right: 1vw;" mat-fab color="primary"
+            *ngIf="filteredUsers | async; let filteredUsers" [disabled]="end >= filteredUsers.length"
+            (click)="MoveForward()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+
+    <p style=" float:right; margin-right: 46%; margin-top: 15px;">{{start}} - {{end}}</p>
+    <button matSuffix style="margin-left: 1vw;" mat-fab color="primary" [disabled]="start ==0" (click)="MoveBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+  </div>
 </div>
