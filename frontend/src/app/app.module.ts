@@ -13,7 +13,6 @@ import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-use
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
 import { UserCheckoutComponent } from './user-checkout/user-checkout.component';
-import { BookComponent } from './book/book.component';
 import {NgOptimizedImage} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
@@ -24,6 +23,13 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import { BookInfoComponent } from './book-info/book-info.component';
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatRippleModule} from "@angular/material/core";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { BrowseBooksPipe } from './pipes/browse-books.pipe';
+import {MatDividerModule} from "@angular/material/divider";
+
 
 
 @NgModule({
@@ -37,7 +43,8 @@ import {MatInputModule} from "@angular/material/input";
     UserSettingsComponent,
     UserBrowseBooksComponent,
     UserCheckoutComponent,
-    BookComponent
+    BookInfoComponent,
+    BrowseBooksPipe
   ],
   imports: [
     BrowserModule,
@@ -54,7 +61,16 @@ import {MatInputModule} from "@angular/material/input";
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    FormsModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatRippleModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatDividerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

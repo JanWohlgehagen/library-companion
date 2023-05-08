@@ -1,0 +1,88 @@
+
+<div class="grid-Info-container">
+
+<div class="book-info">
+  <table style="width: 15vw">
+      <tr>
+        <td>Publisher:</td> <td style="float: right">{{books[0].publisher}}</td>
+      </tr>
+
+      <tr>
+        <td>Language: </td> <td style="float: right">{{books[0].language}}</td>
+      </tr>
+
+      <tr> <td>Year:</td> <td style="float: right">{{books[0].releaseYear | date}}</td>
+      </tr>
+
+      <tr> <td>ISBN:</td> <td style="float: right">{{books[0].ISBN}}</td>
+      </tr>
+
+      <tr> <td>Edition:</td> <td style="float: right">{{books[0].edition}}</td>
+      </tr>
+
+      <tr> <td>Pages:</td> <td style="float: right">{{books[0].numberOfPages}}</td>
+      </tr>
+
+      <tr> <td>Lix:</td> <td style="float: right">{{books[0].lix}}</td>
+      </tr>
+
+      <tr> <td>Author(s):</td> <td style="float: right">{{books[0].authors[0].name}}</td>
+      </tr>
+
+      <tr> <td>Literary:</td> <td style="float: right">{{books[0].literaryType}}</td>
+      </tr>
+
+    </table>
+</div>
+
+<div class="book-image" >
+  <img style="max-height: 200px; height: 225px" src="{{books[0].imageUrl}}" alt="Book image">
+</div>
+
+<div class="Book-description">
+  <h2>Description</h2> <span><button (click)="showMore()" style="background-color: transparent; border: 0; border-bottom: 2px solid"> Show more</button></span>
+  <div id="Description-text" class="gradient">{{books[0].description}}</div>
+</div>
+
+<div class="book-buy">
+
+  <div class="grid-buy-container">
+
+
+    <div class="buy-title"> {{books[0].title}}</div>
+
+    <div class="buy-info">
+      <table>
+        <tr>
+          <th>Lager status</th>
+        </tr>
+
+        <tr>
+          <td>Nordjylland:</td> <td style="float: right">20</td>
+        </tr>
+
+        <tr>
+          <td>Midtjylland: </td> <td>10</td>
+        </tr>
+
+        <tr>
+          <td>Sydjylland:</td> <td>0</td>
+        </tr>
+
+        <tr>
+          <td>Fyn:</td> <td>6</td>
+        </tr>
+
+        <tr>
+          <td>Sjælland:</td> <td>4</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="buy-add">
+        <button mat-raised-button style="background-color: #03e179; width: 200px; border-radius: 30px ">Add to cart</button>
+    </div>
+  </div>
+
+</div>
+</div>
