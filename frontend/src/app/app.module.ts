@@ -29,6 +29,8 @@ import {MatRippleModule} from "@angular/material/core";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { BrowseBooksPipe } from './pipes/browse-books.pipe';
 import {MatDividerModule} from "@angular/material/divider";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 
@@ -69,8 +71,9 @@ import {MatDividerModule} from "@angular/material/divider";
     MatRippleModule,
     MatButtonToggleModule,
     MatCardModule,
-    MatDividerModule
-
+    MatDividerModule,
+    MatStepperModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
