@@ -12,7 +12,6 @@ import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-use
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
 import { UserCheckoutComponent } from './user-checkout/user-checkout.component';
-import { BookComponent } from './book/book.component';
 import {NgOptimizedImage} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
@@ -41,7 +40,6 @@ import {MatDividerModule} from "@angular/material/divider";
     UserSettingsComponent,
     UserBrowseBooksComponent,
     UserCheckoutComponent,
-    BookComponent,
     BookInfoComponent,
     BrowseBooksPipe
   ],
