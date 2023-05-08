@@ -17,9 +17,18 @@ import {NgOptimizedImage} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
-import {MatIcon, MatIconModule} from "@angular/material/icon";
 import { BookInfoComponent } from './book-info/book-info.component';
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatRippleModule} from "@angular/material/core";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { BrowseBooksPipe } from './pipes/browse-books.pipe';
+import {MatCardModule} from "@angular/material/card";
+import {MatDividerModule} from "@angular/material/divider";
+
 
 @NgModule({
   declarations: [
@@ -33,7 +42,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     UserBrowseBooksComponent,
     UserCheckoutComponent,
     BookComponent,
-    BookInfoComponent
+    BookInfoComponent,
+    BrowseBooksPipe
   ],
   imports: [
     BrowserModule,
@@ -44,7 +54,15 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatInputModule,
+    FormsModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatRippleModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
