@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'user-dashboard/checkout', component: UserCheckoutComponent, title: 'Checkout'},
   {path: 'user-dashboard/settings', component: UserSettingsComponent, title: 'Settings'},
   {path: 'book-info', component: BookInfoComponent, title: 'Book-info'},
+  {path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
 
 ];
 

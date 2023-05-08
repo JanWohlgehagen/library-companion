@@ -1,30 +1,28 @@
-<mat-toolbar color="primary" style="display: flex">
-  <span >Chatz</span>
+<mat-toolbar color="primary" style="display: flex; max-height: 7vh;">
+  <span>Library Companion</span>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
-  <img (click)="img_upload.click()" src="avatar" style="max-height: 60px; margin-right: 10px; border-radius: 15px">
-  <input #img_upload hidden type="file" (change)="firebaseservice.updateUserAvatar($event)">
-  <span>email placeholder</span>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
-  <button mat-button [matMenuTriggerFor]="menu">
-    <mat-icon style="scale: 2">menu</mat-icon>
+  <p style="margin-top: 15px" *ngIf="user!=null"> Welcome, {{user.name}} </p>
+  <button *ngIf="user!=null" mat-button [matMenuTriggerFor]="userMenu">
+    <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item  (click)="firebaseservice.sign_out()"> <!--User is logged in-->
-      <span>Log out</span>
-    </button>
-    <ul>
-      <li><a routerLink="login-and-registration">Login and registration</a></li>
-      <li><a routerLink="admin-dashboard">Admin Dashboard</a></li>
-      <li><a routerLink="admin-dashboard/manage-books">Admin manage books</a></li>
-      <li><a routerLink="admin-dashboard/manage-users">Admin manage users</a></li>
-      <li><a routerLink="user-dashboard">user dashboard</a></li>
-      <li><a routerLink="user-dashboard/browse-books">user browse books</a></li>
-      <li><a routerLink="user-dashboard/checkout">user checkout</a></li>
-      <li><a routerLink="user-dashboard/settings">user settings</a></li>
-      <li><a routerLink="book-info"> book info</a></li>
-      <li><a routerLink="book">book</a></li>
+  <button mat-button *ngIf="user==null" [matMenuTriggerFor]="signMenu">
+    <mat-icon style="scale:2">account_circle</mat-icon>
+  </button>
 
-    </ul>
+  <button mat-button (click)="navigateToMyCart()"> <mat-icon style="scale: 2">shopping_cart</mat-icon></button>
+
+
+  <!-- MENUS -->
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="navigateToProfile()">User Profile</button>
+    <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
+    <button mat-menu-item (click)="firebaseservice.sign_out()">Log Out</button>
+  </mat-menu>
+
+  <mat-menu #signMenu="matMenu">
+    <button mat-menu-item (click)="navigateToSignIn()"> Sign in</button>
+    <button mat-menu-item (click)="navigateToRegister()"> Register</button>
   </mat-menu>
 </mat-toolbar>
 
