@@ -8,7 +8,6 @@ import {UserDashboardComponent} from "./user-dashboard/user-dashboard.component"
 import {UserBrowseBooksComponent} from "./user-browse-books/user-browse-books.component";
 import {UserCheckoutComponent} from "./user-checkout/user-checkout.component";
 import {UserSettingsComponent} from "./user-settings/user-settings.component";
-import {BookComponent} from "./book/book.component";
 import {BookInfoComponent} from "./book-info/book-info.component";
 
 const routes: Routes = [
@@ -21,7 +20,6 @@ const routes: Routes = [
   {path: 'user-dashboard/checkout', component: UserCheckoutComponent, title: 'Checkout'},
   {path: 'user-dashboard/settings', component: UserSettingsComponent, title: 'Settings'},
   {path: 'book-info', component: BookInfoComponent, title: 'Book-info'},
-  {path: 'book', component: BookComponent, title: 'Book'},
 
 ];
 
