@@ -1,9 +1,9 @@
 <mat-toolbar color="primary" style="display: flex">
-  <span >Chatz</span>
+  <span >The Library</span>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
-  <img (click)="img_upload.click()" src="avatar" style="max-height: 60px; margin-right: 10px; border-radius: 15px">
+  <img (click)="img_upload.click()" src="assets/AvatarProfile.jpg" style="height: 45px; max-height: 60px; margin-right: 10px; border-radius: 15px">
   <input #img_upload hidden type="file" (change)="firebaseservice.updateUserAvatar($event)">
-  <span>email placeholder</span>
+  <span *ngIf="firebaseservice.auth.currentUser">  {{firebaseservice.auth.currentUser.displayName}}</span>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
   <button mat-button [matMenuTriggerFor]="menu">
     <mat-icon style="scale: 2">menu</mat-icon>

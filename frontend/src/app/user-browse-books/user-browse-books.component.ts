@@ -20,8 +20,6 @@ export class UserBrowseBooksComponent {
   constructor(private mock: MockDataService) {
     this.books = this.mock.get_books(100);
     this.books_cache = this.books;
-    console.log(this.books)
-
   }
 
   increment_items_shown() {

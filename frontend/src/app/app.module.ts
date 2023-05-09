@@ -29,6 +29,9 @@ import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { RegistrationComponent } from './registration/registration.component';
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Overlay} from "@angular/cdk/overlay";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -66,7 +69,7 @@ import { RegistrationComponent } from './registration/registration.component';
         MatDividerModule,
         MatCheckboxModule
     ],
-  providers: [],
+  providers: [MatSnackBar, Overlay, MatDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

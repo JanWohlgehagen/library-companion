@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {FireService} from "../../services/fire.service";
+import {FormBuilder, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-registration',
@@ -6,9 +9,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
-  name: any;
-  email: any;
-  password: any;
-  rePassword: any;
+  name: string = "";
+  email: string = "";
+  password: string = "";
+  confirmPassword: string = "";
+
+
+  constructor(public firebaseservice: FireService, private matSnackbar: MatSnackBar ) {
+
+  }
+
+  register() {
+    if (this.password == this.confirmPassword ){
+      this.firebaseservice.register(this.name, this.email, this.password);
+    } else {
+      this.matSnackbar.open("Passwords must match", 'close', {duration: 3000});
+    }
+  }
 
 }

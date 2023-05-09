@@ -1,26 +1,28 @@
 <body class="background">
 
+
 <mat-card class="container">
   <mat-card-title style="text-align: center; margin-bottom: 20px">
     New User
   </mat-card-title>
   <mat-form-field appearance="fill">
-    <input  placeholder="Name" [(ngModel)]="name" matInput>
+    <input [(ngModel)]=" name" placeholder="Name"  matInput >
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <input  placeholder="Email" [(ngModel)]="email" matInput>
+    <input [(ngModel)]="email" placeholder="Email" type="email"  matInput >
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <input placeholder="Password" [(ngModel)]="password" matInput [type]="'password'">
+    <input [(ngModel)]="password" placeholder="Password"  matInput [type]="'password'" >
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input placeholder="Password" [(ngModel)]="rePassword" matInput [type]="'password'">
+    <input [(ngModel)]="confirmPassword" placeholder="Confirm Password"  matInput [type]="'password'" >
   </mat-form-field>
 
   <mat-card-actions>
-    <button class="register" [disabled] mat-raised-button routerLink="/user-dashboard/browse-books" >Register</button>
+    <button class="register" [disabled]= "name == '' || email == '' || password == '' || confirmPassword == ''" (click)="register()" mat-raised-button >Register</button>
   </mat-card-actions>
 </mat-card>
+
 
 </body>
