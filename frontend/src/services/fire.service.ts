@@ -18,6 +18,7 @@ export class FireService {
   storage: firebase.storage.Storage;
 
   shoppingCart: Book[] = []
+  user: User | undefined
 
 
   baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'

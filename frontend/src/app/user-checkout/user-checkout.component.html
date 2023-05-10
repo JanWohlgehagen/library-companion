@@ -8,7 +8,7 @@
         <div class="stepper-form-div" style="text-align: center;">
           <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>User information</ng-template>
-          <img src="{{user.imageUrl}}" class="user-img">
+          <img src="{{firebase.user?.imageUrl}}" class="user-img">
           <br>
           <mat-form-field class="user-inputs" appearance="outline">
             <mat-label>Name</mat-label>
@@ -67,9 +67,9 @@
               </div>
             </div>
             <div class="grid-tile-user-details">
-              <img src="{{user.imageUrl}}" class="user-img">
-              <p><strong>Name: {{user.name}}</strong></p>
-              <p><strong>email: {{user.email}}</strong></p>
+              <img src="{{firebase.user?.imageUrl}}" class="user-img">
+              <p><strong>Name: {{firebase.user?.name}}</strong></p>
+              <p><strong>email: {{firebase.user?.email}}</strong></p>
               <p *ngIf="order_confirmed" style="font-size: 20px"><strong>Your order have been placed - you can collect it at your convenience.</strong></p>
               <p *ngIf="order_confirmed" style="margin: auto; border-bottom-color: black; border-bottom-style: solid; border-bottom-width: 2px; width: fit-content"
                  matTooltip="Monday to Sunday 07:00-22:00"

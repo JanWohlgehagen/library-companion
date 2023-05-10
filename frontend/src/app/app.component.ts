@@ -13,7 +13,7 @@ export class AppComponent {
   user: User | null = null;
 
   constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router) {
-    this.user = this.mock.get_users(1)[0];
+    firebaseservice.user= this.mock.get_users(1)[0];
     this.firebaseservice.shoppingCart =[]
   }
 

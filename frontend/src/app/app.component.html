@@ -1,16 +1,16 @@
 <mat-toolbar color="primary" style="display: flex; max-height: 7vh;">
   <span>Library Companion</span>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
-  <p (click)="navigateToBrowseBooks()" class="pointer" style="margin-top: 15px">
+  <span (click)="navigateToBrowseBooks()" class="pointer">
     Browse Books
-  </p>
+  </span>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
-  <p style="margin-top: 15px; margin-right:10px" *ngIf="user!=null"> Welcome, {{user.name}} </p>
 
-  <button *ngIf="user!=null" mat-button [matMenuTriggerFor]="userMenu">
+
+  <button *ngIf="firebaseservice.user!=null" mat-button [matMenuTriggerFor]="userMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
-  <button mat-button *ngIf="user==null" [matMenuTriggerFor]="signMenu">
+  <button mat-button *ngIf="firebaseservice.user==null" [matMenuTriggerFor]="signMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
 
@@ -36,8 +36,8 @@
 
   </mat-menu>
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item *ngIf="user?.admin" (click)="navigateToAdminManUsers()">Manage Users</button>
-    <button mat-menu-item *ngIf="user?.admin" (click)="navigateToAdminManBooks()">Manage Books</button>
+    <button mat-menu-item *ngIf="firebaseservice.user?.admin" (click)="navigateToAdminManUsers()">Manage Users</button>
+    <button mat-menu-item *ngIf="firebaseservice.user?.admin" (click)="navigateToAdminManBooks()">Manage Books</button>
     <button mat-menu-item (click)="navigateToProfile()">User Profile</button>
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
     <button mat-menu-item (click)="firebaseservice.sign_out()">Log Out</button>

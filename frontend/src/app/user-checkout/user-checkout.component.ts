@@ -12,7 +12,7 @@ import {FireService} from "../../services/fire.service";
 })
 export class UserCheckoutComponent {
 
-  public user: User;
+
   public shopping_cart: Book [];
   public order_confirmed: boolean = false;
   public user_name: string = '';
@@ -25,14 +25,14 @@ export class UserCheckoutComponent {
   });
 
   constructor(private _formBuilder: FormBuilder, public mock: MockDataService, public firebase: FireService) {
-    this.user = this.mock.get_users(1)[0];
+
     this.shopping_cart = this.mock.get_books(5);
     this.lease_expiration = new Date()
     this.lease_expiration.setDate(this.lease_expiration.getDate() + 28)
 
-    if(this.user){
-      this.user_name = this.user.name
-      this.user_email = this.user.email
+    if(this.firebase.user){
+      this.user_name = this.firebase.user.name
+      this.user_email = this.firebase.user.email
     }
   }
 
@@ -47,7 +47,7 @@ export class UserCheckoutComponent {
         overDue :false
       }
       console.log(book)
-      this.user.books?.push(book)
+      this.firebase.user?.books?.push(book)
     })
     this.firebase.shoppingCart=[]
   }
