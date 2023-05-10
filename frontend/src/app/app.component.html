@@ -1,8 +1,12 @@
 <mat-toolbar color="primary" style="display: flex; max-height: 7vh;">
   <span>Library Companion</span>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
+  <p (click)="navigateToBrowseBooks()" class="pointer" style="margin-top: 15px">
+    Browse Books
+  </p>
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
-  <p style="margin-top: 15px" *ngIf="user!=null"> Welcome, {{user.name}} </p>
+  <p style="margin-top: 15px; margin-right:10px" *ngIf="user!=null"> Welcome, {{user.name}} </p>
+
   <button *ngIf="user!=null" mat-button [matMenuTriggerFor]="userMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
@@ -17,7 +21,7 @@
   <mat-menu id="CartMenu" #cartMenu="matMenu" style="width: 400px; max-width: 400px">
     <div style="margin: 10px; max-height: 50vh; overflow-y: scroll; overflow-x:hidden;border:0; background: rgba(0,0,0,0)">
       <button #bookButton (click)="goToBook( b)" style="display:inline-block; margin: 5px;border:0; background: rgba(0,0,0,0)" *ngFor="let b of firebaseservice.shoppingCart" >
-        <mat-card style="width: 210px; height:100px; display:flex;" (click)="bookButton.click()" >
+        <mat-card class="pointer" style="width: 210px; height:100px; display:flex;" (click)="bookButton.click()" >
           <mat-card-content style="padding:0; overflow:hidden;">
             <img style="max-width: 50px; height:100px; float:left" src="{{b.imageUrl}}">
             <p style="margin-left:5px;margin-top: 5px; max-width: 110px; font-size:16px ;font-weight: bold; float:left; overflow: hidden; ">{{b.title}}</p>

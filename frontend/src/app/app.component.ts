@@ -14,7 +14,7 @@ export class AppComponent {
 
   constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router) {
     this.user = this.mock.get_users(1)[0];
-    this.firebaseservice.shoppingCart = this.mock.get_books(60)
+    this.firebaseservice.shoppingCart =[]
   }
 
   navigateToProfile() {
@@ -42,6 +42,7 @@ export class AppComponent {
   }
 
   goToBook( b: Book) {
+    this.router.navigate(["book-info"])
 
   }
 
@@ -49,5 +50,9 @@ export class AppComponent {
     $event.stopPropagation();
     this.firebaseservice.shoppingCart = this.firebaseservice.shoppingCart.filter( bo => bo.id !=b.id)
 
+  }
+
+  navigateToBrowseBooks() {
+    this.router.navigate(["user-dashboard/browse-books"])
   }
 }

@@ -3,6 +3,7 @@ import {Author, Book, User} from "../../Types/types";
 import {MockDataService} from "../../mock_data/mock-data.service";
 import firebase from "firebase/compat";
 import {trigger} from "@angular/animations";
+import {FireService} from "../../services/fire.service";
 
 @Component({
   selector: 'app-user-browse-books',
@@ -15,9 +16,10 @@ export class UserBrowseBooksComponent {
   public amount_of_items_shown: number = 15;
   public amount_of_items_shown_increment_factor: number = 15;
   public searchText: string = '';
-  public shopping_cart: Book[] = [];
 
-  constructor(private mock: MockDataService) {
+
+
+  constructor(private mock: MockDataService, public firebase: FireService) {
     this.books = this.mock.get_books(100);
     this.books_cache = this.books;
     console.log(this.books)
@@ -56,11 +58,11 @@ export class UserBrowseBooksComponent {
   }
 
   add_item_to_cart(book: Book) {
-    this.shopping_cart.push(book)
+    this.firebase.shoppingCart.push(book)
   }
 
   remove_item_from_cart(book: Book) {
-    this.shopping_cart = this.shopping_cart.filter(b => {
+    this.firebase.shoppingCart = this.firebase.shoppingCart.filter(b => {
       return b.id != book.id;
     })
   }
