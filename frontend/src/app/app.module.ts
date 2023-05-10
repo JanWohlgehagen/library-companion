@@ -13,7 +13,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
 import { UserCheckoutComponent } from './user-checkout/user-checkout.component';
 import { BookComponent } from './book/book.component';
-import {NgOptimizedImage} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
@@ -23,6 +23,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -48,10 +50,13 @@ import {MatChipsModule} from "@angular/material/chips";
     MatIconModule,
     MatGridListModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
     MatAutocompleteModule,
+    CommonModule,
     MatInputModule,
     MatChipsModule,
-    FormsModule
+    FormsModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
