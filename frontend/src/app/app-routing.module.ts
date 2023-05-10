@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import {ResolveFn, RouterModule, Routes} from '@angular/router';
 import {LoginAndRegistrationComponent} from "./login-and-registration/login-and-registration.component";
-import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 import {AdminManageBooksComponent} from "./admin-manage-books/admin-manage-books.component";
 import {AdminManageUsersComponent} from "./admin-manage-users/admin-manage-users.component";
 import {UserDashboardComponent} from "./user-dashboard/user-dashboard.component";
