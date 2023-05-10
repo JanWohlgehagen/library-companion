@@ -1,0 +1,142 @@
+/* main (middle) div with grid & search bar */
+.main {
+  width: 70vw;
+  height: 93vh;
+  float: left;
+  overflow-y: hidden;
+}
+
+.main-content{
+  overflow: hidden;
+}
+
+.stepper-form-div{
+  height: 60vh;
+  overflow-y: auto;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.next-confirm-button{
+  float: right;
+}
+
+.next-confirmed-button{
+  float: right;
+  background-color: #00b278;
+  cursor: inherit;
+}
+
+.main-spacer-top{
+  height: 12%;
+}
+
+.user-img{
+  margin-top: 10vh;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #00b278;
+  height: 90px;
+  width: 90px;
+}
+
+.user-inputs{
+  width: 15vw;
+}
+
+/* step two i stepper */
+/* step two i stepper */
+/* step two i stepper */
+
+.shopping-cart-display-div{
+  width: 65%;
+  margin: auto
+}
+
+.shopping-cart-item {
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+}
+
+.shopping-cart-item{
+  display: grid;
+  grid-template-columns: 25% 65% 10%;
+  grid-template-areas:
+    'image text button'
+    'image text button'
+    'image text button';
+  overflow: hidden;
+}
+
+.shopping-cart-item:hover{
+  background-color: whitesmoke;
+}
+
+.grid-tile-image {
+  grid-area: image;
+}
+
+.grid-tile-button {
+  text-align: right;
+  grid-area: button;
+}
+
+.grid-tile-text {
+  grid-area: text;
+}
+
+/* step three i stepper */
+/* step three i stepper */
+/* step three i stepper */
+.order-overview-display-div{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas:
+    'lease-agreement lease-agreement'
+    'shopping-cart user-details';
+  overflow: hidden;
+  width: 65%;
+  margin: auto;
+}
+
+.grid-tile-lease-agreement {
+  grid-area: lease-agreement;
+  text-align: center;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+.grid-tile-shopping-cart {
+  grid-area: shopping-cart;
+  margin-top: 5vh;
+}
+
+.grid-tile-user-details {
+  grid-area: user-details;
+  text-align: center;
+}
+
+.order-overview-leasing-agreement{
+  width: 100%;
+
+}
+
+/* main (left) div */
+.main-left{
+  width: 15vw;
+  height: 93vh;
+  float: left;
+}
+
+/* main (right) div */
+.main-right{
+  width: 15vw;
+  height: 93vh;
+  float: right;
+}
