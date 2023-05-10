@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {MockDataService} from "../../mock_data/mock-data.service";
-import {Book, User} from "../../Types/types";
+import {Book, BorrowedBook, User} from "../../Types/types";
 import {MatStepper} from "@angular/material/stepper";
+import {FireService} from "../../services/fire.service";
 
 @Component({
   selector: 'app-user-checkout',
@@ -23,7 +24,7 @@ export class UserCheckoutComponent {
     emailCtrl: ['', Validators.required],
   });
 
-  constructor(private _formBuilder: FormBuilder, public mock: MockDataService) {
+  constructor(private _formBuilder: FormBuilder, public mock: MockDataService, public firebase: FireService) {
     this.user = this.mock.get_users(1)[0];
     this.shopping_cart = this.mock.get_books(5);
     this.lease_expiration = new Date()
@@ -37,10 +38,22 @@ export class UserCheckoutComponent {
 
   confirm_order() {
     this.order_confirmed = true;
+    let duedate = new Date()
+    this.firebase.shoppingCart.forEach(b => {
+      let book : BorrowedBook={
+        book: b,
+        leaseDate: new Date(),
+        dueDate : new Date( duedate.setDate( duedate.getDate()+28)),
+        overDue :false
+      }
+      console.log(book)
+      this.user.books?.push(book)
+    })
+    this.firebase.shoppingCart=[]
   }
 
   remove_item_from_cart(book: Book) {
-    this.shopping_cart = this.shopping_cart.filter(b => {
+    this.firebase.shoppingCart =  this.firebase.shoppingCart.filter(b => {
       return b.id != book.id;
     })
   }

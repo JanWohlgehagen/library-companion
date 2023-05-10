@@ -28,9 +28,9 @@
       </mat-step><!-- step one -->
       <mat-step label="Shopping cart details">
         <div class="stepper-form-div">
-          <div *ngFor="let book of shopping_cart" class="shopping-cart-display-div">
+          <div *ngFor="let book of firebase.shoppingCart" class="shopping-cart-display-div">
             <div class="shopping-cart-item">
-              <button mat-mini-fab style="box-shadow: none" color="primary">{{shopping_cart.indexOf(book)+1}}</button>
+              <button mat-mini-fab style="box-shadow: none" color="primary">{{firebase.shoppingCart.indexOf(book)+1}}</button>
               <div class="shopping-cart-item">
                 <div class="grid-tile-image">
                   <img ngSrc="{{book.imageUrl}}" height="100" width="50">
@@ -61,8 +61,8 @@
               <p><i>To extend the lease period, contact the library.</i></p>
             </div>
             <div class="grid-tile-shopping-cart" >
-              <div *ngFor="let book of shopping_cart">
-                <p> <strong>{{shopping_cart.indexOf(book)+1}}. {{book.title}} </strong></p>
+              <div *ngFor="let book of firebase.shoppingCart">
+                <p> <strong>{{firebase.shoppingCart.indexOf(book)+1}}. {{book.title}} </strong></p>
                 <p>pages: {{book.numberOfPages}}</p>
               </div>
             </div>

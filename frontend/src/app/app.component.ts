@@ -55,4 +55,13 @@ export class AppComponent {
   navigateToBrowseBooks() {
     this.router.navigate(["user-dashboard/browse-books"])
   }
+
+  navigateToAdminManBooks() {
+    this.router.navigate(["admin-dashboard/manage-books"])
+
+  }
+
+  navigateToAdminManUsers() {
+     this.router.navigate(["admin-dashboard/manage-users"])
+  }
 }
