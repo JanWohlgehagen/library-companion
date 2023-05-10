@@ -18,7 +18,6 @@ export type BorrowedBook={
   leaseDate: Date,
   dueDate: Date,
   overDue: boolean
-
 }
 
 export type Book = {
