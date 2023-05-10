@@ -10,10 +10,27 @@
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
 
-  <button mat-button (click)="navigateToMyCart()"> <mat-icon style="scale: 2">shopping_cart</mat-icon></button>
+  <button mat-button [matMenuTriggerFor]="cartMenu" > <mat-icon style="scale: 2">shopping_cart</mat-icon><p style="font-size: 16px; background: red; border-radius: 49%; min-width: 30px;min-height: 30px">{{firebaseservice.shoppingCart.length}}</p></button>
 
 
   <!-- MENUS -->
+  <mat-menu id="CartMenu" #cartMenu="matMenu" style="width: 400px; max-width: 400px">
+    <div style="margin: 10px; max-height: 50vh; overflow-y: scroll; overflow-x:hidden;border:0; background: rgba(0,0,0,0)">
+      <button #bookButton (click)="goToBook( b)" style="display:inline-block; margin: 5px;border:0; background: rgba(0,0,0,0)" *ngFor="let b of firebaseservice.shoppingCart" >
+        <mat-card style="width: 210px; height:100px; display:flex;" (click)="bookButton.click()" >
+          <mat-card-content style="padding:0; overflow:hidden;">
+            <img style="max-width: 50px; height:100px; float:left" src="{{b.imageUrl}}">
+            <p style="margin-left:5px;margin-top: 5px; max-width: 110px; font-size:16px ;font-weight: bold; float:left; overflow: hidden; ">{{b.title}}</p>
+            <button color="warn" style="float:right; box-shadow: none; " mat-mini-fab (click)="remove_item_from_cart($event,b)"><mat-icon >delete</mat-icon></button>
+          </mat-card-content>
+
+        </mat-card>
+      </button>
+
+    </div>
+    <button mat-menu-item (click)="navigateToMyCart()">Go To Checkout</button>
+
+  </mat-menu>
   <mat-menu #userMenu="matMenu">
     <button mat-menu-item (click)="navigateToProfile()">User Profile</button>
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>

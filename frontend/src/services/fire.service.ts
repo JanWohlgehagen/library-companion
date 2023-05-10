@@ -6,7 +6,7 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
 import * as config from '../../firebaseconfig.js';
-import {User} from "../Types/types";
+import {Book, User} from "../Types/types";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,8 @@ export class FireService {
   auth: firebase.auth.Auth;
   firestore: firebase.firestore.Firestore;
   storage: firebase.storage.Storage;
+
+  shoppingCart: Book[] = []
 
 
   baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
@@ -29,6 +31,7 @@ export class FireService {
     this.firestore.useEmulator('localhost', 8080);
     this.auth.useEmulator('http://localhost:9099');
     this.storage.useEmulator('localhost', 9199);
+
 
 
     this.auth.onAuthStateChanged((user) =>{

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FireService} from "../services/fire.service";
-import {User} from "../Types/types";
+import {Book, User} from "../Types/types";
 import {MockDataService} from "../mock_data/mock-data.service";
 import {Router} from "@angular/router";
 
@@ -14,6 +14,7 @@ export class AppComponent {
 
   constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router) {
     this.user = this.mock.get_users(1)[0];
+    this.firebaseservice.shoppingCart = this.mock.get_books(60)
   }
 
   navigateToProfile() {
@@ -38,5 +39,15 @@ export class AppComponent {
 
   navigateToMyCart() {
     this.router.navigate(["user-dashboard/checkout"])
+  }
+
+  goToBook( b: Book) {
+
+  }
+
+  remove_item_from_cart($event: MouseEvent,b: Book) {
+    $event.stopPropagation();
+    this.firebaseservice.shoppingCart = this.firebaseservice.shoppingCart.filter( bo => bo.id !=b.id)
+
   }
 }
