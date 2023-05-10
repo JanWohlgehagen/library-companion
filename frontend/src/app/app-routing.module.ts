@@ -12,7 +12,6 @@ import {BookInfoComponent} from "./book-info/book-info.component";
 
 const routes: Routes = [
   {path: 'login-and-registration', component: LoginAndRegistrationComponent, title: 'Login or register'},
-  {path: 'admin-dashboard', component: AdminDashboardComponent, title: 'Admin Dashboard'},
   {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books'},
   {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users'},
   {path: 'user-dashboard', component: UserDashboardComponent, title: 'Dashboard'},

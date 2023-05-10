@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAndRegistrationComponent } from './login-and-registration/login-and-registration.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { AdminManageBooksComponent } from './admin-manage-books/admin-manage-books.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
@@ -38,7 +37,6 @@ import {MatTooltipModule} from "@angular/material/tooltip";
   declarations: [
     AppComponent,
     LoginAndRegistrationComponent,
-    AdminDashboardComponent,
     UserDashboardComponent,
     AdminManageBooksComponent,
     AdminManageUsersComponent,
