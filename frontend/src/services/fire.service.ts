@@ -83,7 +83,6 @@ export class FireService {
     await this.auth.signInWithEmailAndPassword(email, password);
   }
 
-
   updateUserAvatar($event) {
     const img = $event.target.files[0];
     console.log(img)
