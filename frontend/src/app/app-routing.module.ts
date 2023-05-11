@@ -7,9 +7,11 @@ import {UserBrowseBooksComponent} from "./user-browse-books/user-browse-books.co
 import {UserCheckoutComponent} from "./user-checkout/user-checkout.component";
 import {UserSettingsComponent} from "./user-settings/user-settings.component";
 import {BookInfoComponent} from "./book-info/book-info.component";
+import {RegistrationComponent} from "./registration/registration.component";
 
 const routes: Routes = [
-  {path: 'login-and-registration', component: LoginAndRegistrationComponent, title: 'Login or register'},
+  {path: 'login', component: LoginAndRegistrationComponent, title: 'Login'},
+  {path: 'register', component: RegistrationComponent, title: 'Register'},
   {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books'},
   {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users'},
   {path: 'user-dashboard/browse-books', component: UserBrowseBooksComponent, title: 'Browse Books'},

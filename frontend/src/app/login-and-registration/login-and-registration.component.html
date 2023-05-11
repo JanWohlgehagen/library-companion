@@ -1,1 +1,26 @@
-<p>login-and-registration works!</p>
+<body class="background">
+    <mat-card class="container">
+      <mat-card-title style="text-align: center; margin-bottom: 20px">
+        Log in
+      </mat-card-title>
+      <mat-form-field appearance="fill">
+        <input  placeholder="Email" [(ngModel)]="email" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <input placeholder="Password" [(ngModel)]="password" matInput [type]="'password'">
+      </mat-form-field>
+      <mat-card-actions align="start">
+        <mat-checkbox [(ngModel)]="checked"> Remember Me </mat-checkbox>
+      </mat-card-actions>
+      <mat-card-actions align="end" style="float: bottom">
+        <button mat-button>Forgot Password?</button>
+      </mat-card-actions>
+      <mat-card-actions>
+        <button mat-raised-button (click)="firebaseservice.login(email, password)" style="background-color: #03e179; width: 200vh; border-radius: 30px ">Login</button>
+      </mat-card-actions>
+      <mat-card-actions>
+        <button mat-raised-button routerLink="/register" style="background-color: #46b0f6; width: 200vh; border-radius: 30px ">Register</button>
+      </mat-card-actions>
+    </mat-card>
+
+</body>

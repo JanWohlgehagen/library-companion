@@ -7,6 +7,9 @@ import 'firebase/compat/storage';
 
 import * as config from '../../firebaseconfig.js';
 import {Book, User} from "../Types/types";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +27,7 @@ export class FireService {
 
   baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
 
-  constructor() {
+  constructor(private router: Router, private matSnackbar: MatSnackBar) {
     this.firebaseApplication = firebase.initializeApp(config.firebaseConfig);
     this.auth = firebase.auth();
     this.firestore = firebase.firestore();
@@ -38,7 +41,11 @@ export class FireService {
 
     this.auth.onAuthStateChanged((user) =>{
       if (user) {
+
         this.intercept();
+        this.router.navigate(["/user-dashboard/browse-books"])
+      }else {
+        this.user = undefined
       }
     })
   }
@@ -68,20 +75,29 @@ export class FireService {
               joinDate: new Date(),
               name: name
             }
-            axios.post(this.baseAxiosURL+'CreateUser', user).then(success => {
-              console.log(success)
-            }).catch(err => {
-              console.log(err)
-            })
+            // dette er kun for at test database - skal slette igen
+            this.firestore.collection("User").doc(result.user?.uid).set(
+              {user})
+
+
+            //axios.post(this.baseAxiosURL+'CreateUser', user).then(success => {
+             // console.log(success)
+           // }).catch(err => {
+             // console.log(err)
+           // })
           })
         } else return
-      }).catch(function (error) {
-        console.log(error)
+      }).catch((error) => {
+      this.matSnackbar.open(error, 'close', {duration: 3000});
     })
   }
 
   async login(email: string, password: string) {
-    await this.auth.signInWithEmailAndPassword(email, password);
+    await this.auth.signInWithEmailAndPassword(email, password)
+      .catch((error) =>{
+        this.matSnackbar.open("The login is invalid", 'close', {duration: 4000});
+    });
+
   }
 
   updateUserAvatar($event) {
@@ -90,6 +106,6 @@ export class FireService {
   }
 
   async sign_out() {
-    await this.auth.signOut();
+    await this.auth.signOut()
   }
 }
