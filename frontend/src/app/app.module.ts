@@ -31,6 +31,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatListModule} from "@angular/material/list";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatListModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

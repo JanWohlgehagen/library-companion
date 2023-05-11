@@ -8,6 +8,7 @@ import {COMMA, D, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
 import { DateAdapter } from '@angular/material/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 export interface Tag {
@@ -18,8 +19,6 @@ export interface DialogData {
   animal: string;
   name: string;
 }
-
-
 
 @Component({
   selector: 'app-admin-manage-books',
@@ -34,7 +33,6 @@ export class AdminManageBooksComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: Tag[] = [];
-  authors: Author[] = [];
   inputTitleText: string = "";
   inputReleaseYear: Date | any;
   inputAuthorText: Author[] = [];
@@ -50,13 +48,16 @@ export class AdminManageBooksComponent implements OnInit {
   inputTagText: string[] | any = [];
   inputs: Book | any;
 
-  animal: string | undefined;
   name: string | undefined;
 
 
-  constructor(private mock: MockDataService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog) {
+  constructor(private mock: MockDataService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
     this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
     this.books = this.mock.get_books(50)
+    if (this.inputAuthorText.length == 0) {
+      this.addAuthorBtn()
+    }
 
   }
 
@@ -125,69 +126,105 @@ export class AdminManageBooksComponent implements OnInit {
     return 'You must enter a value';
   }
 
-  loadBookDetails(options: Book) {
-    this.inputs = options
-    this.inputTitleText = options.title
+  loadBookDetails(book: Book) {
+    this.inputs = book
+    this.inputTitleText = book.title
 
     this.inputAuthorText = []
-    options.authors.forEach(a => {
+    book.authors.forEach(a => {
       let author: Author = {
         name: a.name
       }
-      console.log(author)
       this.inputAuthorText.push(author)
     })
-    this.inputReleaseYear = options.releaseYear
-    this.inputPublisherText = options.publisher
-    this.inputISBNtext = options.ISBN
-    this.inputEditionText = options.edition
-    this.inputNumPagesText = options.numberOfPages
-    this.inputLanguagesText = options.language
-    this.inputLixText = options.lix
-    this.inputLiteraryText = options.literaryType
-    this.inputDescriptionText = options.description
-    this.inputPicture = options.imageUrl
+    this.inputReleaseYear = book.releaseYear
+    this.inputPublisherText = book.publisher
+    this.inputISBNtext = book.ISBN
+    this.inputEditionText = book.edition
+    this.inputNumPagesText = book.numberOfPages
+    this.inputLanguagesText = book.language
+    this.inputLixText = book.lix
+    this.inputLiteraryText = book.literaryType
+    this.inputDescriptionText = book.description
+    this.inputPicture = book.imageUrl
     this.tags = []
-    options.tags?.forEach(t => {
+    book.tags?.forEach(t => {
       let tag: Tag = {
         name: t
       }
       this.tags.push(tag)
     })
-    console.log(this.inputs)
   }
 
-  saveBookBtn(inputs: Book) {
-    inputs.title = this.inputTitleText
-    inputs.authors = this.inputAuthorText
-    inputs.releaseYear = this.inputReleaseYear
-    inputs.publisher = this.inputPublisherText
-    inputs.ISBN = this.inputISBNtext
-    inputs.edition = this.inputEditionText
-    inputs.numberOfPages = this.inputNumPagesText
-    inputs.language = this.inputLanguagesText
-    inputs.lix = this.inputLixText
-    inputs.literaryType = this.inputLiteraryText
-    inputs.description = this.inputDescriptionText
-    inputs.imageUrl = this.inputPicture
-    inputs.tags = this.inputTagText
-
-    console.log(this.inputAuthorText)
+  saveBookBtn(book: Book) {
+    //todo something definitely is funky here.. When clearing the fields it still seems to save on the previous selected book. It needs to create a new one.
+    book.title = this.inputTitleText
+    book.authors = this.inputAuthorText
+    book.releaseYear = this.inputReleaseYear
+    book.publisher = this.inputPublisherText
+    book.ISBN = this.inputISBNtext
+    book.edition = this.inputEditionText
+    book.numberOfPages = this.inputNumPagesText
+    book.language = this.inputLanguagesText
+    book.lix = this.inputLixText
+    book.literaryType = this.inputLiteraryText
+    book.description = this.inputDescriptionText
+    book.imageUrl = this.inputPicture
+    book.tags = this.inputTagText //todo doesnt seem to be working
   }
 
+  clearBookDetails() {
+    this.bookControl.setValue("")
+    this.tags = [];
+    this.inputTitleText = "";
+    this.inputReleaseYear = null
+    this.inputAuthorText = [];
+    this.addAuthorBtn()
+    this.inputPublisherText = "";
+    this.inputISBNtext = null;
+    this.inputEditionText = null;
+    this.inputNumPagesText = null;
+    this.inputLanguagesText = [];
+    this.inputLixText = null;
+    this.inputDescriptionText = "";
+    this.inputLiteraryText = "";
+    this.inputPicture = null
+    this.inputTagText = [];
+  }
 
 
   addNewBookBtn(): void {
     const dialogRef = this.dialog.open(AdminManageBooksDialogComponent, {
-      data: {name: this.name, animal: this.animal},
+      data: {name: this.name},
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
+      if(result.cancel) {
+      }
+      if (result.clearAll) {
+        this.clearBookDetails()
+        this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
+        //todo finish up
+      }
+      if (result.copyBook) {
+        this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
+        //todo finish up
+      }
     });
   }
 
+  deleteAuthorBtn(a: Author) {
+    this.inputAuthorText = this.inputAuthorText.filter(author => {
+      return author.name != a.name
+    })
+  }
 
-
+  addAuthorBtn() {
+    let author: Author = {
+      name: "",
+      id: ""
+    }
+    this.inputAuthorText.push(author)
+  }
 }
 
 
@@ -197,22 +234,24 @@ export class AdminManageBooksComponent implements OnInit {
   templateUrl: './admin-manage-books-add-book-dialog.component.html',
 })
 export class AdminManageBooksDialogComponent {
+
+
   constructor(
     public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close({cancel: "cancel"});
   }
 
   newBookCopyBook() {
     console.log("book has been copied console log")
-    this.dialogRef.close();
+    this.dialogRef.close({copyBook: "copyBook"});
   }
 
   newBookClearAll() {
     console.log("fields has been cleared console log")
-    this.dialogRef.close();
+    this.dialogRef.close({clearAll: "clearAll"});
   }
 }
