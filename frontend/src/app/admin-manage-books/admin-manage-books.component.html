@@ -11,7 +11,7 @@
           <button mat-raised-button class="deleteBookBtn" style="float: right; width: auto; height: 56px; background-color: red; margin-inline: 5px">
             Delete book
           </button>
-          <button (click)="addNewBook()" mat-raised-button class="addBookBtn" style="float: right; width: auto; height: 56px; background-color: #03e179; margin-inline: 5px">
+          <button (click)="addNewBookBtn()" mat-raised-button class="addBookBtn" style="float: right; width: auto; height: 56px; background-color: #03e179; margin-inline: 5px">
             Add new book
           </button>
           <form class="searchBookInput"
@@ -41,66 +41,38 @@
               <mat-error *ngIf="inputTitleText==null">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="authorInputField" appearance="fill" style="margin-inline: 5px">
-              <mat-label>Authors</mat-label>
-              <input [value]="inputAuthorText.toString()" ngDefaultControl  [(ngModel)]="inputAuthorText" type="text" matInput required>
-              <mat-error *ngIf="inputAuthorText==null">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-
-
-
-
-              <mat-list *ngIf="inputAuthorText !=null">
-                <div *ngFor="let a of inputAuthorText">
-                <mat-list-item>
-                  <mat-form-field class="authorInputFieldMultiple" appearance="fill" style="margin-inline: 5px">
-                    <input ngDefaultControl [(ngModel)]="a.name" type="text" matInput required>
-                  </mat-form-field>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                </div>
-              </mat-list>
-              <mat-list *ngIf="inputAuthorText.length == 0 ">
-                <mat-list-item>Author
-                  <mat-form-field class="authorInputFieldMultiple" appearance="fill" style="margin-inline: 5px">
-                    <input ngDefaultControl [(ngModel)]="inputTitleText" type="text" matInput required>
-                  </mat-form-field>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-
-              </mat-list>
-
-
-
-
-
-            <!--<mat-form-field class="authorInputField" appearance="fill" style="margin-inline: 5px">
-              <mat-label>Authors</mat-label>
-              <mat-chip-grid aria-label="Authors">
-                <mat-chip *ngFor="let author of authors" (removed)="removeAuthor(author)">
-                  {{author}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input #authorInput [matAutocomplete]="auto" [formControl]="authorCtrl" type="text" matInput>
-              </mat-chip-grid>
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTitle">
-                <mat-option *ngFor="let author of filteredAuthors | async" [value]="author">
-                  {{ author.name }}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="!authors || authors.length === 0">Please enter at least one author.</mat-error>
-            </mat-form-field>-->
-
-
             <mat-form-field appearance="fill" style="margin-inline: 5px">
               <mat-label>Choose a date</mat-label>
-              <input matInput [(ngModel)]="inputReleaseYear" [matDatepicker]="picker">
+              <input matInput [(ngModel)]="inputReleaseYear" [matDatepicker]="picker" required>
               <mat-hint>DD / MM / YYYY</mat-hint>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
+            <div>
+            <mat-list *ngIf="inputAuthorText != null">
+              <div *ngFor="let a of inputAuthorText">
+                <mat-list-item>
+                  <mat-form-field class="authorInputFieldMultiple" appearance="fill" style="margin-inline: 5px">
+                    <mat-label>Author</mat-label>
+                    <input ngDefaultControl [(ngModel)]="a.name" type="text" matInput required>
+                  </mat-form-field>
+                </mat-list-item>
+              </div>
+            </mat-list>
+            <mat-list *ngIf="inputAuthorText.length == 0 ">
+              <mat-list-item>
+                <mat-form-field class="authorInputFieldMultiple" appearance="fill" style="margin-inline: 5px">
+                  <mat-label>Author</mat-label>
+                  <input ngDefaultControl [(ngModel)]="inputTitleText" type="text" matInput required>
+                </mat-form-field>
+              </mat-list-item>
+            </mat-list>
+            </div>
+
+
           </div>
+
           <div class="middleSectionInputs2" style="float: left; width: auto; height: auto; box-sizing: border-box; padding: 10px">
             <mat-form-field class="publisherInputField" appearance="fill" style="margin-inline: 5px">
               <mat-label>Publisher</mat-label>

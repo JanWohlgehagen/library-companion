@@ -7,7 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAndRegistrationComponent } from './login-and-registration/login-and-registration.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
-import { AdminManageBooksComponent } from './admin-manage-books/admin-manage-books.component';
+import {
+  AdminManageBooksComponent,
+  AdminManageBooksDialogComponent
+} from './admin-manage-books/admin-manage-books.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
@@ -27,6 +30,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatListModule} from "@angular/material/list";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -39,7 +43,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     UserSettingsComponent,
     UserBrowseBooksComponent,
     UserCheckoutComponent,
-    BookComponent
+    BookComponent,
+    AdminManageBooksDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatNativeDateModule,
     MatListModule,
     MatFormFieldModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
