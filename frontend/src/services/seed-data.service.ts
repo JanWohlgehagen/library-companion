@@ -28,52 +28,62 @@ export class SeedDataService {
     this.storage.useEmulator('localhost', 9199);
   }
   seedDataToAuth() {
-    if(!this.findUser()){
-      console.log("sdæljvnhpøsdvnpdsøvjnpøsadvnpøSDVNPØDSvnpødsvn")
-      let authUser: User[] = [
-        {
-          admin: false,
-          books: [],
-          email: "Tobias@gmail.com",
-          imageUrl: "",
-          joinDate: new Date(),
-          name: "Tobias Rasmussen"
-        },
-        {admin: false, books: [], email: "Jan@gmail.com", imageUrl: "", joinDate: new Date(), name: "Jan Wohlgehagen"},
-        {
-          admin: false,
-          books: [],
-          email: "Mikkel@gmail.com",
-          imageUrl: "",
-          joinDate: new Date(),
-          name: "Mikkel Theut Meier"
-        },
-        {
-          admin: false,
-          books: [],
-          email: "Simon@gmail.com",
-          imageUrl: "",
-          joinDate: new Date(),
-          name: "Simon Tved Nielsen"
-        }
-      ]
+    this.firestore.collection("User").where('name', '==', "Tobias Rasmussen")
+      .get()
+      .then(value => {
+        if(value.docs[0] == undefined) {
+          let authUser: User[] = [
+            {
+              admin: false,
+              books: [],
+              email: "Tobias@gmail.com",
+              imageUrl: "",
+              joinDate: new Date(),
+              name: "Tobias Rasmussen"
+            },
+            {
+              admin: false,
+              books: [],
+              email: "Jan@gmail.com",
+              imageUrl: "",
+              joinDate: new Date(),
+              name: "Jan Wohlgehagen"
+            },
+            {
+              admin: false,
+              books: [],
+              email: "Mikkel@gmail.com",
+              imageUrl: "",
+              joinDate: new Date(),
+              name: "Mikkel Theut Meier"
+            },
+            {
+              admin: false,
+              books: [],
+              email: "Simon@gmail.com",
+              imageUrl: "",
+              joinDate: new Date(),
+              name: "Simon Tved Nielsen"
+            }
+          ]
 
-      for (let i = 0; i < authUser.length; i++) {
-        this.auth.createUserWithEmailAndPassword(authUser[i].email, "1234567").then(result => {
-          if (result.user) {
-            return result.user.updateProfile({
-              displayName: authUser[i].name
-            }).then(() => {
-              authUser[i].id = result.user?.uid
-              this.firestore.collection("User").doc(result.user?.uid).set(
-                authUser[i])
+          for (let i = 0; i < authUser.length; i++) {
+            this.auth.createUserWithEmailAndPassword(authUser[i].email, "1234567").then(result => {
+              if (result.user) {
+                return result.user.updateProfile({
+                  displayName: authUser[i].name
+                }).then(() => {
+                  authUser[i].id = result.user?.uid
+                  this.firestore.collection("User").doc(result.user?.uid).set(
+                    authUser[i])
+                })
+              } else return
             })
-          } else return
-        })
-      }
-    }
-
+          }
+        }
+      })
     this.seedDataBooks()
+
   }
 
   seedDataBooks() {
@@ -185,7 +195,7 @@ export class SeedDataService {
       {name: 'Fjodor Dostojevskij', id: Math.floor(Math.random() * 1000000).toString()},
     ];
 
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 20; i++) {
       let book: Book = {
         ISBN: Math.floor(Math.random() * 10000000000000),
         authors: [authors[Math.floor(Math.random() * authors.length)]],
@@ -216,23 +226,5 @@ export class SeedDataService {
       this.firestore.collection("Book").doc(i + " " + book.id).set({book})
     }
   }
-
-  findUser():boolean{
-    let user: User
-     this.firestore.collection("User").where('name', '==', "Tobias Rasmussen")
-       .get()
-       .then(value => {
-         user = value.docs[0].data() as User
-         return user.name != "Tobias Rasmussen" 
-       }).catch( reason => {
-         return false
-     })
-    return false
-
-
-
-  }
-
-
 }
 
