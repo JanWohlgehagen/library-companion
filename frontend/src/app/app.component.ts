@@ -67,10 +67,8 @@ export class AppComponent {
      this.router.navigate(["admin-dashboard/manage-users"])
   }
 
-  async SeedData() {
-    await this.data.seedDataToAuth()
-    await this.data.seedDataBooks()
-
+   SeedData() {
+    this.data.seedDataToAuth()
     this._snackbar.open("Data is add to the database", "Close", {duration:3000})
   }
 
