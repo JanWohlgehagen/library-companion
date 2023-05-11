@@ -60,9 +60,15 @@
               <p><strong>This lease agreement ends: {{lease_expiration | date: 'MMM d, y, H:mm:ss'}}. Failure to comply results in a fine of 100 Jyske dollars per day.</strong></p>
               <p><i>To extend the lease period, contact the library.</i></p>
             </div>
-            <div class="grid-tile-shopping-cart" >
+            <div *ngIf="!order_confirmed" class="grid-tile-shopping-cart" >
               <div *ngFor="let book of firebase.shoppingCart">
                 <p> <strong>{{firebase.shoppingCart.indexOf(book)+1}}. {{book.title}} </strong></p>
+                <p>pages: {{book.numberOfPages}}</p>
+              </div>
+            </div>
+            <div *ngIf="order_confirmed" class="grid-tile-shopping-cart" >
+              <div *ngFor="let book of firebase.shoppingCartCache">
+                <p> <strong>{{firebase.shoppingCartCache.indexOf(book)+1}}. {{book.title}} </strong></p>
                 <p>pages: {{book.numberOfPages}}</p>
               </div>
             </div>

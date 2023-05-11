@@ -18,6 +18,7 @@ export class FireService {
   storage: firebase.storage.Storage;
 
   shoppingCart: Book[] = []
+  shoppingCartCache: Book[] = []
   user: User | undefined
 
 
