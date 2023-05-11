@@ -1,6 +1,6 @@
 /* main (middle) div with grid & search bar */
 .main{
-  width: 70vw;
+  width: 68vw;
   height: 93vh;
   float: left;
   overflow-y: auto;
@@ -129,10 +129,6 @@
   margin-bottom: 0.5vh;
 }
 
-.shopping-cart-item:hover{
-  background-color: whitesmoke;
-}
-
 .grid-tile-image {
   grid-area: image;
 }
@@ -145,6 +141,12 @@
 .grid-tile-text {
   grid-area: text;
 }
+
+.shopping-cart-item:hover{
+  background-color: whitesmoke;
+}
+
+
 .grid-tile-divider {
   grid-area: divider;
 }

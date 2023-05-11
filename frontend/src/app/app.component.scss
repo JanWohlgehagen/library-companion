@@ -1,1 +1,15 @@
+.pointer{
 
+}
+.pointer:hover{
+  cursor: pointer;
+
+}
+
+
+#CartMenu.cdk-overlay-pane{
+  max-width:350px !important;
+}
+#CartMenu.mat-mdc-menu-panel.mat-mdc-menu-panel{
+  max-width:350px !important;
+}

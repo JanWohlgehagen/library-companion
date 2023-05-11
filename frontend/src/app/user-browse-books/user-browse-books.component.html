@@ -78,11 +78,11 @@
 </div> <!-- div for the middle bar -->
 
 <div class="main-right" style="overflow-y: auto;">
-  <div *ngIf="this.shopping_cart.length !=0" class="shopping-cart-title">
+  <div *ngIf="firebase.shoppingCart.length !=0" class="shopping-cart-title">
     <p style="padding-top: 5vh"><strong>Shopping Cart</strong></p>
   </div> <!-- spacer -->
-  <div *ngIf="this.shopping_cart.length !=0" style="text-align: center">
-    <div *ngFor="let book of shopping_cart">
+  <div *ngIf="firebase.shoppingCart.length !=0" style="text-align: center">
+    <div *ngFor="let book of firebase.shoppingCart">
       <div class="shopping-cart-item">
         <div class="grid-tile-image">
           <img ngSrc="{{book.imageUrl}}" height="100" width="50">
@@ -98,8 +98,9 @@
         </div>
       </div>
     </div>
-    <button mat-raised-button color="primary" class="go-to-checkout-button" (click)="go_to_checkout()">Go to checkout</button>
+    <button mat-raised-button color="primary" class="go-to-checkout-button" routerLink="/user-dashboard/checkout">Go to checkout</button>
   </div>
 
 </div> <!-- div for the right bar -->
+<router-outlet></router-outlet>
 
