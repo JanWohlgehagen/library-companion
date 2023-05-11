@@ -12,7 +12,6 @@ import {RegistrationComponent} from "./registration/registration.component";
 const routes: Routes = [
   {path: 'login', component: LoginAndRegistrationComponent, title: 'Login'},
   {path: 'register', component: RegistrationComponent, title: 'Register'},
-  {path: 'admin-dashboard', component: AdminDashboardComponent, title: 'Admin Dashboard'},
   {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books'},
   {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users'},
   {path: 'user-dashboard/browse-books', component: UserBrowseBooksComponent, title: 'Browse Books'},
