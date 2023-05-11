@@ -5,7 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAndRegistrationComponent } from './login-and-registration/login-and-registration.component';
-import { AdminManageBooksComponent } from './admin-manage-books/admin-manage-books.component';
+import {
+  AdminManageBooksComponent,
+  AdminManageBooksDialogComponent
+} from './admin-manage-books/admin-manage-books.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
@@ -30,10 +33,13 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { RegistrationComponent } from './registration/registration.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Overlay} from "@angular/cdk/overlay";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatListModule} from "@angular/material/list";
+import {MatChipsModule} from "@angular/material/chips";
 
 
 
@@ -49,36 +55,41 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     UserCheckoutComponent,
     BookInfoComponent,
     BrowseBooksPipe,
-    RegistrationComponent
+    RegistrationComponent,
+    AdminManageBooksDialogComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        NgOptimizedImage,
-        MatToolbarModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatExpansionModule,
-        MatInputModule,
-        FormsModule,
-        MatGridListModule,
-        ReactiveFormsModule,
-        MatRippleModule,
-        MatButtonToggleModule,
-        MatCardModule,
-        MatDividerModule,
-        MatCheckboxModule,
-        BrowserModule,
-        CommonModule,
-        MatFormFieldModule,
-        ReactiveFormsModule,
-        MatStepperModule,
-        MatTooltipModule,
-        MatDatepickerModule,
-        MatNativeDateModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgOptimizedImage,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatInputModule,
+    FormsModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatRippleModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatDividerModule,
+    MatCheckboxModule,
+    BrowserModule,
+    CommonModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatAutocompleteModule,
+    MatListModule,
+    MatChipsModule,
+    MatDialogModule
+  ],
   providers: [MatSnackBar, Overlay, MatDialog],
   bootstrap: [AppComponent]
 })

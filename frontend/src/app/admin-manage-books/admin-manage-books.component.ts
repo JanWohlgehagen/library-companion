@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MockDataService} from "../../mock_data/mock-data.service";
 import {Author, Book} from "../../Types/types";
-import {COMMA, D, ENTER} from '@angular/cdk/keycodes';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
 import { DateAdapter } from '@angular/material/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
