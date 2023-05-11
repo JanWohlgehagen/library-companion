@@ -3,6 +3,7 @@ import {MockDataService} from "../../mock_data/mock-data.service";
 import {BorrowedBook, User} from "../../Types/types"
 import {FormControl} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs"
+import {FireService} from "../../services/fire.service";
 
 
 @Component({
@@ -20,9 +21,8 @@ export class AdminManageUsersComponent {
   formControl= new FormControl('');
 
 
-  constructor(private mock: MockDataService) {
+  constructor( public fireService : FireService) {
     this.getUsers()
-    this.getUserBooks()
     console.log(this.Users)
 
     // @ts-ignore
@@ -34,40 +34,7 @@ export class AdminManageUsersComponent {
 
   getUsers()
   {
-    var usermock = this.mock.get_users(250);
-    usermock.forEach(user => {
-      if (user.admin == false)
-      this.Users.push(user)
-    })
-  }
-
-  getUserBooks()
-  {
-    this.Users.forEach(user=>{
-
-      user.books = []
-      let books= this.mock.get_books(Math.random()*5)
-      books.forEach( b => {
-        var number = Math.random();
-        var overdue = false
-        var daterandom = (Math.random()*25)+6
-        var datelate= daterandom
-        var date = new Date()
-        if (number<0.25){
-          datelate= -6;
-          overdue = true;
-        }
-
-        let bb :BorrowedBook = {
-          book: b,
-          leaseDate: new Date(date.setDate(date.getDate()-(-daterandom))),
-          dueDate: new Date(date.setDate(date.getDate()+ datelate)),
-          overDue: overdue
-        }
-        user.books?.push(bb);
-
-      })
-    })
+    this.Users = this.fireService.users
   }
 
   extendBook(u:User, b:BorrowedBook) {

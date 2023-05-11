@@ -11,11 +11,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  user: User | null = null;
+
+  user : User | null
 
   constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router, private _snackbar: MatSnackBar) {
-    firebaseservice.user= this.mock.get_users(1)[0];
     this.firebaseservice.shoppingCart =[]
+    this.user = this.firebaseservice.loggedInUser
   }
 
   navigateToProfile() {
@@ -42,7 +43,8 @@ export class AppComponent {
     this.router.navigate(["user-dashboard/checkout"])
   }
 
-  goToBook( b: Book) {
+  setBook(b: Book) {
+    this.firebaseservice.book = b;
     this.router.navigate(["book-info"])
 
   }

@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Author, Book, User} from "../../Types/types";
 import {MockDataService} from "../../mock_data/mock-data.service";
 import firebase from "firebase/compat";
 import {trigger} from "@angular/animations";
 import {FireService} from "../../services/fire.service";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-user-browse-books',
   templateUrl: './user-browse-books.component.html',
   styleUrls: ['./user-browse-books.component.scss']
 })
-export class UserBrowseBooksComponent {
+export class UserBrowseBooksComponent implements OnDestroy{
   public books: Book[];
   public books_cache: Book[];
   public amount_of_items_shown: number = 15;
@@ -19,9 +21,9 @@ export class UserBrowseBooksComponent {
 
 
 
-  constructor(private mock: MockDataService, public firebase: FireService) {
-    this.books = this.mock.get_books(100);
-    this.books_cache = this.books;
+  constructor( public firebaseservice: FireService, private router : Router, private snack: MatSnackBar) {
+    this.books = firebaseservice.books;
+    this.books_cache = firebaseservice.cachedBooks;
   }
 
   increment_items_shown() {
@@ -56,12 +58,29 @@ export class UserBrowseBooksComponent {
   }
 
   add_item_to_cart(book: Book) {
-    this.firebase.shoppingCart.push(book)
+    if(!this.firebaseservice.shoppingCart.find(element=> element == book))
+    {
+      this.firebaseservice.shoppingCart.push(book)
+    }
+    else {
+      this.snack.open("You've already booked this book.", "Close", {duration:3000})
+    }
+
   }
 
   remove_item_from_cart(book: Book) {
-    this.firebase.shoppingCart = this.firebase.shoppingCart.filter(b => {
+    this.firebaseservice.shoppingCart = this.firebaseservice.shoppingCart.filter(b => {
       return b.id != book.id;
     })
+  }
+
+  setBook(book: any) {
+    this.firebaseservice.book= book
+    this.router.navigate(["book-info"])
+
+  }
+
+  ngOnDestroy(): void {
+    console.log("DESTORBE")
   }
 }

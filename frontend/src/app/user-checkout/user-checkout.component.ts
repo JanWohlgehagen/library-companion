@@ -22,15 +22,15 @@ export class UserCheckoutComponent {
     emailCtrl: ['', Validators.required],
   });
 
-  constructor(private _formBuilder: FormBuilder, public mock: MockDataService, public firebase: FireService) {
+  constructor(private _formBuilder: FormBuilder, public firebase: FireService) {
 
-    this.shopping_cart = this.mock.get_books(5);
+    this.shopping_cart = this.firebase.shoppingCart
     this.lease_expiration = new Date()
     this.lease_expiration.setDate(this.lease_expiration.getDate() + 28)
 
-    if(this.firebase.user){
-      this.user_name = this.firebase.user.name
-      this.user_email = this.firebase.user.email
+    if(this.firebase.loggedInUser){
+      this.user_name = this.firebase.loggedInUser.name
+      this.user_email = this.firebase.loggedInUser.email
     }
   }
 
@@ -45,7 +45,7 @@ export class UserCheckoutComponent {
         overDue :false
       }
       console.log(book)
-      this.firebase.user?.books?.push(book)
+      this.firebase.loggedInUser?.books?.push(book)
     })
     this.firebase.shoppingCartCache = this.firebase.shoppingCart;
     this.firebase.shoppingCart = []

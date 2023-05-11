@@ -6,16 +6,16 @@
       <p class="dashboard-title">Profile Settings! 🙂</p>
     </div>
     <div class="grid-tile-user-image">
-      <img (click)="img_upload.click()" ngSrc="{{user.imageUrl}}" height="200" width="200" class="user-settings-img">
+      <img (click)="img_upload.click()" ngSrc="{{user?.imageUrl}}" height="200" width="200" class="user-settings-img">
       <input #img_upload hidden type="file" (change)="updateUserAvatar($event)">
     </div>
     <div class="grid-tile-user-name">
-      <strong>{{user.name}}</strong>
+      <strong>{{user?.name}}</strong>
     </div>
     <div class="grid-tile-email-show">
       <mat-form-field appearance="outline">
         <mat-label>Current email</mat-label>
-        <input matInput [ngModel]="user.email">
+        <input matInput [ngModel]="user?.email">
       </mat-form-field>
     </div>
     <div *ngIf="edit_email" class="grid-tile-email-input">
@@ -55,31 +55,31 @@
   </div> <!-- User settings div -->
   <div class="grid-wrapper">
     <p class="dashboard-title">My Books! 📚</p>
-    <div class="my-books" *ngFor="let book of my_borrowed_books">
+    <div class="my-books" *ngFor="let book of user?.books">
       <div class="my-book-grid"
-         [ngClass]="{'not-expired': !book.overDue, 'expired': book.overDue}">
+         [ngClass]="{'not-expired': !book?.overDue, 'expired': book?.overDue}">
       <div class="grid-tile-title">
-        <strong>{{book.book.title}}</strong>
-        <button mat-mini-fab *ngIf="book.overDue" color="warn" style="scale: 0.5; float: right"></button> <!--book is expired -->
-        <button mat-mini-fab *ngIf="!book.overDue" style="scale: 0.5; background-color: #00b278; float: right"></button> <!--book is not expired -->
+        <strong>{{book?.book?.title}}</strong>
+        <button mat-mini-fab *ngIf="book?.overDue" color="warn" style="scale: 0.5; float: right"></button> <!--book is expired -->
+        <button mat-mini-fab *ngIf="!book?.overDue" style="scale: 0.5; background-color: #00b278; float: right"></button> <!--book is not expired -->
       </div>
       <div class="grid-tile-image">
-        <img ngSrc="{{book.book.imageUrl}}" width="150" height="255"></div>
+        <img ngSrc="{{book?.book?.imageUrl}}" width="150" height="255"></div>
       <div class="grid-tile-details-left">
-        <p>{{book.book.releaseYear | date: 'YYYY'}}, Edition {{book.book.edition}}</p>
-        <p *ngFor="let author of book.book.authors">{{author.name}}</p>
+        <p>{{book?.book?.releaseYear | date: 'YYYY'}}, Edition {{book?.book?.edition}}</p>
+        <p *ngFor="let author of book?.book?.authors">{{author?.name}}</p>
       </div>
       <div class="grid-tile-details-right">
-        <p>{{book.book.numberOfPages}} pages</p>
-        <p>{{book.book.literaryType}}</p>
-        <p>ISBN: {{book.book.ISBN}}</p>
+        <p>{{book?.book?.numberOfPages}} pages</p>
+        <p>{{book?.book?.literaryType}}</p>
+        <p>ISBN: {{book?.book?.ISBN}}</p>
       </div>
-      <div class="grid-tile-lease-date">Lease date: {{book.leaseDate | date: 'YYYY/MM/dd HH:mm'}}</div>
-      <div class="grid-tile-due-date">Due date: {{book.dueDate | date: 'YYYY/MM/dd HH:mm'}}</div>
+      <div class="grid-tile-lease-date">Lease date: {{book?.leaseDate | date: 'YYYY/MM/dd HH:mm'}}</div>
+      <div class="grid-tile-due-date">Due date: {{book?.dueDate | date: 'YYYY/MM/dd HH:mm'}}</div>
       <div class="grid-tile-filler"></div>
       <div class="grid-tile-expiration">
-        <p *ngIf="book.overDue" style="margin-right: 0.5vw;"><strong>Status: Expired </strong></p> <!--book is expired -->
-        <p *ngIf="!book.overDue" style="margin-right: 0.5vw;"><strong>Status: Not expired </strong></p> <!--book is not expired -->
+        <p *ngIf="book?.overDue" style="margin-right: 0.5vw;"><strong>Status: Expired </strong></p> <!--book is expired -->
+        <p *ngIf="!book?.overDue" style="margin-right: 0.5vw;"><strong>Status: Not expired </strong></p> <!--book is not expired -->
       </div>
     </div>
     </div> <!-- My books div -->

@@ -7,20 +7,23 @@
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
 
 
-  <button *ngIf="firebaseservice.user!=null" mat-button [matMenuTriggerFor]="userMenu">
+  <button *ngIf="user" mat-button [matMenuTriggerFor]="userMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
-  <button mat-button *ngIf="firebaseservice.user==null" [matMenuTriggerFor]="signMenu">
+  <button mat-button *ngIf="!user" [matMenuTriggerFor]="signMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
 
-  <button mat-button [matMenuTriggerFor]="cartMenu" > <mat-icon style="scale: 2">shopping_cart</mat-icon><p style="font-size: 16px; background: red; border-radius: 49%; min-width: 30px;min-height: 30px">{{firebaseservice.shoppingCart.length}}</p></button>
+  <button mat-button [matMenuTriggerFor]="cartMenu" >
+    <mat-icon style="scale: 2">shopping_cart</mat-icon>
+    <p style="font-size: 16px; background: red; border-radius: 49%; min-width: 30px;min-height: 30px">{{firebaseservice.shoppingCart.length}}</p>
+  </button>
 
 
   <!-- MENUS -->
   <mat-menu id="CartMenu" #cartMenu="matMenu" style="width: 400px; max-width: 400px">
     <div style="margin: 10px; max-height: 50vh; overflow-y: scroll; overflow-x:hidden;border:0; background: rgba(0,0,0,0)">
-      <button #bookButton (click)="goToBook( b)" style="display:inline-block; margin: 5px;border:0; background: rgba(0,0,0,0)" *ngFor="let b of firebaseservice.shoppingCart" >
+      <button #bookButton (click)="setBook( b)" style="display:inline-block; margin: 5px;border:0; background: rgba(0,0,0,0)" *ngFor="let b of firebaseservice.shoppingCart" >
         <mat-card class="pointer" style="width: 210px; height:100px; display:flex;" (click)="bookButton.click()" >
           <mat-card-content style="padding:0; overflow:hidden;">
             <img style="max-width: 50px; height:100px; float:left" src="{{b.imageUrl}}">
@@ -35,8 +38,8 @@
 
   </mat-menu>
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item *ngIf="firebaseservice.user?.admin" (click)="navigateToAdminManUsers()">Manage Users</button>
-    <button mat-menu-item *ngIf="firebaseservice.user?.admin" (click)="navigateToAdminManBooks()">Manage Books</button>
+    <button mat-menu-item *ngIf="user && user.admin" (click)="navigateToAdminManUsers()">Manage Users</button>
+    <button mat-menu-item *ngIf="user && user.admin" (click)="navigateToAdminManBooks()">Manage Books</button>
     <button mat-menu-item (click)="navigateToProfile()">User Profile</button>
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
     <button mat-menu-item (click)="signOut()">Log Out</button>

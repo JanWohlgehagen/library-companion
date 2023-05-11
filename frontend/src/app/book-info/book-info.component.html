@@ -4,44 +4,42 @@
 <div class="book-info">
   <table style="width: 15vw">
       <tr>
-        <td>Publisher:</td> <td style="float: right">{{books[0].publisher}}</td>
+        <td>Publisher:</td> <td style="float: right">{{firebaseservice.book.publisher}}</td>
       </tr>
-
       <tr>
-        <td>Language: </td> <td style="float: right">{{books[0].language}}</td>
+        <td>Language: </td> <td style="float: right">{{firebaseservice.book.language}}</td>
+      </tr>
+      <tr> <td>Year:</td> <td style="float: right">{{firebaseservice.book.releaseYear | date}}</td>
       </tr>
 
-      <tr> <td>Year:</td> <td style="float: right">{{books[0].releaseYear | date}}</td>
+      <tr> <td>ISBN:</td> <td style="float: right">{{firebaseservice.book.ISBN}}</td>
       </tr>
 
-      <tr> <td>ISBN:</td> <td style="float: right">{{books[0].ISBN}}</td>
+      <tr> <td>Edition:</td> <td style="float: right">{{firebaseservice.book.edition}}</td>
       </tr>
 
-      <tr> <td>Edition:</td> <td style="float: right">{{books[0].edition}}</td>
+      <tr> <td>Pages:</td> <td style="float: right">{{firebaseservice.book.numberOfPages}}</td>
       </tr>
 
-      <tr> <td>Pages:</td> <td style="float: right">{{books[0].numberOfPages}}</td>
+      <tr> <td>Lix:</td> <td style="float: right">{{firebaseservice.book.lix}}</td>
       </tr>
 
-      <tr> <td>Lix:</td> <td style="float: right">{{books[0].lix}}</td>
+      <tr> <td>Author(s):</td> <td style="float: right">{{firebaseservice.book.authors[0].name}}</td>
       </tr>
 
-      <tr> <td>Author(s):</td> <td style="float: right">{{books[0].authors[0].name}}</td>
-      </tr>
-
-      <tr> <td>Literary:</td> <td style="float: right">{{books[0].literaryType}}</td>
+      <tr> <td>Literary:</td> <td style="float: right">{{firebaseservice.book.literaryType}}</td>
       </tr>
 
     </table>
 </div>
 
 <div class="book-image" >
-  <img style="max-height: 200px; height: 225px" src="{{books[0].imageUrl}}" alt="Book image">
+  <img style="max-height: 200px; height: 225px" src="{{firebaseservice.book?.imageUrl}}" alt="Book image">
 </div>
 
 <div class="Book-description">
   <h2>Description</h2> <span><button (click)="showMore()" style="background-color: transparent; border: 0; border-bottom: 2px solid"> Show more</button></span>
-  <div id="Description-text" class="gradient">{{books[0].description}}</div>
+  <div id="Description-text" class="gradient">{{firebaseservice.book?.description}}</div>
 </div>
 
 <div class="book-buy">
@@ -49,7 +47,7 @@
   <div class="grid-buy-container">
 
 
-    <div class="buy-title"> {{books[0].title}}</div>
+    <div class="buy-title"> {{firebaseservice.book?.title}}</div>
 
     <div class="buy-info">
       <table>
@@ -80,7 +78,7 @@
     </div>
 
     <div class="buy-add">
-        <button mat-raised-button style="background-color: #03e179; width: 200px; border-radius: 30px ">Add to cart</button>
+        <button mat-raised-button (click)="addToCart()" style="background-color: #03e179; width: 200px; border-radius: 30px ">Add to cart</button>
     </div>
   </div>
 

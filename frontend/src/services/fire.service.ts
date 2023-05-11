@@ -6,9 +6,10 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
 import * as config from '../../firebaseconfig.js';
-import {Book, User} from "../Types/types";
+import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MockDataService} from "../mock_data/mock-data.service";
 
 
 @Injectable({
@@ -20,14 +21,18 @@ export class FireService {
   firestore: firebase.firestore.Firestore;
   storage: firebase.storage.Storage;
 
+  books: Book[] = []
+  cachedBooks: Book[] = []
+  book: Book
   shoppingCart: Book[] = []
   shoppingCartCache: Book[] = []
-  user: User | undefined
+  users: User[] = []
+  loggedInUser: User | null = null
 
 
   baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
 
-  constructor(private router: Router, private matSnackbar: MatSnackBar) {
+  constructor(private router: Router, private matSnackbar: MatSnackBar, private mock: MockDataService) {
     this.firebaseApplication = firebase.initializeApp(config.firebaseConfig);
     this.auth = firebase.auth();
     this.firestore = firebase.firestore();
@@ -37,15 +42,51 @@ export class FireService {
     this.auth.useEmulator('http://localhost:9099');
     this.storage.useEmulator('localhost', 9199);
 
+    this.books = mock.get_books(100)
+    this.book = this.books[0]
+    this.users = mock.get_users(25)
+    this.users.forEach(user=>{
 
+      user.books = []
+      let books= this.mock.get_books(Math.random()*5)
+      books.forEach( b => {
+        var number = Math.random();
+        var overdue = false
+        var daterandom = (Math.random()*25)+6
+        var datelate= daterandom
+        var date = new Date()
+        if (number<0.25){
+          datelate= -6;
+          overdue = true;
+        }
 
-    this.auth.onAuthStateChanged((user) =>{
+        let bb :BorrowedBook = {
+          book: b,
+          leaseDate: new Date(date.setDate(date.getDate()-(-daterandom))),
+          dueDate: new Date(date.setDate(date.getDate()+ datelate)),
+          overDue: overdue
+        }
+        user.books?.push(bb);
+
+      })
+    })
+
+    this.auth.onAuthStateChanged(async (user) =>{
       if (user) {
-
+        let result = await this.firestore.collection("User").doc(user.uid).get()
+        this.loggedInUser = {
+          id: result.id,
+          name: result.get("name"),
+          email: result.get("email"),
+          admin: result.get("admin"),
+          joinDate: result.get("joinDate"),
+          imageUrl: result.get("imageUrl"),
+          books: []
+        }
         this.intercept();
         this.router.navigate(["/user-dashboard/browse-books"])
       }else {
-        this.user = undefined
+        this.loggedInUser = null
       }
     })
   }

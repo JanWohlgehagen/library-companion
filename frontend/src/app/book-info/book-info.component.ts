@@ -2,26 +2,22 @@ import {Component, OnInit} from '@angular/core';
 import {FireService} from "../../services/fire.service";
 import {MockDataService} from "../../mock_data/mock-data.service";
 import {Book} from "../../Types/types";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-book-info',
   templateUrl: './book-info.component.html',
   styleUrls: ['./book-info.component.scss']
 })
-export class BookInfoComponent implements OnInit{
+export class BookInfoComponent{
 
-  books: Book[] = []
   panelOpenState = false;
 
 
-  constructor(public firebaseservice: FireService, private mockDataBook: MockDataService) {
+  constructor(public firebaseservice: FireService, private mockDataBook: MockDataService, private snackbar: MatSnackBar) {
 
   }
 
-  ngOnInit(): void {
-    this.books = this.mockDataBook.get_books(1)
-
-  }
 
   showMore(){
     const descriptionText = document.getElementById("Description-text") as HTMLElement
@@ -35,4 +31,13 @@ export class BookInfoComponent implements OnInit{
 
   }
 
+  addToCart() {
+    if (!this.firebaseservice.shoppingCart.find(element => element == this.firebaseservice.book))
+    {
+      this.firebaseservice.shoppingCart.push(this.firebaseservice.book)
+    }
+    else{
+      this.snackbar.open("You've already booked this book", "Close", {duration:3000})
+    }
+  }
 }

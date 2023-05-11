@@ -48,24 +48,24 @@
   </div>
     <mat-grid-list cols="3" rowHeight="2:1;">
       <mat-grid-tile *ngFor="let book of books | browseBooks: searchText | slice:0:amount_of_items_shown; let i=index">
-        <div class="tile-content">
-          <div class="tile-content-img">
+        <div  class="tile-content">
+          <div  (click)="setBook(book)" class="tile-content-img">
             <img ngSrc="{{book.imageUrl}}" height="200" width="100">
           </div>
           <button mat-mini-fab color="primary" class="add-to-shopping-cart-button" (click)="add_item_to_cart(book)">
             <mat-icon>add_shopping_cart</mat-icon>
           </button>
 
-          <div class="tile-content-text-title">
+          <div  (click)="setBook(book)" class="tile-content-text-title">
             <p><strong>{{book.title}}</strong></p>
           </div>
-          <div class="tile-content-text-body">
+          <div  (click)="setBook(book)" class="tile-content-text-body">
             <p>Year: {{book.releaseYear | date:'YYYY'}}, edition: {{book.edition}}</p>
           </div>
-          <div class="tile-content-text-body">
+          <div  (click)="setBook(book)" class="tile-content-text-body">
             <p>ISBN: {{book.ISBN}}</p>
           </div>
-          <div class="tile-content-text-body">
+          <div (click)="setBook(book)" class="tile-content-text-body">
             <strong>Authors:</strong>
             <p *ngFor="let author of book.authors" style="margin: 0;padding: 0">{{author.name}}</p>
           </div>
@@ -78,11 +78,11 @@
 </div> <!-- div for the middle bar -->
 
 <div class="main-right" style="overflow-y: auto;">
-  <div *ngIf="firebase.shoppingCart.length !=0" class="shopping-cart-title">
+  <div *ngIf="firebaseservice.shoppingCart.length !=0" class="shopping-cart-title">
     <p style="padding-top: 5vh"><strong>Shopping Cart</strong></p>
   </div> <!-- spacer -->
-  <div *ngIf="firebase.shoppingCart.length !=0" style="text-align: center">
-    <div *ngFor="let book of firebase.shoppingCart">
+  <div *ngIf="firebaseservice.shoppingCart.length !=0" style="text-align: center">
+    <div (click)="setBook(book)" *ngFor="let book of firebaseservice.shoppingCart">
       <div class="shopping-cart-item">
         <div class="grid-tile-image">
           <img ngSrc="{{book.imageUrl}}" height="100" width="50">
