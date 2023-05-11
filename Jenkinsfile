@@ -12,7 +12,7 @@ pipeline {
         stage("Reset test environment") {
             steps {
                 sh "docker compose down"
-                sh "docker stop $(docker ps -a -q)" //takes down remaining images
+                sh "docker stop (docker ps -a -q)" //takes down remaining images
                 sh "docker run -d -p 80:8100 lc-img"
                 //sh "docker compose up -d --build"
                 sh "mkdir -p ${SCREENSHOT_PATH}"
