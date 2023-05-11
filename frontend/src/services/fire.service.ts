@@ -41,12 +41,12 @@ export class FireService {
 
     this.auth.onAuthStateChanged((user) =>{
       if (user) {
+
         this.intercept();
         this.router.navigate(["/user-dashboard/browse-books"])
       }else {
-        this.router.navigate(["/login"])
+        this.user = undefined
       }
-
     })
   }
 
@@ -106,11 +106,6 @@ export class FireService {
   }
 
   async sign_out() {
-    await this.auth.signOut().then(
-      value => {
-        this.matSnackbar.open("You are locked out - have a nice day", 'close', {duration: 4000});
-      }
-    );
-
+    await this.auth.signOut()
   }
 }

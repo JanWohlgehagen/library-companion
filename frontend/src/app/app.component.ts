@@ -4,6 +4,7 @@ import {Book, User} from "../Types/types";
 import {MockDataService} from "../mock_data/mock-data.service";
 import {Router} from "@angular/router";
 import {SeedDataService} from "../services/seed-data.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import {SeedDataService} from "../services/seed-data.service";
 export class AppComponent {
   user: User | null = null;
 
-  constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router, private data: SeedDataService) {
+  constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
     firebaseservice.user= this.mock.get_users(1)[0];
     this.firebaseservice.shoppingCart =[]
   }
@@ -29,12 +30,12 @@ export class AppComponent {
   }
 
   navigateToSignIn() {
-    this.router.navigate(["login-and-registration"])
+    this.router.navigate(["login"])
 
   }
 
   navigateToRegister() {
-    this.router.navigate(["login-and-registration"])
+    this.router.navigate(["register"])
 
   }
 
@@ -69,5 +70,10 @@ export class AppComponent {
   async SeedData() {
     await this.data.seedDataToAuth()
     await this.data.seedDataBooks()
+  }
+  
+  async signOut() {
+   await this.firebaseservice.sign_out();
+   this._snackbar.open("You have signed out.", "Close", {duration:3000})
   }
 }
