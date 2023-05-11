@@ -1,0 +1,80 @@
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.book-info {
+  grid-area: book-info;
+  padding-left: 20px;
+}
+.book-image {
+  grid-area: book-image;
+  padding-left: 20px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+.Book-description {
+  grid-area: Book-description;
+
+
+}
+.book-buy {
+  grid-area: book-buy;
+}
+
+.grid-Info-container {
+  display: grid;
+  padding-top: 20px;
+  grid-gap: 30px;
+  grid-template-columns: 20vw 50%;
+  grid-template-rows: 250px 250px;
+  grid-template-areas:
+    "book-image book-buy"
+    "book-info Book-description"
+}
+
+.buy-title {
+  grid-area: buy-title;
+  font-size: 30px;
+
+}
+
+.buy-info {
+  grid-area: buy-info;
+  font-size: 18px
+
+}
+
+.buy-add {
+  grid-area: buy-add;
+  display: flex;
+  float: bottom
+  }
+
+.grid-buy-container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 40px 210px;
+  grid-template-areas:
+    "buy-title buy-title"
+    "buy-info buy-add"
+}
+
+.gradient {
+  height: 14em;
+  padding-top: 10px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(2,0,36,1) 50%, rgba(195,195,195,0) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.remove-gradient {
+  height: 14em;
+  padding-top: 10px;
+}

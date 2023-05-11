@@ -1,1 +1,95 @@
-<p>user-checkout works!</p>
+<div class="main-left"></div> <!-- left side bar -->
+
+<div class="main">
+  <div class="main-spacer-top"></div> <!-- top spacer main content div-->
+  <div class="main-content">
+    <mat-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <div class="stepper-form-div" style="text-align: center;">
+          <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>User information</ng-template>
+          <img src="{{firebase.user?.imageUrl}}" class="user-img">
+          <br>
+          <mat-form-field class="user-inputs" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="user_name" matInput placeholder="First name, Last name" formControlName="nameCtrl" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="user-inputs" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input [(ngModel)]="user_email" matInput placeholder="Jane.doe@example.com" formControlName="emailCtrl" required>
+          </mat-form-field>
+        </form>
+        </div>
+        <div>
+          <button mat-mini-fab matStepperPrevious disabled><mat-icon>arrow_back_ios</mat-icon></button>
+          <button mat-mini-fab matStepperNext class="next-confirm-button" color="primary"><mat-icon>arrow_forward_ios</mat-icon></button>
+        </div>
+      </mat-step><!-- step one -->
+      <mat-step label="Shopping cart details">
+        <div class="stepper-form-div">
+          <div *ngFor="let book of firebase.shoppingCart" class="shopping-cart-display-div">
+            <div class="shopping-cart-item">
+              <button mat-mini-fab style="box-shadow: none" color="primary">{{firebase.shoppingCart.indexOf(book)+1}}</button>
+              <div class="shopping-cart-item">
+                <div class="grid-tile-image">
+                  <img ngSrc="{{book.imageUrl}}" height="100" width="50">
+                </div>
+                <div class="grid-tile-button">
+                  <button color="warn" class="remove-from-cart-button" mat-mini-fab (click)="remove_item_from_cart(book)"><mat-icon >delete</mat-icon></button>
+                </div>
+                <div class="grid-tile-text">
+                  <p><strong>{{book.title}}</strong></p>
+                  <p>pages: {{book.numberOfPages}}</p>
+                  <p>tags: {{book.tags}}</p>
+                </div>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+        <div>
+          <button mat-mini-fab matStepperPrevious color="primary"><mat-icon>arrow_back_ios</mat-icon></button>
+          <button mat-mini-fab matStepperNext class="next-confirm-button" color="primary"><mat-icon>arrow_forward_ios</mat-icon></button>
+        </div>
+      </mat-step> <!-- step two -->
+      <mat-step>
+        <div class="stepper-form-div">
+          <div class="order-overview-display-div">
+            <div class="grid-tile-lease-agreement">
+              <p><strong>This lease agreement ends: {{lease_expiration | date: 'MMM d, y, H:mm:ss'}}. Failure to comply results in a fine of 100 Jyske dollars per day.</strong></p>
+              <p><i>To extend the lease period, contact the library.</i></p>
+            </div>
+            <div *ngIf="!order_confirmed" class="grid-tile-shopping-cart" >
+              <div *ngFor="let book of firebase.shoppingCart">
+                <p> <strong>{{firebase.shoppingCart.indexOf(book)+1}}. {{book.title}} </strong></p>
+                <p>pages: {{book.numberOfPages}}</p>
+              </div>
+            </div>
+            <div *ngIf="order_confirmed" class="grid-tile-shopping-cart" >
+              <div *ngFor="let book of firebase.shoppingCartCache">
+                <p> <strong>{{firebase.shoppingCartCache.indexOf(book)+1}}. {{book.title}} </strong></p>
+                <p>pages: {{book.numberOfPages}}</p>
+              </div>
+            </div>
+            <div class="grid-tile-user-details">
+              <img src="{{firebase.user?.imageUrl}}" class="user-img">
+              <p><strong>Name: {{firebase.user?.name}}</strong></p>
+              <p><strong>email: {{firebase.user?.email}}</strong></p>
+              <p *ngIf="order_confirmed" style="font-size: 20px"><strong>Your order have been placed - you can collect it at your convenience.</strong></p>
+              <p *ngIf="order_confirmed" style="margin: auto; border-bottom-color: black; border-bottom-style: solid; border-bottom-width: 2px; width: fit-content"
+                 matTooltip="Monday to Sunday 07:00-22:00"
+              >Our opening hours.</p>
+            </div>
+          </div>
+        </div>
+        <ng-template matStepLabel>Order overview</ng-template>
+        <button mat-mini-fab matStepperPrevious color="primary"><mat-icon>arrow_back_ios</mat-icon></button>
+        <button mat-raised-button *ngIf="!order_confirmed" class="next-confirm-button" color="primary" (click)="confirm_order()">Confirm order</button>
+        <button mat-raised-button *ngIf="order_confirmed" class="next-confirmed-button">Order confirmed! 🥳</button>
+      </mat-step> <!-- step three -->
+    </mat-stepper>
+  </div> <!-- content div-->
+</div> <!-- main content div-->
+
+<div class="main-right"></div> <!-- right side bar -->
