@@ -7,10 +7,10 @@
   <span style="flex: 1 1 auto"></span> <!-- spacer for header -->
 
 
-  <button *ngIf="user" mat-button [matMenuTriggerFor]="userMenu">
+  <button *ngIf="firebaseservice.auth.currentUser" mat-button [matMenuTriggerFor]="userMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
-  <button mat-button *ngIf="!user" [matMenuTriggerFor]="signMenu">
+  <button mat-button *ngIf="!firebaseservice.auth.currentUser" [matMenuTriggerFor]="signMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
 
@@ -38,8 +38,8 @@
 
   </mat-menu>
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item *ngIf="user && user.admin" (click)="navigateToAdminManUsers()">Manage Users</button>
-    <button mat-menu-item *ngIf="user && user.admin" (click)="navigateToAdminManBooks()">Manage Books</button>
+    <button mat-menu-item *ngIf=" firebaseservice.auth.currentUser && !firebaseservice.loggedInUser.admin" (click)="navigateToAdminManUsers()">Manage Users</button>
+    <button mat-menu-item *ngIf="  firebaseservice.auth.currentUser && !firebaseservice.loggedInUser.admin" (click)="navigateToAdminManBooks()">Manage Books</button>
     <button mat-menu-item (click)="navigateToProfile()">User Profile</button>
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
     <button mat-menu-item (click)="SeedData()">Seed Data</button>

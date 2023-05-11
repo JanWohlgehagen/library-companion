@@ -13,11 +13,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class AppComponent {
 
-  user : User | null
+
 
   constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart =[]
-    this.user = this.firebaseservice.loggedInUser
+
   }
 
   navigateToProfile() {
@@ -31,6 +31,7 @@ export class AppComponent {
   }
 
   navigateToSignIn() {
+    console.log(this.firebaseservice.loggedInUser)
     this.router.navigate(["login"])
 
   }
@@ -69,14 +70,15 @@ export class AppComponent {
      this.router.navigate(["admin-dashboard/manage-users"])
   }
 
-  async SeedData() {
-    await this.data.seedDataToAuth()
-    await this.data.seedDataBooks()
+  SeedData() {
+    this.data.seedDataToAuth()
+    this.data.seedDataBooks()
 
     this._snackbar.open("Data is add to the database", "Close", {duration:3000})
   }
 
   async signOut() {
+
    await this.firebaseservice.sign_out();
    this._snackbar.open("You have signed out.", "Close", {duration:3000})
   }

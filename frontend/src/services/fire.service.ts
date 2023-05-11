@@ -27,7 +27,7 @@ export class FireService {
   shoppingCart: Book[] = []
   shoppingCartCache: Book[] = []
   users: User[] = []
-  loggedInUser: User | null = null
+  loggedInUser: User | any
 
 
   baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
@@ -71,9 +71,20 @@ export class FireService {
       })
     })
 
-    this.auth.onAuthStateChanged(async (user) =>{
+    this.auth.onAuthStateChanged( (user) =>{
+      console.log("HEJ")
       if (user) {
-        let result = await this.firestore.collection("User").doc(user.uid).get()
+        this.setUser()
+        this.intercept();
+         this.router.navigate(["/user-dashboard/browse-books"])
+      }
+    })
+  }
+
+  async setUser()
+  {
+    await this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then( (result) =>
+      {
         this.loggedInUser = {
           id: result.id,
           name: result.get("name"),
@@ -83,12 +94,9 @@ export class FireService {
           imageUrl: result.get("imageUrl"),
           books: []
         }
-        this.intercept();
-        this.router.navigate(["/user-dashboard/browse-books"])
-      }else {
-        this.loggedInUser = null
       }
-    })
+    )
+
   }
 
   intercept() {
@@ -96,6 +104,7 @@ export class FireService {
       .request
       .use(async (request) => {
         request.headers.Authorization = await this.auth.currentUser?.getIdToken() + ""
+        console.log(request)
         return request;
       });
   }
@@ -134,10 +143,14 @@ export class FireService {
   }
 
   async login(email: string, password: string) {
+    console.log("HELLOO")
     await this.auth.signInWithEmailAndPassword(email, password)
       .catch((error) =>{
         this.matSnackbar.open("The login is invalid", 'close', {duration: 4000});
     });
+    await this.setUser()
+    this.router.navigate(["/user-dashboard/browse-books"])
+    console.log(this.loggedInUser)
 
   }
 
