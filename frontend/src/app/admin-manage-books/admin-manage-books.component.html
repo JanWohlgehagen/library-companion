@@ -11,7 +11,7 @@
           <button mat-raised-button class="deleteBookBtn" style="float: right; width: auto; height: 56px; background-color: red; margin-inline: 5px">
             Delete book
           </button>
-          <button mat-raised-button class="addBookBtn" style="float: right; width: auto; height: 56px; background-color: #03e179; margin-inline: 5px">
+          <button (click)="addNewBook()" mat-raised-button class="addBookBtn" style="float: right; width: auto; height: 56px; background-color: #03e179; margin-inline: 5px">
             Add new book
           </button>
           <form class="searchBookInput"
@@ -20,7 +20,7 @@
               <mat-label>Search</mat-label>
               <input type="text" matInput [formControl]="bookControl" [matAutocomplete]="auto">
               <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTitle">
-                <mat-option *ngFor="let options of filteredBooks | async" [value]="options" (onSelectionChange)="setValue(options)">
+                <mat-option *ngFor="let options of filteredBooks | async" [value]="options" (onSelectionChange)="loadBookDetails(options)">
                   {{options.title + ", ed. " + options.edition}}
                 </mat-option>
               </mat-autocomplete>
@@ -50,6 +50,30 @@
 
 
 
+              <mat-list *ngIf="inputAuthorText !=null">
+                <div *ngFor="let a of inputAuthorText">
+                <mat-list-item>
+                  <mat-form-field class="authorInputFieldMultiple" appearance="fill" style="margin-inline: 5px">
+                    <input ngDefaultControl [(ngModel)]="a.name" type="text" matInput required>
+                  </mat-form-field>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                </div>
+              </mat-list>
+              <mat-list *ngIf="inputAuthorText.length == 0 ">
+                <mat-list-item>Author
+                  <mat-form-field class="authorInputFieldMultiple" appearance="fill" style="margin-inline: 5px">
+                    <input ngDefaultControl [(ngModel)]="inputTitleText" type="text" matInput required>
+                  </mat-form-field>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+
+              </mat-list>
+
+
+
+
+
             <!--<mat-form-field class="authorInputField" appearance="fill" style="margin-inline: 5px">
               <mat-label>Authors</mat-label>
               <mat-chip-grid aria-label="Authors">
@@ -68,37 +92,14 @@
             </mat-form-field>-->
 
 
-
-            <!--<mat-form-field class="releaseYearInputField" appearance="fill" style="margin-inline: 5px">
-              <mat-label>Release Month and Year</mat-label>
-              <input ngDefaultControl [(ngModel)]="inputReleaseYear" type="text" matInput required>
-              <mat-hint> MM / YYYY </mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-              <mat-form-field appearance="fill">
-                <mat-label>Month and Year</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="date">
-                <mat-hint>MM/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-                <mat-datepicker #dp
-                                startView="multi-year"
-                                (monthSelected)="setMonthAndYear($event, dp)"
-                                panelClass="example-month-picker">
-                </mat-datepicker>
-              </mat-form-field>
-            </mat-form-field>-->
-
-            <mat-form-field class="releaseYearInputField" appearance="fill" style="margin-inline: 5px">
-              <mat-label>Release Month and Year</mat-label>
-              <input ngDefaultControl [(ngModel)]="inputReleaseYear" matInput required [matDatepicker]="dp" [formControl]="date">
-              <mat-hint>MM / YYYY</mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-              <mat-datepicker #dp
-                              startView="multi-year"
-                              (monthSelected)="setMonthAndYear($event, dp)"
-                              panelClass="example-month-picker">
-                <mat-error *ngIf="inputISBNtext==null">{{getErrorMessage()}}</mat-error>
-              </mat-datepicker>
+            <mat-form-field appearance="fill" style="margin-inline: 5px">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [(ngModel)]="inputReleaseYear" [matDatepicker]="picker">
+              <mat-hint>DD / MM / YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+
           </div>
           <div class="middleSectionInputs2" style="float: left; width: auto; height: auto; box-sizing: border-box; padding: 10px">
             <mat-form-field class="publisherInputField" appearance="fill" style="margin-inline: 5px">

@@ -6,45 +6,19 @@ import {MockDataService} from "../../mock_data/mock-data.service";
 import {Author, Book} from "../../Types/types";
 import {COMMA, D, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {MatDatepicker} from '@angular/material/datepicker';
+import { DateAdapter } from '@angular/material/core';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
-import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
-import {default as _rollupMoment, Moment} from 'moment';
 
 export interface Tag {
   name: string;
 }
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'MM/YYYY',
-  },
-  display: {
-    dateInput: 'MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
-
-const moment = _rollupMoment || _moment;
-
 @Component({
   selector: 'app-admin-manage-books',
   templateUrl: './admin-manage-books.component.html',
   styleUrls: ['./admin-manage-books.component.scss'],
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ],
-  encapsulation: ViewEncapsulation.None,
+
 })
 
 export class AdminManageBooksComponent implements OnInit {
@@ -72,10 +46,10 @@ export class AdminManageBooksComponent implements OnInit {
   inputPicture: any;
   inputTagText: string[] | any = [];
   inputs: Book | any;
-  date = new FormControl(moment());
 
 
-  constructor(private mock: MockDataService) {
+  constructor(private mock: MockDataService, private dateAdapter: DateAdapter<Date>) {
+    this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
     this.books = this.mock.get_books(50)
 
   }
@@ -171,20 +145,21 @@ export class AdminManageBooksComponent implements OnInit {
     console.log($event.value)
   }
 
-  setValue(options: Book) {
+  loadBookDetails(options: Book) {
     this.inputs = options
     this.inputTitleText = options.title
 
 
     /*this.inputAuthorText = options.authors*/
 
-    /*this.authors = []
+    this.inputAuthorText = []
     options.authors.forEach(a => {
       let author: Author = {
         name: a.name
       }
-      this.authors.push(author)
-    })*/
+      console.log(author)
+      this.inputAuthorText.push(author)
+    })
 
     this.inputReleaseYear = options.releaseYear
     this.inputPublisherText = options.publisher
@@ -203,13 +178,12 @@ export class AdminManageBooksComponent implements OnInit {
       }
       this.tags.push(tag)
     })
+    console.log(this.inputs)
   }
 
   saveBookBtn(inputs: Book) {
     inputs.title = this.inputTitleText
-
-    // authors
-
+    inputs.authors = this.inputAuthorText
     inputs.releaseYear = this.inputReleaseYear
     inputs.publisher = this.inputPublisherText
     inputs.ISBN = this.inputISBNtext
@@ -220,17 +194,13 @@ export class AdminManageBooksComponent implements OnInit {
     inputs.literaryType = this.inputLiteraryText
     inputs.description = this.inputDescriptionText
     inputs.imageUrl = this.inputPicture
-  }
+    inputs.tags = this.inputTagText
 
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<any>) {
-    const ctrlValue = this.date.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
+    console.log(this.inputAuthorText)
   }
 
 
-
-
+  addNewBook() {
+    MatSnackBar
+  }
 }
