@@ -11,8 +11,6 @@ import {FireService} from "../../services/fire.service";
   styleUrls: ['./user-checkout.component.scss']
 })
 export class UserCheckoutComponent {
-
-
   public shopping_cart: Book [];
   public order_confirmed: boolean = false;
   public user_name: string = '';
@@ -49,7 +47,8 @@ export class UserCheckoutComponent {
       console.log(book)
       this.firebase.user?.books?.push(book)
     })
-    this.firebase.shoppingCart=[]
+    this.firebase.shoppingCartCache = this.firebase.shoppingCart;
+    this.firebase.shoppingCart = []
   }
 
   remove_item_from_cart(book: Book) {

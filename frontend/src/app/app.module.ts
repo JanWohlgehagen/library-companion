@@ -26,11 +26,14 @@ import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { BrowseBooksPipe } from './pipes/browse-books.pipe';
 import {MatDividerModule} from "@angular/material/divider";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { RegistrationComponent } from './registration/registration.component';
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Overlay} from "@angular/cdk/overlay";
+import {MatDialog} from "@angular/material/dialog";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatSnackBar} from "@angular/material/snack-bar";
-
 
 
 
@@ -45,38 +48,38 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     UserBrowseBooksComponent,
     UserCheckoutComponent,
     BookInfoComponent,
-    BrowseBooksPipe
+    BrowseBooksPipe,
+    RegistrationComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgOptimizedImage,
-    MatToolbarModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    MatExpansionModule,
-    CommonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    FormsModule,
-    MatGridListModule,
-    ReactiveFormsModule,
-    MatRippleModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatDividerModule,
-    MatStepperModule,
-    MatTooltipModule,
-    MatDatepickerModule,
-    MatNativeDateModule
-  ],
-  providers: [MatSnackBar],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgOptimizedImage,
+        MatToolbarModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatInputModule,
+        FormsModule,
+        MatGridListModule,
+        ReactiveFormsModule,
+        MatRippleModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatDividerModule,
+        MatCheckboxModule,
+        BrowserModule,
+        CommonModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatStepperModule,
+        MatTooltipModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+    ],
+  providers: [MatSnackBar, Overlay, MatDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

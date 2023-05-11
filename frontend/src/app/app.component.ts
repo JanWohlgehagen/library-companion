@@ -29,12 +29,12 @@ export class AppComponent {
   }
 
   navigateToSignIn() {
-    this.router.navigate(["login-and-registration"])
+    this.router.navigate(["login"])
 
   }
 
   navigateToRegister() {
-    this.router.navigate(["login-and-registration"])
+    this.router.navigate(["register"])
 
   }
 

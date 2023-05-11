@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FireService} from "../../services/fire.service";
 
 @Component({
   selector: 'app-login-and-registration',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./login-and-registration.component.scss']
 })
 export class LoginAndRegistrationComponent {
+  email: any;
+  password: any;
+  checked: any;
 
+
+  constructor(public firebaseservice: FireService ) {
+
+  }
 }
