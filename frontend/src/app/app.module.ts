@@ -29,6 +29,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 
@@ -75,7 +76,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [],
+  providers: [MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
