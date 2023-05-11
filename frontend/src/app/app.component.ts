@@ -70,8 +70,10 @@ export class AppComponent {
   async SeedData() {
     await this.data.seedDataToAuth()
     await this.data.seedDataBooks()
+
+    this._snackbar.open("Data is add to the database", "Close", {duration:3000})
   }
-  
+
   async signOut() {
    await this.firebaseservice.sign_out();
    this._snackbar.open("You have signed out.", "Close", {duration:3000})
