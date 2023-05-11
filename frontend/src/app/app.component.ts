@@ -3,6 +3,7 @@ import {FireService} from "../services/fire.service";
 import {Book, User} from "../Types/types";
 import {MockDataService} from "../mock_data/mock-data.service";
 import {Router} from "@angular/router";
+import {SeedDataService} from "../services/seed-data.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -14,7 +15,7 @@ export class AppComponent {
 
   user : User | null
 
-  constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router, private _snackbar: MatSnackBar) {
+  constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart =[]
     this.user = this.firebaseservice.loggedInUser
   }
@@ -66,6 +67,13 @@ export class AppComponent {
 
   navigateToAdminManUsers() {
      this.router.navigate(["admin-dashboard/manage-users"])
+  }
+
+  async SeedData() {
+    await this.data.seedDataToAuth()
+    await this.data.seedDataBooks()
+
+    this._snackbar.open("Data is add to the database", "Close", {duration:3000})
   }
 
   async signOut() {
