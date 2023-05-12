@@ -48,7 +48,7 @@
   </div>
     <mat-grid-list cols="3" rowHeight="2:1;">
       <mat-grid-tile *ngFor="let book of books | browseBooks: searchText | slice:0:amount_of_items_shown; let i=index">
-        <div  class="tile-content">
+        <div *ngIf="book.imageUrl !=null"  class="tile-content">
           <div  (click)="setBook(book)" class="tile-content-img">
             <img ngSrc="{{book.imageUrl}}" height="200" width="100">
           </div>

@@ -44,35 +44,9 @@ export class FireService {
 
     this.books = mock.get_books(100)
     this.book = this.books[0]
-    this.users = mock.get_users(25)
-    this.users.forEach(user=>{
-
-      user.books = []
-      let books= this.mock.get_books(Math.random()*5)
-      books.forEach( b => {
-        var number = Math.random();
-        var overdue = false
-        var daterandom = (Math.random()*25)+6
-        var datelate= daterandom
-        var date = new Date()
-        if (number<0.25){
-          datelate= -6;
-          overdue = true;
-        }
-
-        let bb :BorrowedBook = {
-          book: b,
-          leaseDate: new Date(date.setDate(date.getDate()-(-daterandom))),
-          dueDate: new Date(date.setDate(date.getDate()+ datelate)),
-          overDue: overdue
-        }
-        user.books?.push(bb);
-
-      })
-    })
-
+    this.getUsers()
+    this.getBooks()
     this.auth.onAuthStateChanged( (user) =>{
-      console.log("HEJ")
       if (user) {
         this.setUser()
         this.intercept();
@@ -81,6 +55,42 @@ export class FireService {
     })
   }
 
+  async getUsers(){
+    await this.firestore.collection("User").onSnapshot( snapshot => {
+      snapshot.docChanges().forEach(changes => {
+        let user = this.convertJsonToUser(changes.doc.id, changes.doc.data())
+        if(changes.type=="added"){
+          this.users.push(user);
+        }
+        if (changes.type=="modified"){
+          const index = this.users.findIndex(document => document.id == changes.doc.id);
+          this.users[index] = user
+        }
+        if (changes.type=="removed"){
+          this.users = this.users.filter(ussr => ussr.id != user.id);
+        }
+      })
+    })
+  }
+  async getBooks()
+  {
+    await this.firestore.collection("Book").onSnapshot( snapshot => {
+      snapshot.docChanges().forEach( change => {
+        let book = this.convertJsonToBook(change.doc.id, change.doc.data())
+
+        if(change.type=="added"){
+          this.books.push(book);
+        }
+        if (change.type=="modified"){
+          const index = this.books.findIndex(document => document.id == change.doc.id);
+          this.books[index] = book
+        }
+        if (change.type=="removed"){
+          this.books = this.books.filter(ussr => ussr.id != book.id);
+        }
+      })
+    })
+  }
   async setUser()
   {
     await this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then( (result) =>
@@ -161,5 +171,42 @@ export class FireService {
 
   async sign_out() {
     await this.auth.signOut()
+  }
+
+  private convertJsonToUser(id, data) : User {
+    let user : User = {
+      id :id,
+      name: data["name"],
+      admin: data["admin"],
+      imageUrl:data["admin"],
+      joinDate: data["joinDate"],
+      email: data["email"],
+      books : data["books"]
+
+    }
+    return user
+  }
+
+  private convertJsonToBook(id: string, data: firebase.firestore.DocumentData): Book {
+    let book: Book = {
+      id:id,
+      authors:data["author"],
+      lix:data["lix"],
+      title: data["title"],
+      availability:data["availability"],
+      tags: data["tags"],
+      imageUrl:data["imageUrl"],
+      description: data["description"],
+      edition: data["edition"],
+      releaseYear: data["releaseYear"],
+      literaryType: data["literaryType"],
+      ISBN:data["ISBN"],
+      language:data["language"],
+      numberOfPages: data["numberOfPages"],
+      publisher:data["publisher"]
+
+    }
+    return book;
+
   }
 }

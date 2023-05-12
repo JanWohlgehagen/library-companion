@@ -38,8 +38,8 @@
 
   </mat-menu>
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item *ngIf=" firebaseservice.auth.currentUser && !firebaseservice.loggedInUser.admin" (click)="navigateToAdminManUsers()">Manage Users</button>
-    <button mat-menu-item *ngIf="  firebaseservice.auth.currentUser && !firebaseservice.loggedInUser.admin" (click)="navigateToAdminManBooks()">Manage Books</button>
+    <button mat-menu-item *ngIf=" firebaseservice.auth.currentUser" (click)="navigateToAdminManUsers()">Manage Users</button>
+    <button mat-menu-item *ngIf="  firebaseservice.auth.currentUser"  (click)="navigateToAdminManBooks()">Manage Books</button>
     <button mat-menu-item (click)="navigateToProfile()">User Profile</button>
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
     <button mat-menu-item (click)="SeedData()">Seed Data</button>

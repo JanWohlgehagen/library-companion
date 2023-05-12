@@ -6,51 +6,61 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
 import * as config from '../../firebaseconfig.js';
+import {delay} from "rxjs";
+import {FireService} from "./fire.service";
+import {MockDataService} from "../mock_data/mock-data.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SeedDataService {
 
-  firebaseApplication;
   auth: firebase.auth.Auth;
   firestore: firebase.firestore.Firestore;
   storage: firebase.storage.Storage;
 
-  constructor() {
-    this.firebaseApplication = firebase.initializeApp(config.firebaseConfig);
-    this.auth = firebase.auth();
-    this.firestore = firebase.firestore();
-    this.storage = firebase.storage();
-
-    this.firestore.useEmulator('localhost', 8080);
-    this.auth.useEmulator('http://localhost:9099');
-    this.storage.useEmulator('localhost', 9199);
-
+  constructor(public firebase: FireService, private mock: MockDataService) {
+    this.auth= this.firebase.auth;
+    this.firestore = this.firebase.firestore;
+    this.storage = this.firebase.storage;
 
   }
 
 
-  seedDataToAuth() {
+
+  async seedDataToAuth() {
+    let book = this.mock.get_books(1)[0];
+    let b : BorrowedBook = {
+      book:book,
+      overDue:false,
+      dueDate: new Date(),
+      leaseDate: new Date()
+    }
     let authUser: User[] = [
-      {admin: false, books: [], email: "Tobias@gmail.com", imageUrl: "", joinDate: new Date(), name: "Tobias Rasmussen"},
-      {admin: false, books: [], email: "Jan@gmail.com", imageUrl: "", joinDate: new Date(), name: "Jan Wohlgehagen"},
-      {admin: false, books: [], email: "Mikkel@gmail.com", imageUrl: "", joinDate: new Date(), name: "Mikkel Theut Meier"},
-      {admin: false, books: [], email: "Simon@gmail.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"}
+      {admin: false, books: [b], email: "Tobias@gmail.com", imageUrl: "", joinDate: new Date(), name: "Tobias Rasmussen"},
+      {admin: false, books: [b], email: "Jan@gmail.com", imageUrl: "", joinDate: new Date(), name: "Jan Wohlgehagen"},
+      {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: "", joinDate: new Date(), name: "Mikkel Theut Meier"},
+      {admin: false, books: [b], email: "Simon@gmail.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
+      {admin: false, books: [], email: "Simon@gil.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"}
     ]
 
+    const batch = this.firestore.batch()
     for (let i = 0; i < authUser.length; i++) {
-      this.auth.createUserWithEmailAndPassword(authUser[i].email, "1234567").then(result => {
+      console.log(i)
+     await this.auth.createUserWithEmailAndPassword(authUser[i].email, "1234567").then(result => {
         if (result.user) {
-          return result.user.updateProfile({
+          result.user.updateProfile({
             displayName: authUser[i].name
-          }).then(() => {
-            this.firestore.collection("User").doc(result.user?.uid).set(
-              authUser[i])
+          }).then(async () => {
+            console.log(result.user)
+            batch.set(this.firestore.collection("User").doc(result.user?.uid), authUser[i])
           })
         } else return
       })
     }
+
+    await batch.commit()
+
   }
   seedDataBooks(){
     const tags = [
