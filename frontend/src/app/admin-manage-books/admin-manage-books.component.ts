@@ -44,7 +44,7 @@ export class AdminManageBooksComponent implements OnInit {
   inputLixText: number | any;
   inputDescriptionText: string = "";
   inputLiteraryText: string = "";
-  inputPicture: any;
+  inputPicture?: string = ""
   inputTagText: string[] | any = [];
   inputs: Book | any;
 
@@ -104,11 +104,11 @@ export class AdminManageBooksComponent implements OnInit {
   private _filterSearch(name: string): Book[] {
     const search = name.toString().toLowerCase();
     return this.books.filter(f => f.title.toLowerCase().includes(search) ||
-      f.ISBN.toString().includes(name) || this.checkAuthourName(search, f)
+      f.ISBN.toString().includes(name) || this.checkAuthorName(search, f)
     );
   }
 
-  checkAuthourName(name: string, book: Book): boolean {
+  checkAuthorName(name: string, book: Book): boolean {
     let found: boolean = false;
     book.authors.forEach(a => {
       if (a.name.toLowerCase().includes(name)) {
@@ -171,6 +171,9 @@ export class AdminManageBooksComponent implements OnInit {
     book.description = this.inputDescriptionText
     book.imageUrl = this.inputPicture
     book.tags = this.inputTagText //todo doesnt seem to be working
+
+    // possible check before showing message, and show error message if, if statement returns false.
+    this._snackBar.open("Book has been saved - thanks you :)", "X", {"duration": 8000})
   }
 
   clearBookDetails() {
@@ -188,7 +191,7 @@ export class AdminManageBooksComponent implements OnInit {
     this.inputLixText = null;
     this.inputDescriptionText = "";
     this.inputLiteraryText = "";
-    this.inputPicture = null
+    this.inputPicture = ""
     this.inputTagText = [];
   }
 
@@ -225,6 +228,13 @@ export class AdminManageBooksComponent implements OnInit {
     }
     this.inputAuthorText.push(author)
   }
+
+  deleteBookBtn() {
+    //todo skal laves med cloud functions.
+  }
+
+
+
 }
 
 
@@ -246,12 +256,11 @@ export class AdminManageBooksDialogComponent {
   }
 
   newBookCopyBook() {
-    console.log("book has been copied console log")
+    //todo skal laves med cloud functions
     this.dialogRef.close({copyBook: "copyBook"});
   }
 
   newBookClearAll() {
-    console.log("fields has been cleared console log")
     this.dialogRef.close({clearAll: "clearAll"});
   }
 }
