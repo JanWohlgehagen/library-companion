@@ -43,7 +43,6 @@ import {MatChipsModule} from "@angular/material/chips";
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +55,8 @@ import {MatChipsModule} from "@angular/material/chips";
     BookInfoComponent,
     BrowseBooksPipe,
     RegistrationComponent,
-    AdminManageBooksDialogComponent
+    AdminManageBooksDialogComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,10 +77,8 @@ import {MatChipsModule} from "@angular/material/chips";
     MatCardModule,
     MatDividerModule,
     MatCheckboxModule,
-    BrowserModule,
     CommonModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
     MatStepperModule,
     MatTooltipModule,
     MatDatepickerModule,
