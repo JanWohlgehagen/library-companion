@@ -34,12 +34,12 @@
 </div>
 
 <div class="book-image" >
-  <img style="max-height: 200px; height: 225px" src="{{firebaseservice.book?.imageUrl}}" alt="Book image">
+  <img style="max-height: 200px; height: 225px" src="{{firebaseservice.book.imageUrl}}" alt="Book image">
 </div>
 
 <div class="Book-description">
   <h2>Description</h2> <span><button (click)="showMore()" style="background-color: transparent; border: 0; border-bottom: 2px solid"> Show more</button></span>
-  <div id="Description-text" class="gradient">{{firebaseservice.book?.description}}</div>
+  <div id="Description-text" class="gradient">{{firebaseservice.book.description}}</div>
 </div>
 
 <div class="book-buy">
@@ -47,7 +47,7 @@
   <div class="grid-buy-container">
 
 
-    <div class="buy-title"> {{firebaseservice.book?.title}}</div>
+    <div class="buy-title"> {{firebaseservice.book.title}}</div>
 
     <div class="buy-info">
       <table>

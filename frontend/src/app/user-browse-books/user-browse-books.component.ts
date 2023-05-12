@@ -12,7 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './user-browse-books.component.html',
   styleUrls: ['./user-browse-books.component.scss']
 })
-export class UserBrowseBooksComponent implements OnDestroy{
+export class UserBrowseBooksComponent{
   public books: Book[];
   public books_cache: Book[];
   public amount_of_items_shown: number = 15;
@@ -78,9 +78,5 @@ export class UserBrowseBooksComponent implements OnDestroy{
     this.firebaseservice.book= book
     this.router.navigate(["book-info"])
 
-  }
-
-  ngOnDestroy(): void {
-    console.log("DESTORBE")
   }
 }

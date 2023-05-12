@@ -6,7 +6,7 @@
       <p class="dashboard-title">Profile Settings! 🙂</p>
     </div>
     <div class="grid-tile-user-image">
-      <img (click)="img_upload.click()" ngSrc="{{user?.imageUrl}}" height="200" width="200" class="user-settings-img">
+      <img (click)="img_upload.click()" src="{{user?.imageUrl}}" height="200" width="200" class="user-settings-img">
       <input #img_upload hidden type="file" (change)="updateUserAvatar($event)">
     </div>
     <div class="grid-tile-user-name">
@@ -15,13 +15,13 @@
     <div class="grid-tile-email-show">
       <mat-form-field appearance="outline">
         <mat-label>Current email</mat-label>
-        <input matInput [ngModel]="user?.email">
+        <input matInput [(ngModel)]="user.email">
       </mat-form-field>
     </div>
     <div *ngIf="edit_email" class="grid-tile-email-input">
       <mat-form-field style="width: 100%" appearance="outline">
         <mat-label>New email</mat-label>
-        <input matInput [ngModel]="new_email">
+        <input matInput [(ngModel)]="new_email">
       </mat-form-field>
     </div>
     <div class="grid-tile-edit-email">
@@ -35,13 +35,13 @@
     <div class="grid-tile-password-hidden">
       <mat-form-field appearance="outline">
         <mat-label>Current password</mat-label>
-        <input matInput [ngModel]="password_placeholder">
+        <input matInput [(ngModel)]="password_placeholder">
       </mat-form-field>
     </div>
     <div *ngIf="edit_password" class="grid-tile-password-input">
       <mat-form-field style="width: 100%" appearance="outline">
         <mat-label>New password</mat-label>
-        <input matInput [ngModel]="new_password" type="password">
+        <input matInput [(ngModel)]="new_password" type="password">
       </mat-form-field>
     </div>
     <div class="grid-tile-edit-password">
@@ -49,7 +49,7 @@
       <button *ngIf="edit_password" (click)="flip_password_state()" class="edit-save-button" mat-raised-button color="warn">Cancel</button>
     </div>
     <div *ngIf="edit_password" class="grid-tile-save-password">
-      <button (click)="edit_password_function(new_password)" class="edit-save-button" style="background-color: #00b278" mat-raised-button color="primary">Save</button>
+      <button (click)="edit_password_function()" class="edit-save-button" style="background-color: #00b278" mat-raised-button color="primary">Save</button>
     </div>
 
   </div> <!-- User settings div -->
@@ -66,7 +66,7 @@
       <div class="grid-tile-image">
         <img ngSrc="{{book?.book?.imageUrl}}" width="150" height="255"></div>
       <div class="grid-tile-details-left">
-        <p>{{book?.book?.releaseYear | date: 'YYYY'}}, Edition {{book?.book?.edition}}</p>
+        <p>{{book?.book?.releaseYear.toDate() | date: 'YYYY'}}, Edition {{book?.book?.edition}}</p>
         <p *ngFor="let author of book?.book?.authors">{{author?.name}}</p>
       </div>
       <div class="grid-tile-details-right">
@@ -74,8 +74,8 @@
         <p>{{book?.book?.literaryType}}</p>
         <p>ISBN: {{book?.book?.ISBN}}</p>
       </div>
-      <div class="grid-tile-lease-date">Lease date: {{book?.leaseDate | date: 'YYYY/MM/dd HH:mm'}}</div>
-      <div class="grid-tile-due-date">Due date: {{book?.dueDate | date: 'YYYY/MM/dd HH:mm'}}</div>
+      <div class="grid-tile-lease-date">Lease date: {{book?.leaseDate.toDate() | date: 'YYYY/MM/dd HH:mm'}}</div>
+      <div class="grid-tile-due-date">Due date: {{book?.dueDate.toDate() | date: 'YYYY/MM/dd HH:mm'}}</div>
       <div class="grid-tile-filler"></div>
       <div class="grid-tile-expiration">
         <p *ngIf="book?.overDue" style="margin-right: 0.5vw;"><strong>Status: Expired </strong></p> <!--book is expired -->

@@ -26,8 +26,6 @@ export class SeedDataService {
 
   }
 
-
-
   async seedDataToAuth() {
     let book = this.mock.get_books(1)[0];
     let b : BorrowedBook = {

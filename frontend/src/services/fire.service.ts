@@ -10,6 +10,7 @@ import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MockDataService} from "../mock_data/mock-data.service";
+import * as string_decoder from "string_decoder";
 
 
 @Injectable({
@@ -38,7 +39,7 @@ export class FireService {
     this.firestore = firebase.firestore();
     this.storage = firebase.storage();
 
-    this.firestore.useEmulator('localhost', 8080);
+    this.firestore.useEmulator('localhost', 8081);
     this.auth.useEmulator('http://localhost:9099');
     this.storage.useEmulator('localhost', 9199);
 
@@ -77,7 +78,6 @@ export class FireService {
     await this.firestore.collection("Book").onSnapshot( snapshot => {
       snapshot.docChanges().forEach( change => {
         let book = this.convertJsonToBook(change.doc.id, change.doc.data())
-
         if(change.type=="added"){
           this.books.push(book);
         }
@@ -102,7 +102,7 @@ export class FireService {
           admin: result.get("admin"),
           joinDate: result.get("joinDate"),
           imageUrl: result.get("imageUrl"),
-          books: []
+          books: result.get("books")
         }
       }
     )
@@ -114,7 +114,6 @@ export class FireService {
       .request
       .use(async (request) => {
         request.headers.Authorization = await this.auth.currentUser?.getIdToken() + ""
-        console.log(request)
         return request;
       });
   }
@@ -135,16 +134,8 @@ export class FireService {
               joinDate: new Date(),
               name: name
             }
-            // dette er kun for at test database - skal slette igen
             this.firestore.collection("User").doc(result.user?.uid).set(
               {user})
-
-
-            //axios.post(this.baseAxiosURL+'CreateUser', user).then(success => {
-             // console.log(success)
-           // }).catch(err => {
-             // console.log(err)
-           // })
           })
         } else return
       }).catch((error) => {
@@ -164,9 +155,37 @@ export class FireService {
 
   }
 
-  updateUserAvatar($event) {
-    const img = $event.target.files[0];
-    console.log(img)
+  updateUserAvatar(img) {
+    axios.put(this.baseAxiosURL+'Avatar', img, {
+      headers: {
+        'Content-Type': img.type,
+        userid: this.auth.currentUser?.uid
+      }
+    }).then(success => {
+      this.loggedInUser.imageUrl = success.data
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  updateUserEmail(new_email: string) {
+    axios.put(this.baseAxiosURL+'Email', {email: new_email, userid: this.auth.currentUser?.uid})
+      .then(success => {
+      this.loggedInUser.email = new_email
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+
+  async update_password(new_password: string) {
+    if (this.auth.currentUser)
+      await this.auth.currentUser.updatePassword(new_password);
+  }
+
+  async update_email(new_email) {
+    if (this.auth.currentUser)
+      await this.auth.currentUser.updateEmail(new_email)
   }
 
   async sign_out() {
@@ -209,4 +228,5 @@ export class FireService {
     return book;
 
   }
+
 }

@@ -31,7 +31,6 @@ export class AppComponent {
   }
 
   navigateToSignIn() {
-    console.log(this.firebaseservice.loggedInUser)
     this.router.navigate(["login"])
 
   }
