@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -6,8 +6,8 @@ import {MockDataService} from "../../mock_data/mock-data.service";
 import {Author, Book} from "../../Types/types";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
-import { DateAdapter } from '@angular/material/core';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {DateAdapter} from '@angular/material/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 
@@ -47,6 +47,7 @@ export class AdminManageBooksComponent implements OnInit {
   inputPicture?: string = ""
   inputTagText: string[] | any = [];
   inputs: Book | any;
+  book: Book | any; //empty book
 
   name: string | undefined;
 
@@ -54,7 +55,7 @@ export class AdminManageBooksComponent implements OnInit {
   constructor(private mock: MockDataService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
               private _snackBar: MatSnackBar) {
     this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
-    this.books = this.mock.get_books(50)
+    this.books = this.mock.get_books(3)
     if (this.inputAuthorText.length == 0) {
       this.addAuthorBtn()
     }
@@ -94,10 +95,7 @@ export class AdminManageBooksComponent implements OnInit {
 
 
   ngOnInit() {
-    this.filteredBooks = this.bookControl.valueChanges.pipe(
-      startWith(null),
-      map(
-        (book: string | null) => (book ? this._filterSearch(book) : this.books.slice())),);
+    this.filterBooks()
   }
 
 
@@ -126,6 +124,26 @@ export class AdminManageBooksComponent implements OnInit {
     return 'You must enter a value';
   }
 
+  makeEmptyBook(): Book {
+    return {
+      id: "",
+      tags: [],
+      lix: 0,
+      authors: [],
+      releaseYear: new Date,
+      imageUrl: "",
+      description: "",
+      title: "new book",
+      literaryType: "",
+      language: [],
+      ISBN: 0,
+      numberOfPages: 0,
+      edition: 1,
+      publisher: "",
+      availability: true
+    };
+  }
+
   loadBookDetails(book: Book) {
     this.inputs = book
     this.inputTitleText = book.title
@@ -147,17 +165,21 @@ export class AdminManageBooksComponent implements OnInit {
     this.inputLiteraryText = book.literaryType
     this.inputDescriptionText = book.description
     this.inputPicture = book.imageUrl
-    this.tags = []
+
+    this.tags = [];
     book.tags?.forEach(t => {
       let tag: Tag = {
         name: t
       }
       this.tags.push(tag)
     })
+
+    if (this.inputAuthorText.length == 0) {
+      this.addAuthorBtn()
+    }
   }
 
   saveBookBtn(book: Book) {
-    //todo something definitely is funky here.. When clearing the fields it still seems to save on the previous selected book. It needs to create a new one.
     book.title = this.inputTitleText
     book.authors = this.inputAuthorText
     book.releaseYear = this.inputReleaseYear
@@ -170,19 +192,29 @@ export class AdminManageBooksComponent implements OnInit {
     book.literaryType = this.inputLiteraryText
     book.description = this.inputDescriptionText
     book.imageUrl = this.inputPicture
-    book.tags = this.inputTagText //todo doesnt seem to be working
+    book.tags = this.inputTagText
+
+    this.filterBooks()
+    this.bookControl.setValue(book.title + ", ed. " + book.edition)
+    this.displayTitle(book)
+    this.loadBookDetails(book) //knækker tags
+
 
     // possible check before showing message, and show error message if, if statement returns false.
     this._snackBar.open("Book has been saved - thanks you :)", "X", {"duration": 8000})
   }
 
+  filterBooks() {
+    this.filteredBooks = this.bookControl.valueChanges.pipe(
+      startWith(null),
+      map(
+        (book: string | null) => (book ? this._filterSearch(book) : this.books.slice())),);
+  }
+
   clearBookDetails() {
-    this.bookControl.setValue("")
-    this.tags = [];
     this.inputTitleText = "";
     this.inputReleaseYear = null
     this.inputAuthorText = [];
-    this.addAuthorBtn()
     this.inputPublisherText = "";
     this.inputISBNtext = null;
     this.inputEditionText = null;
@@ -193,6 +225,40 @@ export class AdminManageBooksComponent implements OnInit {
     this.inputLiteraryText = "";
     this.inputPicture = ""
     this.inputTagText = [];
+
+    this.books.push(this.book)
+    this.filterBooks()
+    this.loadBookDetails(this.book)
+    this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+
+    console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.books.length)
+  }
+
+  addNewCopiedBook() {
+    this.book = {
+      ISBN: this.inputISBNtext,
+      authors: this.inputAuthorText,
+      availability: true,
+      description: this.inputDescriptionText,
+      edition: this.inputEditionText,
+      imageUrl: this.inputPicture,
+      language: this.inputLanguagesText,
+      literaryType: this.inputLiteraryText,
+      lix: this.inputLixText,
+      numberOfPages: this.inputNumPagesText,
+      publisher: this.inputPublisherText,
+      releaseYear: this.inputReleaseYear,
+      tags: this.tags.map(t => t.name),
+      id: "",
+      title: this.inputTitleText
+    }
+
+    this.books.push(this.book)
+    this.filterBooks()
+    this.loadBookDetails(this.book)
+    this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+
+    console.log("Made a copy of current book - this is the new number of books: " + this.books.length)
   }
 
 
@@ -204,13 +270,15 @@ export class AdminManageBooksComponent implements OnInit {
       if(result.cancel) {
       }
       if (result.clearAll) {
+        this.book = this.makeEmptyBook()
         this.clearBookDetails()
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
-        //todo finish up
+        //todo finish up with cloudfunctions
       }
       if (result.copyBook) {
+        this.addNewCopiedBook()
         this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
-        //todo finish up
+        //todo finish up with cloudfunctions
       }
     });
   }
@@ -230,6 +298,7 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   deleteBookBtn() {
+    confirm("Are you sure you want to delete this book?")
     //todo skal laves med cloud functions.
   }
 
