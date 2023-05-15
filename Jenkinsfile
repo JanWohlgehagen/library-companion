@@ -12,13 +12,13 @@ pipeline {
         stage('Set up API and DB emulators') {
             parallel {
                 stage('Start Emulator (this should fail when last stage finishes)') {
-                    steps {
-                        try {
+                    try {
+                        steps {
                             sh "firebase emulators:start"
-                        } catch (err) {
-                            echo "Caught: ${err}"
-                            currentBuild.result = 'FAILURE'
                         }
+                    } catch (err) {
+                        echo "Caught: ${err}"
+                        currentBuild.result = 'FAILURE'
                     }
                 }
                 stage("Build frontend"){
