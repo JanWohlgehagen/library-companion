@@ -9,14 +9,14 @@ pipeline {
                 sh "cd functions && npm install"
             }
         }
-        stage('Set up frontend with emulators') {
+        stage('Set up API and DB emulators') {
             parallel {
                 stage('Start Emulator (this should fail when last stage finishes)') {
                     steps {
                         sh "firebase emulators:start"
                     }
                 }
-                stage("run tests"){
+                stage("Build frontend"){
                     stages{
                         stage("Sleep to let emulators start (30 sec)"){
                             steps{
