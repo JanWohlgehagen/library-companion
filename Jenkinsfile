@@ -7,7 +7,7 @@ pipeline {
         stage("Start service emulators") {
             steps {
                 sh "cd functions && npm install"
-                sh "gnome-terminal --tab firebase emulators:start"
+                sh "--tab --title="emulators" --command="firebase emulators:start""
             }
         }
         stage("Reset test environment") {
