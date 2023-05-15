@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage("Start service emulators") {
             steps {
-                sh "npm i"
+                sh "cd functions && npm install"
                 sh "firebase emulators:start"
             }
         }
