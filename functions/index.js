@@ -7,23 +7,23 @@ const cors = require('cors');
 admin.initializeApp({projectId: 'library-companion-1049c'})
 
 const limiter = rateLimit({
- windowMs: 15 * 60 * 1000, // 15 minutes
- max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
- standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
- legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
 app.use(cors(), limiter);
 
 const validateFirebaseIdToken = async (req, res, next) => {
- try {
-  const token = req.headers?.authorization;
-  functions.logger.log(token)
-  req.user = await admin.auth().verifyIdToken(token);
-  return next();
- } catch (error) {
-  return res.status(403).json(error);
- }
+    try {
+        const token = req.headers?.authorization;
+        functions.logger.log(token)
+        req.user = await admin.auth().verifyIdToken(token);
+        return next();
+    } catch (error) {
+        return res.status(403).json(error);
+    }
 }
 
 exports.api = functions.https.onRequest(app);
@@ -61,4 +61,13 @@ app.put('/Email', async (req, res) => {
             email: new_email
         })
     res.send()
+})
+
+app.put("/updateBorrowedBooks", async(req, res) => {
+        var userId = req.body.userId
+        var borrowedBooks = req.body.borrowedBooks
+        //console.log(borrowedBooks)
+        await admin.firestore().collection('User').doc(userId).update({
+            books: borrowedBooks
+        })
 })

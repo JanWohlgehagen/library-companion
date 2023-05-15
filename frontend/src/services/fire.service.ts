@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MockDataService} from "../mock_data/mock-data.service";
 import * as string_decoder from "string_decoder";
+import {delay} from "rxjs";
 
 
 @Injectable({
@@ -209,7 +210,6 @@ export class FireService {
         overDue: b["overDue"]
 
       }
-      console.log(Borrowedbook)
       borrowedBooks.push(Borrowedbook)
     })
 
@@ -250,4 +250,19 @@ export class FireService {
 
   }
 
+  updateBorrowedBookOnUser(u: User) {
+    let userId = u.id
+    let borrowedBooks = u.books
+    console.log(u.books)
+    axios.put(this.baseAxiosURL + "updateBorrowedBooks", {userId: userId, borrowedBooks: borrowedBooks})
+
+    delay(2000)
+
+    let uber = this.users.filter( i => {
+      return i.id == u.id
+    })
+
+    console.log(uber)
+    console.log(uber[0].books)
+  }
 }
