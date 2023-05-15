@@ -16,7 +16,7 @@ pipeline {
                         sh "firebase emulators:start"
                     }
                 }
-                stage ("run tests"){
+                stage("run tests"){
                     stages{
                         stage("Reset containers") {
                             steps {
@@ -34,14 +34,9 @@ pipeline {
                         }
                         stage("Take down emulators"){
                             steps {
+                                //Taking down one port takes down all the firebase services
                                 echo "Taking down auth..."
                                 sh "fuser -k 9099/tcp"
-                                echo "Taking down functions..."
-                                sh "fuser -k 5001/tcp"
-                                echo "Taking down firestore..."
-                                sh "fuser -k 8081/tcp"
-                                echo "Taking down storage..."
-                                sh "fuser -k 9199/tcp"
                             }
                         }
                     }
