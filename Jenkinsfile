@@ -7,7 +7,7 @@ pipeline {
         stage("Start service emulators") {
             steps {
                 sh "cd functions && npm install"
-                sh "firebase emulators:start &&"
+                sh "ctrl+alt+f2 && firebase emulators:start"
             }
         }
         stage("Reset test environment") {
