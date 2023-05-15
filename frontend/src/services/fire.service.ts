@@ -75,7 +75,8 @@ export class FireService {
   }
   async getBooks()
   {
-    await this.firestore.collection("Book").onSnapshot( snapshot => {console.log(snapshot)
+    await this.firestore.collection("Book").onSnapshot( snapshot => {
+
       snapshot.docChanges().forEach( change => {
         let book = this.convertJsonToBook(change.doc.id, change.doc.data())
         if(change.type=="added"){
@@ -144,7 +145,6 @@ export class FireService {
   }
 
   async login(email: string, password: string) {
-    console.log("HELLOO")
     await this.auth.signInWithEmailAndPassword(email, password).then(value => {
       this.setUser()
       this.router.navigate(["/user-dashboard/browse-books"])
@@ -197,6 +197,22 @@ export class FireService {
   }
 
   private convertJsonToUser(id, data) : User {
+    let books : Book[] = data["books"]
+    let borrowedBooks: BorrowedBook[] = []
+    books.forEach( b => {
+      let dueDateTimeStamp = new firebase.firestore.Timestamp(b["dueDate"]["seconds"], b["dueDate"]["nanoseconds"])
+      let leaseDateTimeStamp = new firebase.firestore.Timestamp(b["leaseDate"]["seconds"], b["leaseDate"]["nanoseconds"])
+      let Borrowedbook : BorrowedBook = {
+        book: b["book"],
+        leaseDate: new Date(leaseDateTimeStamp.toDate().toString()),
+        dueDate: new Date(dueDateTimeStamp.toDate().toString()),
+        overDue: b["overDue"]
+
+      }
+      console.log(Borrowedbook)
+      borrowedBooks.push(Borrowedbook)
+    })
+
     let user : User = {
       id :id,
       name: data["name"],
@@ -204,14 +220,13 @@ export class FireService {
       imageUrl:data["admin"],
       joinDate: data["joinDate"],
       email: data["email"],
-      books : data["books"]
+      books : borrowedBooks
 
     }
     return user
   }
 
   private convertJsonToBook(id, data): Book {
-    console.log(data)
     let timestamp = new firebase.firestore.Timestamp(data["book"]["releaseYear"]["seconds"],data["book"]["releaseYear"]["nanoseconds"])
     let book: Book = {
       id:id,
@@ -231,7 +246,6 @@ export class FireService {
       publisher: data["book"]["publisher"]
 
     }
-    console.log(book)
     return book;
 
   }
