@@ -5,11 +5,14 @@ pipeline {
     }
     stages {
         stage("Start service emulators") {
-
             steps {
-                sh "cd functions && npm install"
                 parallel(
-                    sh "ctrl+alt+f2 && firebase emulators:start"
+                      a: {
+                        sh "cd functions && npm install"
+                      },
+                      b: {
+                        sh "ctrl+alt+f2 && firebase emulators:start"
+                      }
                 )
             }
         }
