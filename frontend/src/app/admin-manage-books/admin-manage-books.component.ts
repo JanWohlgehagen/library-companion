@@ -146,6 +146,7 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   loadBookDetails(book: Book) {
+    this.book = book;
     this.inputs = book
     this.inputTitleText = book.title
 
@@ -193,16 +194,17 @@ export class AdminManageBooksComponent implements OnInit {
     book.literaryType = this.inputLiteraryText
     book.description = this.inputDescriptionText
     book.imageUrl = this.inputPicture
-    book.tags = this.inputTagText
+    book.tags = this.tags.map(t => t.name)
 
     this.filterBooks()
     this.bookControl.setValue(book.title + ", ed. " + book.edition)
     this.displayTitle(book)
-    this.loadBookDetails(book) //knækker tags
+    this.loadBookDetails(book)
 
+    this.fireservice.createBook(book)
 
     // possible check before showing message, and show error message if, if statement returns false.
-    this._snackBar.open("Book has been saved - thanks you :)", "X", {"duration": 8000})
+    this._snackBar.open("Book has been saved", "X", {"duration": 8000})
   }
 
   filterBooks() {
@@ -274,12 +276,12 @@ export class AdminManageBooksComponent implements OnInit {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
-        //todo finish up with cloudfunctions
+        //todo any cloud functions that needs to go here?
       }
       if (result.copyBook) {
         this.addNewCopiedBook()
         this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
-        //todo finish up with cloudfunctions
+        //todo any cloud functions that needs to go here?
       }
     });
   }
@@ -299,8 +301,13 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   deleteBookBtn() {
-    confirm("Are you sure you want to delete this book?")
-    //todo skal laves med cloud functions.
+    if (confirm("Are you sure you want to delete this book?")) {
+      this.fireservice.deleteBook(this.book.id)
+      this._snackBar.open("The book has been deleted", "X", {"duration": 8000})
+    }
+    else {
+
+    }
   }
 
 
