@@ -13,11 +13,13 @@ pipeline {
             parallel {
                 stage('Start Emulator (this should fail when last stage finishes)') {
                     steps {
-                        try {
-                            sh "firebase emulators:start"
-                        } catch (err) {
-                            echo "Caught: ${err}"
-                            currentBuild.result = 'FAILURE'
+                        script {
+                            try {
+                                sh "firebase emulators:start"
+                            } catch (err) {
+                                echo "Caught: ${err}"
+                                currentBuild.result = 'FAILURE'
+                            }
                         }
                     }
                 }
