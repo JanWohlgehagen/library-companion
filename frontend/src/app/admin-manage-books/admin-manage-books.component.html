@@ -1,1 +1,146 @@
-<p>admin-manage-books works!</p>
+<div class="main" style="overflow: auto; width: auto; display: block; height: 92.7%">
+
+
+  <div class="manageBooks" style="float: left; width: 100vw; height: 100%; box-sizing: border-box; padding: 10px; overflow-y: auto; background-color: lightgrey">
+    <div class="manageBooksInner" style="float: left; width: auto; height: auto; box-sizing: border-box; padding: 10px">
+      <div class="topBarInner" style="float: left; width: 100%; height: auto; box-sizing: border-box; padding: 10px">
+        <h1 class="manageBooksText" style="float: left">
+          Manage Books
+        </h1>
+        <div class="topBarInnerRight" style="float: right; width: auto; height: auto; box-sizing: border-box; padding: 10px">
+          <div style="margin-bottom: 10px; float: right">
+            <button (click)="deleteBookBtn()" mat-raised-button class="deleteBookBtn" style="float: right; width: auto; height: 56px; background-color: red; margin-inline: 5px">
+              Delete book
+            </button>
+            <button (click)="addNewBookBtn()" mat-raised-button class="addBookBtn" style="float: right; width: auto; height: 56px; background-color: #03e179; margin-inline: 5px">
+              Add new book
+            </button>
+          </div>
+
+          <form class="searchBookInput"
+                style="float: right; width: auto; height: auto; margin-inline: 5px; margin-right: 50px">
+            <mat-form-field appearance="fill">
+              <mat-label>Search</mat-label>
+              <input type="text" matInput [formControl]="bookControl" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTitle">
+                <mat-option *ngFor="let book of filteredBooks | async" [value]="book" (onSelectionChange)="loadBookDetails(book)">
+                  {{book.title + ", ed. " + book.edition}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="bookPicture" style="float: right; width: 90px; height: 98px; box-sizing: border-box; padding: 10px; margin-right: 1vw">
+          <img style="max-height: 80px; min-height: 80px" [src]="inputPicture" ngDefaultControl [(ngModel)]="inputPicture">
+        </div>
+      </div>
+      <div class="middleSectionInner" style="float: right; width: auto; height: auto">
+        <div style="float: left; width: auto; max-width: 50%">
+          <div class="middleSectionInputs1" style="float: left; width: auto; height: auto; box-sizing: border-box; padding: 10px">
+            <div style="float: left; width: auto">
+              <mat-form-field class="titleInputField" appearance="fill" style="margin-inline: 5px; width: auto; min-width: 20vw">
+                <mat-label>Title</mat-label>
+                <input ngDefaultControl [(ngModel)]="inputTitleText" type="text" matInput required style="width: auto">
+                <mat-error *ngIf="inputTitleText==null">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="fill" style="margin-inline: 5px; width: 40%; min-width: 160px; height: 40%; min-height: 20px;">
+                <mat-label>Release date</mat-label>
+                <input matInput [(ngModel)]="inputReleaseYear" [matDatepicker]="picker" required>
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="middleSectionInputs2" style="float: left; width: auto; height: auto; box-sizing: border-box; padding: 10px">
+            <mat-form-field class="publisherInputField" appearance="fill" style="margin-inline: 5px">
+              <mat-label>Publisher</mat-label>
+              <input ngDefaultControl [(ngModel)]="inputPublisherText" type="text" matInput required>
+              <mat-error *ngIf="inputPublisherText==null">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="editionInputField" appearance="fill" style="margin-inline: 5px">
+              <mat-label>Edition</mat-label>
+              <input ngDefaultControl [(ngModel)]="inputEditionText" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field class="ISBNInputField" appearance="fill" style="margin-inline: 5px">
+              <mat-label>ISBN</mat-label>
+              <input ngDefaultControl [(ngModel)]="inputISBNtext" type="text" matInput required>
+              <mat-error *ngIf="inputISBNtext==null">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="middleSectionInputs3" style="float: left; width: auto; height: auto; box-sizing: border-box; padding: 10px">
+            <mat-form-field class="pagesInputField" appearance="fill" style="margin-inline: 5px">
+              <mat-label>Number of pages</mat-label>
+              <input ngDefaultControl [(ngModel)]="inputNumPagesText" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field class="languagesInputField" appearance="fill" style="margin-inline: 5px">
+              <mat-label>Languages</mat-label>
+              <input ngDefaultControl [(ngModel)]="inputLanguagesText" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field class="literaryInputField" appearance="fill" style="margin-inline: 5px">
+              <mat-label>Literary type</mat-label>
+              <input ngDefaultControl [(ngModel)]="inputLiteraryText" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field class="lixInputField" appearance="fill" style="margin-inline: 5px">
+              <mat-label>Lix</mat-label>
+              <input ngDefaultControl [(ngModel)]="inputLixText" type="text" matInput>
+            </mat-form-field>
+          </div>
+          <div class="middleSectionInputs5" style="float: left; width: 100%; height: auto; box-sizing: border-box; padding: 10px">
+            <mat-form-field class="titleInputField" appearance="fill" style="width: 100%; min-width: 25vw; height: 100%; min-height: 12vw">
+              <mat-label>Description</mat-label>
+              <textarea style="min-width: 23vw; min-height: 11vw" ngDefaultControl [(ngModel)]="inputDescriptionText" matInput placeholder="The book explains how..."></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div style="float: left; width: auto">
+          <div class="middleSectionInput4" style="float: left; width: auto; min-width: 35%; max-width: max-content; height: auto; max-height: 40vw; box-sizing: border-box; padding: 10px; overflow: auto">
+            <div class="authorInput" style="float: left">
+              <mat-list>
+                <div *ngFor="let a of inputAuthorText">
+                  <mat-list-item style="width: auto; height: auto">
+                    <mat-form-field class="authorInputFieldMultiple" appearance="fill" style="width: auto; height: auto">
+                      <mat-label>Author</mat-label>
+                      <input ngDefaultControl [(ngModel)]="a.name" type="text" matInput required>
+                    </mat-form-field>
+                    <button (click)=" deleteAuthorBtn(a)" style="width: auto; height: auto; box-sizing: border-box; margin-left: 5px; margin-bottom: 15px" mat-raised-button> delete </button>
+                  </mat-list-item>
+                </div>
+                <button (click)="addAuthorBtn()" style="width: auto; height: auto; box-sizing: border-box; margin-left: 5px" mat-raised-button> + </button>
+              </mat-list>
+            </div>
+            <mat-form-field class="tagInputs" appearance="fill" style="margin-inline: 5px; margin-top: 7px; float: right">
+              <mat-label>Search tags</mat-label>
+              <mat-chip-grid ngDefaultControl [(ngModel)]="inputTagText" #chipGrid aria-label="Enter tags">
+                <mat-chip-row *ngFor="let tag of tags"
+                              (removed)="removeTag(tag)"
+                              [editable]="true"
+                              (edited)="editTag(tag, $event)"
+                              [aria-description]="'press enter to edit ' + tag.name">
+                  {{tag.name}}
+                  <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+                <input placeholder="Add tag"
+                       [matChipInputFor]="chipGrid"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addTag($event)"/>
+              </mat-chip-grid>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+      <div class="bottomSectionInner" style="float: left; width: 100%; height: 100%">
+        <div class="bottomSectionInnerRight" style="float: right; width: auto; height: auto; box-sizing: border-box; padding: 10px">
+          <button (click)="saveBookBtn(inputs)" mat-raised-button class="saveBookBtn" style="background-color: #03e179; float: right; width: auto; height: 56px; margin-inline: 5px">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
