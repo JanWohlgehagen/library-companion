@@ -6,7 +6,6 @@ pipeline {
     stages {
         stage("Build image") {
             steps {
-                sh "~ pwd"
                 sh "docker build -t lc-img library-companion/frontend/Dockerfile"
             }
         }
