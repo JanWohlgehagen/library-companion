@@ -62,3 +62,27 @@ app.put('/Email', async (req, res) => {
         })
     res.send()
 })
+
+app.put("/updateBorrowedBooks", validateFirebaseIdToken, async(req, res) => {
+        var userId = req.body.userId
+        var borrowedBooks = req.body.borrowedBooks
+        //console.log(borrowedBooks)
+        await admin.firestore().collection('User').doc(userId).update({
+            books: borrowedBooks
+        })
+    res.send()
+})
+
+app.delete("/deleteUser", validateFirebaseIdToken, async (req,res) => {
+
+    var userId = req.body.userId
+    console.log(userId)
+
+    res.send()
+
+    await admin.firestore().collection('User').doc(userId).delete()
+
+   await admin.auth().deleteUser(userId)
+
+
+})

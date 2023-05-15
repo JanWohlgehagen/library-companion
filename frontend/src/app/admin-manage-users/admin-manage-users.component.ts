@@ -80,5 +80,7 @@ export class AdminManageUsersComponent {
     this.filteredUsers = this.formControl.valueChanges.pipe(startWith(null),
         map((value: string | null) =>
           (value? this._filter(value) : this.Users.slice())),)
+
+    this.fireService.deleteUser(u);
   }
 }

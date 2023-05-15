@@ -153,9 +153,6 @@ export class FireService {
         this.matSnackbar.open("The login is invalid", 'close', {duration: 4000});
     });
 
-
-
-
   }
 
   updateUserAvatar(img) {
@@ -250,4 +247,16 @@ export class FireService {
 
   }
 
+  updateBorrowedBookOnUser(u: User) {
+    let userId = u.id
+    let borrowedBooks = u.books
+    console.log(u.books)
+    axios.put(this.baseAxiosURL + "updateBorrowedBooks", {userId: userId, borrowedBooks: borrowedBooks})
+  }
+
+  deleteUser(u: User) {
+    let userId = u.id
+    axios.delete(this.baseAxiosURL + "deleteUser", {data:{ userId : userId}})
+
+  }
 }
