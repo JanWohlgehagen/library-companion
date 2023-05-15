@@ -75,11 +75,9 @@ export class FireService {
   }
   async getBooks()
   {
-    console.log("HILLO")
     await this.firestore.collection("Book").onSnapshot( snapshot => {console.log(snapshot)
       snapshot.docChanges().forEach( change => {
         let book = this.convertJsonToBook(change.doc.id, change.doc.data())
-        console.log(change.doc.data())
         if(change.type=="added"){
           this.books.push(book);
         }
@@ -199,7 +197,6 @@ export class FireService {
   }
 
   private convertJsonToUser(id, data) : User {
-    console.log(data)
     let user : User = {
       id :id,
       name: data["name"],
