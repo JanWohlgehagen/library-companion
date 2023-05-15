@@ -9,6 +9,7 @@ import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
 import {DateAdapter} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FireService} from "../../services/fire.service";
 
 
 export interface Tag {
@@ -52,10 +53,10 @@ export class AdminManageBooksComponent implements OnInit {
   name: string | undefined;
 
 
-  constructor(private mock: MockDataService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
+  constructor(public fireservice: FireService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
               private _snackBar: MatSnackBar) {
     this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
-    this.books = this.mock.get_books(3)
+    this.books = this.fireservice.books
     if (this.inputAuthorText.length == 0) {
       this.addAuthorBtn()
     }
