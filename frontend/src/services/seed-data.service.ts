@@ -44,13 +44,12 @@ export class SeedDataService {
 
     const batch = this.firestore.batch()
     for (let i = 0; i < authUser.length; i++) {
-      console.log(i)
+
      await this.auth.createUserWithEmailAndPassword(authUser[i].email, "1234567").then(result => {
         if (result.user) {
           result.user.updateProfile({
             displayName: authUser[i].name
           }).then(async () => {
-            console.log(result.user)
             batch.set(this.firestore.collection("User").doc(result.user?.uid), authUser[i])
           })
         } else return

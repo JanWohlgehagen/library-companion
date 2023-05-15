@@ -8,6 +8,7 @@ import {UserCheckoutComponent} from "./user-checkout/user-checkout.component";
 import {UserSettingsComponent} from "./user-settings/user-settings.component";
 import {BookInfoComponent} from "./book-info/book-info.component";
 import {RegistrationComponent} from "./registration/registration.component";
+import {AuthguardService} from "../services/authguard.service";
 
 const routes: Routes = [
   {path: 'login', component: LoginAndRegistrationComponent, title: 'Login'},
@@ -15,7 +16,7 @@ const routes: Routes = [
   {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books'},
   {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users'},
   {path: 'user-dashboard/browse-books', component: UserBrowseBooksComponent, title: 'Browse Books'},
-  {path: 'user-dashboard/checkout', component: UserCheckoutComponent, title: 'Checkout'},
+  {path: 'user-dashboard/checkout', component: UserCheckoutComponent, title: 'Checkout', canActivate: [AuthguardService]},
   {path: 'user-dashboard/settings', component: UserSettingsComponent, title: 'Settings'},
   {path: 'book-info', component: BookInfoComponent, title: 'Book-info'},
   {path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}

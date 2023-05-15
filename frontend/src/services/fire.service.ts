@@ -145,13 +145,16 @@ export class FireService {
 
   async login(email: string, password: string) {
     console.log("HELLOO")
-    await this.auth.signInWithEmailAndPassword(email, password)
+    await this.auth.signInWithEmailAndPassword(email, password).then(value => {
+      this.setUser()
+      this.router.navigate(["/user-dashboard/browse-books"])
+    })
       .catch((error) =>{
         this.matSnackbar.open("The login is invalid", 'close', {duration: 4000});
     });
-    await this.setUser()
-    this.router.navigate(["/user-dashboard/browse-books"])
-    console.log(this.loggedInUser)
+
+
+
 
   }
 
