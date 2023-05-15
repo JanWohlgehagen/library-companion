@@ -13,7 +13,12 @@ pipeline {
             parallel {
                 stage('Start Emulator (this should fail when last stage finishes)') {
                     steps {
-                        sh "firebase emulators:start"
+                        try {
+                            sh "firebase emulators:start"
+                        } catch (err) {
+                            echo "Caught: ${err}"
+                            currentBuild.result = 'FAILURE'
+                        }
                     }
                 }
                 stage("Build frontend"){
@@ -42,7 +47,6 @@ pipeline {
                                 //Taking down one port takes down all the firebase services
                                 echo "Taking down auth..."
                                 sh "fuser -k 9099/tcp"
-                                return
                             }
                         }
                     }
