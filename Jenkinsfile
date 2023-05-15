@@ -16,6 +16,7 @@ pipeline {
                         sh "firebase emulators:start"
                     }
                 }
+                stages{
                 stage("Reset containers") {
                     steps {
                         sh "docker compose down"
@@ -41,7 +42,7 @@ pipeline {
                         echo "Taking down storage..."
                         sh "fuser -k 9199/tcp"
                     }
-                }
+                }}
             }
         }
     }
