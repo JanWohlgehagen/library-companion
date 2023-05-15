@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Set up frontend with emulators') {
             parallel {
-                stage('Start Emulator') {
+                stage('Start Emulator (this should fail when last stage finishes)') {
                     steps {
                         sh "firebase emulators:start"
                     }
