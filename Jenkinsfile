@@ -6,8 +6,8 @@ pipeline {
     stages {
         stage("Build image") {
             steps {
-                sh "docker build -t lc-img frontend/Dockerfile"
                 sh "~ pwd"
+                sh "docker build -t lc-img frontend/Dockerfile"
             }
         }
         stage("Reset test environment") {
