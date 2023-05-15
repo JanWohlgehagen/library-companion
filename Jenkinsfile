@@ -13,12 +13,7 @@ pipeline {
             parallel {
                 stage('Start Emulator (this should fail when last stage finishes)') {
                     steps {
-                        try {
-                            sh "firebase emulators:start"
-                        }
-                        catch (exc) {
-                            echo 'Emulators closed... definitively gracefully.'
-                        }
+                        sh "firebase emulators:start"
                     }
                 }
                 stage("run tests"){
