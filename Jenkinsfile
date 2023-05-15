@@ -27,6 +27,8 @@ pipeline {
                                 sh "chmod a=rwx ${SCREENSHOT_PATH}"
                             }
                         }
+                        stage("... set up test stage here ..."){
+                        }
                         stage("Take down containers") {
                             steps {
                                 sh "docker compose down"
