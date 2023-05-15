@@ -18,6 +18,9 @@ pipeline {
                 }
                 stage("run tests"){
                     stages{
+                        stage("Delay for emulators to start (30 sec)"){
+                            sleep(time: 30, unit: 'SECONDS')
+                        }
                         stage("Reset containers") {
                             steps {
                                 sh "docker compose down"
