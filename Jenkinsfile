@@ -4,25 +4,27 @@ pipeline {
         SCREENSHOT_PATH = "screenshots/"
     }
     stages {
-        stage("Start service emulators") {
+        stage("install dependencies for emulators") {
             steps {
-                parallel(
-                      a: {
-                        sh "cd functions && npm install"
-                      },
-                      b: {
-                        sh "ctrl+alt+f2 && firebase emulators:start"
-                      }
-                )
+                sh "cd functions && npm install"
             }
         }
-        stage("Reset test environment") {
-            steps {
-                sh "docker compose down"
-                sh "docker compose up -d --build"
-                echo "Docker composed successfully"
-                sh "mkdir -p ${SCREENSHOT_PATH}"
-                sh "chmod a=rwx ${SCREENSHOT_PATH}"
+        stage('Set up frontend with emulators') {
+            parallel {
+                stage('Start Emulator') {
+                    steps {
+                        sh "firebase emulators:start"
+                    }
+                }
+                stage("Reset containers") {
+                    steps {
+                        sh "docker compose down"
+                        sh "docker compose up -d --build"
+                        echo "Docker composed successfully"
+                        sh "mkdir -p ${SCREENSHOT_PATH}"
+                        sh "chmod a=rwx ${SCREENSHOT_PATH}"
+                    }
+                }
             }
         }
         stage("Take down containers") {
