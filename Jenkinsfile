@@ -36,7 +36,6 @@ pipeline {
                             steps {
                                 //Taking down one port takes down all the firebase services
                                 echo "Taking down auth..."
-                                sh "^C"
                                 sh "fuser -k 9099/tcp"
                             }
                         }
