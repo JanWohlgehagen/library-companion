@@ -40,10 +40,16 @@ export class AdminManageUsersComponent {
   extendBook(u:User, b:BorrowedBook) {
     console.log(b.dueDate)
     b.dueDate.setDate(b.dueDate.getDate()+14);
+     var replaceindex = u.books?.findIndex( element => element = b)
+    // @ts-ignore
+    u.books[replaceindex] = b;
+
     if (b.dueDate > new Date())
     {
       b.overDue= false;
     }
+
+    this.fireService.updateBorrowedBookOnUser(u)
     console.log(b.dueDate)
 
   }
