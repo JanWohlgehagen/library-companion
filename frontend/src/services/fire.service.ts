@@ -195,6 +195,7 @@ export class FireService {
 
   async sign_out() {
     await this.auth.signOut()
+    this.router.navigate(["/login"])
   }
 
   private convertJsonToUser(id, data) : User {
