@@ -4,6 +4,11 @@ pipeline {
         SCREENSHOT_PATH = "screenshots/"
     }
     stages {
+        stage("Start service emulators") {
+            steps {
+                sh "firebase emulators:start"
+            }
+        }
         stage("Reset test environment") {
             steps {
                 sh "docker compose down"
