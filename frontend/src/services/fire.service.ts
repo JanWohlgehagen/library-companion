@@ -43,7 +43,7 @@ export class FireService {
     this.auth.useEmulator('http://localhost:9099');
     this.storage.useEmulator('localhost', 9199);
 
-    this.books = mock.get_books(100)
+    //this.books = mock.get_books(100)
     this.book = this.books[0]
     this.getUsers()
     this.getBooks()
@@ -75,9 +75,11 @@ export class FireService {
   }
   async getBooks()
   {
-    await this.firestore.collection("Book").onSnapshot( snapshot => {
+    console.log("HILLO")
+    await this.firestore.collection("Book").onSnapshot( snapshot => {console.log(snapshot)
       snapshot.docChanges().forEach( change => {
         let book = this.convertJsonToBook(change.doc.id, change.doc.data())
+        console.log(change.doc.data())
         if(change.type=="added"){
           this.books.push(book);
         }
@@ -193,6 +195,7 @@ export class FireService {
   }
 
   private convertJsonToUser(id, data) : User {
+    console.log(data)
     let user : User = {
       id :id,
       name: data["name"],
@@ -206,25 +209,28 @@ export class FireService {
     return user
   }
 
-  private convertJsonToBook(id: string, data: firebase.firestore.DocumentData): Book {
+  private convertJsonToBook(id, data): Book {
+    console.log(data)
+    let timestamp = new firebase.firestore.Timestamp(data["book"]["releaseYear"]["seconds"],data["book"]["releaseYear"]["nanoseconds"])
     let book: Book = {
       id:id,
-      authors:data["author"],
-      lix:data["lix"],
-      title: data["title"],
-      availability:data["availability"],
-      tags: data["tags"],
-      imageUrl:data["imageUrl"],
-      description: data["description"],
-      edition: data["edition"],
-      releaseYear: data["releaseYear"],
-      literaryType: data["literaryType"],
-      ISBN:data["ISBN"],
-      language:data["language"],
-      numberOfPages: data["numberOfPages"],
-      publisher:data["publisher"]
+      lix: data["book"]["lix"],
+      title:  data["book"]["title"],
+      availability: data["book"]["availability"],
+      tags: data["book"]["tags"],
+      imageUrl: data["book"]["imageUrl"],
+      description: data["book"]["description"],
+      edition: data["book"]["edition"],
+      releaseYear: new Date(timestamp.toDate().toString()),
+      literaryType: data["book"]["literaryType"],
+      ISBN: data["book"]["ISBN"],
+      language: data["book"]["language"],
+      numberOfPages: data["book"]["numberOfPages"],
+      authors: data["book"]["authors"],
+      publisher: data["book"]["publisher"]
 
     }
+    console.log(book)
     return book;
 
   }
