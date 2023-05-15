@@ -13,6 +13,7 @@ pipeline {
             parallel {
                 stage('Start Emulator (this should fail when last stage finishes)') {
                     steps {
+                        currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
                         sh "firebase emulators:start"
                     }
                 }
