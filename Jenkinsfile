@@ -7,7 +7,7 @@ pipeline {
         stage("Start service emulators") {
             steps {
                 sh "cd functions && npm install"
-                sh "xterm -e firebase emulators:start"
+                sh "x-terminal-emulator firebase emulators:start"
             }
         }
         stage("Reset test environment") {
