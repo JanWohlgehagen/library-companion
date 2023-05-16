@@ -10,11 +10,11 @@
   <button *ngIf="firebaseservice.auth.currentUser" mat-button [matMenuTriggerFor]="userMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
-  <button mat-button *ngIf="!firebaseservice.auth.currentUser" [matMenuTriggerFor]="signMenu">
+  <button mat-button *ngIf="!firebaseservice.auth.currentUser" [matMenuTriggerFor]="signMenu" id="navBtn-anon">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
 
-  <button mat-button [matMenuTriggerFor]="cartMenu" >
+  <button mat-button [matMenuTriggerFor]="cartMenu" id="shoppingCartBtn">
     <mat-icon style="scale: 2">shopping_cart</mat-icon>
     <p style="font-size: 16px; background: red; border-radius: 49%; min-width: 30px;min-height: 30px">{{firebaseservice.shoppingCart.length}}</p>
   </button>
@@ -34,7 +34,7 @@
       </button>
 
     </div>
-    <button mat-menu-item (click)="navigateToMyCart()">Go To Checkout</button>
+    <button mat-menu-item (click)="navigateToMyCart()" id="shoppingCartBtn-goToCheckout">Go To Checkout</button>
 
   </mat-menu>
   <mat-menu #userMenu="matMenu">
@@ -44,13 +44,11 @@
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
     <button mat-menu-item (click)="SeedData()">Seed Data</button>
     <button mat-menu-item (click)="signOut()">Log Out</button>
-
-
   </mat-menu>
 
   <mat-menu #signMenu="matMenu">
-    <button mat-menu-item (click)="navigateToSignIn()"> Sign in</button>
-    <button mat-menu-item (click)="navigateToRegister()"> Register</button>
+    <button mat-menu-item (click)="navigateToSignIn()" id="navBtn-signIn"> Sign in</button>
+    <button mat-menu-item (click)="navigateToRegister()" id="navBtn-register"> Register</button>
     <button mat-menu-item (click)="SeedData()">Seed Data</button>
   </mat-menu>
 </mat-toolbar>
