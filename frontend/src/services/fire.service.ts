@@ -207,6 +207,8 @@ export class FireService {
   async sign_out() {
     await this.auth.signOut()
     this.router.navigate(["/login"])
+    this.shoppingCart = []
+    this.shoppingCartCache = []
   }
 
   private convertJsonToUser(id, data): User {
