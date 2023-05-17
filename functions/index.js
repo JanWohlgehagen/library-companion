@@ -102,8 +102,19 @@ app.post("/createBook", validateFirebaseIdToken, async (req, res) => {
 app.delete("/deleteBook/:bookId", validateFirebaseIdToken, async (req, res) => {
     const doc = await admin.firestore().collection("Book").doc(req.params.bookId).get();
 try {
-    const deleteREsult = await admin.firestore().collection("Book").doc(doc.id).delete();
-    return res.json(deleteREsult);
+    const deleteResult = await admin.firestore().collection("Book").doc(doc.id).delete();
+    return res.json(deleteResult);
 } catch (e) {
     console.log(e)
 }})
+
+app.put("/updateBook"), validateFirebaseIdToken, async (req, res) => {
+    console.log("hej")
+    let book = req.body.book
+    try {
+        const updateResult = await admin.firestore().collection("Book").doc(book.id).update(book);
+        return res.json(updateResult)
+    } catch (e) {
+        console.log(e)
+    }
+}

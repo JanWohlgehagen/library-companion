@@ -46,7 +46,7 @@ export class AdminManageBooksComponent implements OnInit {
   inputLiteraryText: string = "";
   inputPicture?: string = ""
   inputTagText: string[] | any = [];
-  inputs: Book | any;
+  saveBook: Book | any;
   book: Book | any; //empty book
 
   name: string | undefined;
@@ -145,7 +145,7 @@ export class AdminManageBooksComponent implements OnInit {
 
   loadBookDetails(book: Book) {
     this.book = book;
-    this.inputs = book
+    this.saveBook = book
     this.inputTitleText = book.title
 
     this.inputAuthorText = []
@@ -180,6 +180,8 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   saveBookBtn(book: Book) {
+    this.book = book;
+    this.saveBook = book
     book.title = this.inputTitleText
     book.authors = this.inputAuthorText
     book.releaseYear = this.inputReleaseYear
@@ -193,6 +195,7 @@ export class AdminManageBooksComponent implements OnInit {
     book.description = this.inputDescriptionText
     book.imageUrl = this.inputPicture
     book.tags = this.tags.map(t => t.name)
+    book.id = this.book.id
 
     this.filterBooks()
     this.bookControl.setValue(book.title + ", ed. " + book.edition)
@@ -200,7 +203,7 @@ export class AdminManageBooksComponent implements OnInit {
     this.loadBookDetails(book)
 
     // this.fireservice.updateBook(book) //todo skal laves - this.book skal opdateres
-    this.fireservice.createBook(book)
+    this.fireservice.updateBook(book)
 
     // possible check before showing message, and show error message if, if statement returns false.
     this._snackBar.open("Book has been saved", "X", {"duration": 8000})
@@ -248,6 +251,7 @@ export class AdminManageBooksComponent implements OnInit {
       title: this.inputTitleText
     }
 
+    //todo skal der være en this.fireservice.createBook(this.book) ?
     this.fireservice.books.push(this.book)
     this.filterBooks()
     this.loadBookDetails(this.book)
@@ -267,6 +271,7 @@ export class AdminManageBooksComponent implements OnInit {
       if (result.clearAll) {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
+        //todo skal der være en this.fireservice.createBook(this.book) ?
         this.fireservice.books.push(this.book)
         this.filterBooks()
         this.loadBookDetails(this.book)

@@ -178,8 +178,17 @@ export class FireService {
   deleteBook(bookId) {
     axios.delete(this.baseAxiosURL + "deleteBook/" + bookId, {}
     ).then(() => {
-      console.log("this book is deleted: " + bookId)
+      console.log("this book was deleted: " + bookId)
     }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  updateBook(book) {
+    axios.put(this.baseAxiosURL + "updateBook", {book: book})
+      .then(() => {
+        console.log("this book was updated: " + book)
+      }).catch((error) => {
       console.log(error)
     })
   }
