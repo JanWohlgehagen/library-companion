@@ -34,7 +34,7 @@ export class FireService {
 
   baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
 
-  constructor(private router: Router, private matSnackbar: MatSnackBar, private mock: MockDataService) {
+  constructor(private router: Router, private matSnackbar: MatSnackBar) {
     this.firebaseApplication = firebase.initializeApp(config.firebaseConfig);
     this.auth = firebase.auth();
     this.firestore = firebase.firestore();
