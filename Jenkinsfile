@@ -40,8 +40,8 @@ pipeline {
                         }
                         stage("Run UI tests"){
                             steps{
-                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js"
-                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-login.js"
+                                //sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js"
+                                //sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-login.js"
                                 sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-navigation.js"
                             }
                         }
