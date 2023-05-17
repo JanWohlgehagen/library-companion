@@ -9,9 +9,7 @@ import * as config from '../../firebaseconfig.js';
 import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {MockDataService} from "../mock_data/mock-data.service";
-import * as string_decoder from "string_decoder";
-import {delay} from "rxjs";
+
 
 
 @Injectable({
@@ -177,6 +175,22 @@ export class FireService {
       this.loggedInUser.email = new_email
     }).catch(err => {
       console.log(err)
+    })
+  }
+
+  createBook(book) {
+    axios.post(this.baseAxiosURL+"Book", book,{
+      //todo error handling
+      }
+    )
+  }
+
+  deleteBook(bookId) {
+    axios.delete(this.baseAxiosURL+"Book/"+bookId,  {}
+    ).then(() => {
+      console.log("this book is deleted: " + bookId)
+    }).catch((error) => {
+      console.log(error)
     })
   }
 

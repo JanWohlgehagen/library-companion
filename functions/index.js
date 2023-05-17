@@ -13,7 +13,7 @@ const limiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
-app.use(cors(), limiter);
+app.use(cors());
 
 const validateFirebaseIdToken = async (req, res, next) => {
     try {
@@ -86,6 +86,23 @@ app.delete("/deleteUser", validateFirebaseIdToken, async (req,res) => {
 
    await admin.auth().deleteUser(userId)
 
-
-
 })
+
+app.post("/Book", validateFirebaseIdToken, async (req, res) => {
+    var doc = await admin.firestore().collection('Book').add(req.body)
+            await admin.firestore().collection("Book").doc(doc._resourcePath.id)
+                .update({
+                    id: doc._resourcePath.id
+                })
+})
+
+
+
+app.delete("/Book/:bookId", validateFirebaseIdToken, async (req, res) => {
+    const doc = await admin.firestore().collection("Book").doc(req.params.bookId).get();
+try {
+    const deleteREsult = await admin.firestore().collection("Book").doc(doc.id).delete();
+    return res.json(deleteREsult);
+} catch (e) {
+    console.log(e)
+}})
