@@ -9,6 +9,7 @@ firebase-debug.*.log*
 
 #ui-screenshots
 frontend/tests/ui-tests/screenshots/*
+screenshots/
 
 # Firebase cache
 .firebase/
@@ -112,3 +113,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
