@@ -33,7 +33,6 @@ pipeline {
                             steps {
                                 sh "docker compose down"
                                 sh "docker compose up -d --force-recreate"
-                                echo "Docker composed successfully"
                                 sh "mkdir -p ${SCREENSHOT_PATH}"
                                 sh "chmod a=rwx ${SCREENSHOT_PATH}"
                             }
@@ -41,8 +40,8 @@ pipeline {
                         stage("Run UI tests"){
                             steps{
                                 sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js"
-                                //sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-login.js"
-                                //sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-navigation.js"
+                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-login.js"
+                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-navigation.js"
                             }
                         }
                         stage("Take down containers") {

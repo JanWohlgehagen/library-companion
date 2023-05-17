@@ -89,7 +89,7 @@ app.delete("/deleteUser", validateFirebaseIdToken, async (req,res) => {
 
 })
 
-app.post("/Book", validateFirebaseIdToken, async (req, res) => {
+app.post("/createBook", validateFirebaseIdToken, async (req, res) => {
     var doc = await admin.firestore().collection('Book').add(req.body)
             await admin.firestore().collection("Book").doc(doc._resourcePath.id)
                 .update({
@@ -99,7 +99,7 @@ app.post("/Book", validateFirebaseIdToken, async (req, res) => {
 
 
 
-app.delete("/Book/:bookId", validateFirebaseIdToken, async (req, res) => {
+app.delete("/deleteBook/:bookId", validateFirebaseIdToken, async (req, res) => {
     const doc = await admin.firestore().collection("Book").doc(req.params.bookId).get();
 try {
     const deleteREsult = await admin.firestore().collection("Book").doc(doc.id).delete();

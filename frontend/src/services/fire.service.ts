@@ -169,14 +169,14 @@ export class FireService {
   }
 
   createBook(book) {
-    axios.post(this.baseAxiosURL + "Book", book, {
+    axios.post(this.baseAxiosURL + "createBook", book, {
         //todo error handling
       }
     )
   }
 
   deleteBook(bookId) {
-    axios.delete(this.baseAxiosURL + "Book/" + bookId, {}
+    axios.delete(this.baseAxiosURL + "deleteBook/" + bookId, {}
     ).then(() => {
       console.log("this book is deleted: " + bookId)
     }).catch((error) => {
