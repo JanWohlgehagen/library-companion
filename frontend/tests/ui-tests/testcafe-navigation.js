@@ -8,9 +8,6 @@ test('Browse->Login', async test => {
 
   await test
     .takeScreenshot()
-
-  await test
-    .takeScreenshot()
     .click('#navBtn-anon')
     .takeScreenshot()
     .click('#navBtn-signIn')
