@@ -40,7 +40,7 @@ pipeline {
                         }
                         stage("Create stage with tests here..."){
                             steps{
-                                echo "I am so alone"
+                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js"
                             }
                         }
                         stage("Take down containers") {
