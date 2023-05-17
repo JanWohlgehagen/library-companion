@@ -38,6 +38,11 @@ pipeline {
                                 sh "chmod a=rwx ${SCREENSHOT_PATH}"
                             }
                         }
+                        stage("Create stage with tests here..."){
+                            steps{
+                                echo "I am so alone"
+                            }
+                        }
                         stage("Take down containers") {
                             steps {
                                 sh "docker compose down"
