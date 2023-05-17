@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MockDataService} from "../mock_data/mock-data.service";
 import * as string_decoder from "string_decoder";
+import {delay} from "rxjs";
 
 
 @Injectable({
@@ -155,9 +156,6 @@ export class FireService {
         this.matSnackbar.open("The login is invalid", 'close', {duration: 4000});
     });
 
-
-
-
   }
 
   updateUserAvatar(img) {
@@ -211,7 +209,6 @@ export class FireService {
         overDue: b["overDue"]
 
       }
-      console.log(Borrowedbook)
       borrowedBooks.push(Borrowedbook)
     })
 
@@ -251,4 +248,15 @@ export class FireService {
 
   }
 
+  updateBorrowedBookOnUser(u: User) {
+    let userId = u.id
+    let borrowedBooks = u.books
+    axios.put(this.baseAxiosURL + "updateBorrowedBooks", {userId: userId, borrowedBooks: borrowedBooks})
+
+  }
+
+  deleteUser(u: User) {
+    let userId = u.id
+    axios.delete(this.baseAxiosURL + "deleteUser", {data:{ userId : userId}})
+  }
 }
