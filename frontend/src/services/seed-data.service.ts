@@ -36,10 +36,10 @@ export class SeedDataService {
     }
     let authUser: User[] = [
       {admin: false, books: [b], email: "Tobias@gmail.com", imageUrl: "", joinDate: new Date(), name: "Tobias Rasmussen"},
+      {admin: false, books: [], email: "Simon@gil.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
       {admin: false, books: [b], email: "Jan@gmail.com", imageUrl: "", joinDate: new Date(), name: "Jan Wohlgehagen"},
-      {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: "", joinDate: new Date(), name: "Mikkel Theut Meier"},
       {admin: false, books: [b], email: "Simon@gmail.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
-      {admin: false, books: [], email: "Simon@gil.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"}
+      {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: "", joinDate: new Date(), name: "Mikkel Theut Meier"}
     ]
 
     const batch = this.firestore.batch()
@@ -50,7 +50,8 @@ export class SeedDataService {
           result.user.updateProfile({
             displayName: authUser[i].name
           }).then(async () => {
-            batch.set(this.firestore.collection("User").doc(result.user?.uid), authUser[i])
+            authUser[i].id = result.user?.uid;
+            await batch.set(this.firestore.collection("User").doc(result.user?.uid), authUser[i])
           })
         } else return
       })

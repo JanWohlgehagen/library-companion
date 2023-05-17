@@ -22,7 +22,7 @@ pipeline {
                         }
                     }
                 }
-                stage("Build frontend"){
+                stage("Meta stage,  builds frontend, runs tests and runs a dockerized app"){
                     stages{
                         stage("Sleep to let emulators start (30 sec)"){
                             steps{
@@ -32,15 +32,15 @@ pipeline {
                         stage("Reset containers") {
                             steps {
                                 sh "docker compose down"
-                                sh "docker compose up -d --build"
+                                sh "docker compose up -d --force-recreate"
                                 echo "Docker composed successfully"
                                 sh "mkdir -p ${SCREENSHOT_PATH}"
                                 sh "chmod a=rwx ${SCREENSHOT_PATH}"
                             }
                         }
-                        stage("Create stage with tests here..."){
+                        stage("Run UI tests"){
                             steps{
-                                echo "I am so alone"
+                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js"
                             }
                         }
                         stage("Take down containers") {
