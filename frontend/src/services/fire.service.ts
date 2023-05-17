@@ -131,13 +131,15 @@ export class FireService {
             let user : User = {
               admin: false,
               email: email,
+              books: [],
               id: result.user?.uid,
               imageUrl: "",
               joinDate: new Date(),
               name: name
             }
             this.firestore.collection("User").doc(result.user?.uid).set(
-              {user})
+              user)
+            this.setUser()
           })
         } else return
       }).catch((error) => {
@@ -218,7 +220,6 @@ export class FireService {
       joinDate: data["joinDate"],
       email: data["email"],
       books : borrowedBooks
-
     }
     return user
   }

@@ -146,6 +146,7 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   loadBookDetails(book: Book) {
+    this.book = book;
     this.inputs = book
     this.inputTitleText = book.title
 
