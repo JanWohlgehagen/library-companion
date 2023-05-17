@@ -22,7 +22,7 @@ pipeline {
                         }
                     }
                 }
-                stage("Build frontend"){
+                stage("Meta stage,  builds frontend, runs tests and runs a dockerized app"){
                     stages{
                         stage("Sleep to let emulators start (30 sec)"){
                             steps{

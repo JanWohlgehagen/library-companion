@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {FireService} from "../services/fire.service";
 import {Book, User} from "../Types/types";
-import {MockDataService} from "../mock_data/mock-data.service";
 import {Router} from "@angular/router";
 import {SeedDataService} from "../services/seed-data.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -15,7 +14,7 @@ export class AppComponent {
 
 
 
-  constructor(public firebaseservice: FireService, private mock: MockDataService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
+  constructor(public firebaseservice: FireService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart =[]
 
   }
