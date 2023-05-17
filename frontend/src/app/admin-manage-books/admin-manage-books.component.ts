@@ -199,6 +199,7 @@ export class AdminManageBooksComponent implements OnInit {
     this.displayTitle(book)
     this.loadBookDetails(book)
 
+    // this.fireservice.updateBook(book) //todo skal laves - this.book skal opdateres
     this.fireservice.createBook(book)
 
     // possible check before showing message, and show error message if, if statement returns false.
