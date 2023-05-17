@@ -39,9 +39,9 @@ pipeline {
                         }
                         stage("Run UI tests"){
                             steps{
-                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js"
-                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-login.js"
-                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-navigation.js"
+                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js pathPattern=registration-tests-${DATE}_${TIME}/test-${TEST_INDEX}/${USERAGENT}/${FILE_INDEX}.png"
+                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-login.js pathPattern=login-tests-${DATE}_${TIME}/test-${TEST_INDEX}/${USERAGENT}/${FILE_INDEX}.png"
+                                sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-navigation.js pathPattern=navigation-tests-${DATE}_${TIME}/test-${TEST_INDEX}/${USERAGENT}/${FILE_INDEX}.png"
                             }
                         }
                         stage("Take down containers") {
