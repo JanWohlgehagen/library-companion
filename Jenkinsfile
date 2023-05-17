@@ -32,13 +32,13 @@ pipeline {
                         stage("Reset containers") {
                             steps {
                                 sh "docker compose down"
-                                sh "docker compose up -d --force-recreate"
+                                sh "docker compose up -d --build"
                                 echo "Docker composed successfully"
                                 sh "mkdir -p ${SCREENSHOT_PATH}"
                                 sh "chmod a=rwx ${SCREENSHOT_PATH}"
                             }
                         }
-                        stage("Create stage with tests here..."){
+                        stage("Run UI tests"){
                             steps{
                                 sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-registration.js"
                             }

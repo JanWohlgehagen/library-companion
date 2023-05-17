@@ -1,7 +1,7 @@
 import {ClientFunction} from 'testcafe';
 
 fixture('User Registration')
-  .page('localhost:4200/login');
+  .page('localhost:8100/login');
 
 test('LoginIncorrectly_Wrong_Email', async test => {
   const getLocation = ClientFunction(() => document.location.href)
