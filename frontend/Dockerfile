@@ -3,8 +3,8 @@ WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm install -g @angular/cli
-CMD cd .\frontend\
+WORKDIR /app/frontend
 RUN ng build --configuration=production
 
 
-CMD node ./frontend/server.js
+CMD node server.js
