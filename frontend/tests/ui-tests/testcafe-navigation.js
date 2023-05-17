@@ -1,10 +1,13 @@
 import {ClientFunction} from 'testcafe';
 
-fixture('User Registration')
+fixture('Navigation')
   .page('localhost:8100');
 
 test('Browse->Login', async test => {
   const getLocation = ClientFunction(() => document.location.href)
+
+  await test
+    .takeScreenshot()
 
   await test
     .takeScreenshot()
