@@ -11,13 +11,12 @@ test('Browse->Login', async test => {
 
   await test
     .takeScreenshot()
-    .click('body > app-root > mat-toolbar > button.mat-mdc-menu-trigger.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted')
+    .click('#navBtn-anon')
     .takeScreenshot()
     .click('#navBtn-signIn')
     .takeScreenshot()
     .expect(getLocation()).contains('login')
 })
-/*
 test('Browse->Register', async test => {
   const getLocation = ClientFunction(() => document.location.href)
 
@@ -60,5 +59,3 @@ test('Browse->Checkout', async test => {
     .takeScreenshot()
     .expect(getLocation()).contains('checkout')
 })
-
- */
