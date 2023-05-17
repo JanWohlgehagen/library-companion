@@ -66,7 +66,7 @@
       <div class="grid-tile-image">
         <img ngSrc="{{book?.book?.imageUrl}}" width="150" height="255"></div>
       <div class="grid-tile-details-left">
-        <p>{{book?.book?.releaseYear.toDate() | date: 'YYYY'}}, Edition {{book?.book?.edition}}</p>
+        <p>{{book?.book?.releaseYear | date: 'YYYY'}}, Edition {{book?.book?.edition}}</p>
         <p *ngFor="let author of book?.book?.authors">{{author?.name}}</p>
       </div>
       <div class="grid-tile-details-right">
@@ -74,8 +74,8 @@
         <p>{{book?.book?.literaryType}}</p>
         <p>ISBN: {{book?.book?.ISBN}}</p>
       </div>
-      <div class="grid-tile-lease-date">Lease date: {{book?.leaseDate.toDate() | date: 'YYYY/MM/dd HH:mm'}}</div>
-      <div class="grid-tile-due-date">Due date: {{book?.dueDate.toDate() | date: 'YYYY/MM/dd HH:mm'}}</div>
+      <div class="grid-tile-lease-date">Lease date: {{book?.leaseDate | date: 'YYYY/MM/dd HH:mm'}}</div>
+      <div class="grid-tile-due-date">Due date: {{book?.dueDate | date: 'YYYY/MM/dd HH:mm'}}</div>
       <div class="grid-tile-filler"></div>
       <div class="grid-tile-expiration">
         <p *ngIf="book?.overDue" style="margin-right: 0.5vw;"><strong>Status: Expired </strong></p> <!--book is expired -->

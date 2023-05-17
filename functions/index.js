@@ -68,6 +68,7 @@ app.put("/updateBorrowedBooks", validateFirebaseIdToken, async(req, res) => {
 
         var userId = req.body.userId
         var borrowedBooks = req.body.borrowedBooks
+    console.log(typeof borrowedBooks[0].book.releaseYear)
         //console.log(borrowedBooks)
         await admin.firestore().collection('User').doc(userId).update({
             books: borrowedBooks
