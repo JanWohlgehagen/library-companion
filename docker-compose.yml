@@ -5,4 +5,4 @@ services:
     image: janwohlgehagen/library-companion:latest
     restart: always
     ports:
-      - 80:8100
+      - "8100:8100"

@@ -70,8 +70,6 @@ export class AppComponent {
 
   SeedData() {
     this.data.seedDataToAuth()
-    this.data.seedDataBooks()
-
     this._snackbar.open("Data is add to the database", "Close", {duration:3000})
   }
 
