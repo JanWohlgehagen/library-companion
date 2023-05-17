@@ -43,6 +43,11 @@ pipeline {
                                 sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-login.js"
                                 sh "testcafe chrome:headless frontend/tests/ui-tests/testcafe-navigation.js"
                             }
+                            post {
+                                always {
+                                    archiveArtifacts artifacts: "${SCREENSHOT_PATH}/**", allowEmptyArchive: true
+                                }
+                            }
                         }
                         stage("Take down containers") {
                             steps {
