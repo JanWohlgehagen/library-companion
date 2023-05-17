@@ -32,7 +32,7 @@ pipeline {
                         stage("Reset containers") {
                             steps {
                                 sh "docker compose down"
-                                sh "docker compose up -d --build"
+                                sh "docker compose up -d --force-recreate"
                                 echo "Docker composed successfully"
                                 sh "mkdir -p ${SCREENSHOT_PATH}"
                                 sh "chmod a=rwx ${SCREENSHOT_PATH}"
