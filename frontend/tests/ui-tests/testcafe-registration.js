@@ -7,6 +7,14 @@ test('RegisterIncorrectly_Wrong_Email_Format', async test => {
   const getLocation = ClientFunction(() => document.location.href)
 
   await test
+    .takeScreenshot()
+    .expect(getLocation()).contains('register')
+})
+
+test('RegisterIncorrectly_Wrong_Email_Format', async test => {
+  const getLocation = ClientFunction(() => document.location.href)
+
+  await test
     .typeText('#register-name', 'John Doe')
     .typeText('#register-email', '@examplecom')
     .typeText('#register-password', 'pw12345')
