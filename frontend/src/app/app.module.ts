@@ -5,10 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAndRegistrationComponent } from './login-and-registration/login-and-registration.component';
-import {
-  AdminManageBooksComponent,
-  AdminManageBooksDialogComponent
-} from './admin-manage-books/admin-manage-books.component';
+import {  AdminManageBooksComponent,  AdminManageBooksDialogComponent} from './admin-manage-books/admin-manage-books.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
