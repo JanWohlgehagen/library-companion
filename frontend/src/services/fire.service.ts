@@ -184,10 +184,10 @@ export class FireService {
     })
   }
 
-  updateBook(book) {
-    axios.put(this.baseAxiosURL + "updateBook", {book: book})
+  async updateBook(book) {
+    await axios.put(this.baseAxiosURL + "updateBook", {book: book})
       .then(() => {
-        console.log("this book was updated: " + book)
+        console.log("this book was updated: " + book.name)
       }).catch((error) => {
       console.log(error)
     })

@@ -29,7 +29,6 @@ export interface DialogData {
 export class AdminManageBooksComponent implements OnInit {
   bookControl = new FormControl('');
   filteredBooks: Observable<Book[]> | undefined;
-  //books: Book[] = []
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: Tag[] = [];
@@ -251,7 +250,7 @@ export class AdminManageBooksComponent implements OnInit {
       title: this.inputTitleText
     }
 
-    //todo skal der være en this.fireservice.createBook(this.book) ?
+    this.fireservice.createBook(this.book)
     this.fireservice.books.push(this.book)
     this.filterBooks()
     this.loadBookDetails(this.book)
@@ -271,7 +270,7 @@ export class AdminManageBooksComponent implements OnInit {
       if (result.clearAll) {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
-        //todo skal der være en this.fireservice.createBook(this.book) ?
+        this.fireservice.createBook(this.book)
         this.fireservice.books.push(this.book)
         this.filterBooks()
         this.loadBookDetails(this.book)

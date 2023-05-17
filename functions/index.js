@@ -108,13 +108,12 @@ try {
     console.log(e)
 }})
 
-app.put("/updateBook"), validateFirebaseIdToken, async (req, res) => {
-    console.log("hej")
+app.put("/updateBook", validateFirebaseIdToken, async (req, res) => {
     let book = req.body.book
     try {
-        const updateResult = await admin.firestore().collection("Book").doc(book.id).update(book);
+        const updateResult = await admin.firestore().collection("Book").doc(book.id).set(book);
         return res.json(updateResult)
     } catch (e) {
         console.log(e)
     }
-}
+})
