@@ -89,4 +89,13 @@ export class AdminManageUsersComponent {
 
     this.fireService.deleteUser(u);
   }
+
+  deliverBook(u: User, b: BorrowedBook) {
+    u.books = u.books?.filter( book => {
+      return b != book
+    } )
+    this.fireService.updateBorrowedBookOnUser(u);
+
+
+  }
 }

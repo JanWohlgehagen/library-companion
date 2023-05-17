@@ -43,6 +43,10 @@
         <mat-card *ngFor="let b of u.books" style="min-height: 80px; margin-bottom: 1vh;">
           <div>
             <div style="float:right; margin:10px; max-height: 60px; display:flex">
+
+              <button style="margin-right: 1.5vw; background-color: #03e179" mat-fab (click)="deliverBook(u,b)">Deliver Book
+              </button>
+
               <button style="margin-right: 1.5vw;" mat-fab color="primary" (click)="extendBook(u,b)">Extend Booking
               </button>
               <button *ngIf="b.overDue" style="margin-right: 1.5vw;" mat-fab color="warn" (click)="sendMail(u,b)">
