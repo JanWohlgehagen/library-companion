@@ -35,7 +35,7 @@ export class SeedDataService {
       leaseDate: new Date()
     }
     let authUser: User[] = [
-      {admin: false, books: [b], email: "Tobias@gmail.com", imageUrl: "", joinDate: new Date(), name: "Tobias Rasmussen"},
+      {admin: true, books: [b], email: "Tobias@gmail.com", imageUrl: "", joinDate: new Date(), name: "Tobias Rasmussen"},
       {admin: false, books: [], email: "Simon@gil.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
       {admin: false, books: [b], email: "Jan@gmail.com", imageUrl: "", joinDate: new Date(), name: "Jan Wohlgehagen"},
       {admin: false, books: [b], email: "Simon@gmail.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
@@ -58,6 +58,7 @@ export class SeedDataService {
     }
 
     await batch.commit()
+    this.seedDataBooks()
 
   }
   seedDataBooks(){
@@ -161,7 +162,7 @@ export class SeedDataService {
       { name: 'Fjodor Dostojevskij', id: Math.floor(Math.random() * 1000000).toString()},
     ];
 
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 20; i++) {
       let book: Book = {
         ISBN: Math.floor(Math.random() * 10000000000000),
         authors: [authors[Math.floor(Math.random() * authors.length)]],
