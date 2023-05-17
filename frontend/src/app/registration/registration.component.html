@@ -6,21 +6,21 @@
     New User
   </mat-card-title>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]=" name" placeholder="Name" matInput id="register-name">
+    <input [(ngModel)]=" name" placeholder="Name" matInput>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="email" placeholder="Email" type="email"  matInput id="register-email">
+    <input [(ngModel)]="email" placeholder="Email" type="email"  matInput>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="password" placeholder="Password"  matInput [type]="'password'" id="register-password">
+    <input [(ngModel)]="password" placeholder="Password"  matInput [type]="'password'">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="confirmPassword" placeholder="Confirm Password"  matInput [type]="'password'" id="register-confirmPassword">
+    <input [(ngModel)]="confirmPassword" placeholder="Confirm Password"  matInput [type]="'password'">
   </mat-form-field>
 
   <mat-card-actions>
-    <button class="register" [disabled]= "name == '' || email == '' || password == '' || confirmPassword == ''" (click)="register()" mat-raised-button id="register-registerBtn">Register</button>
+    <button class="register" [disabled]= "name == '' || email == '' || password == '' || confirmPassword == ''" (click)="register()" mat-raised-button>Register</button>
   </mat-card-actions>
 </mat-card>
 

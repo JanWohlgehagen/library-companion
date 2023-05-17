@@ -226,13 +226,6 @@ export class AdminManageBooksComponent implements OnInit {
     this.inputLiteraryText = "";
     this.inputPicture = ""
     this.inputTagText = [];
-
-    this.fireservice.books.push(this.book)
-    this.filterBooks()
-    this.loadBookDetails(this.book)
-    this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
-
-    console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.fireservice.books.length)
   }
 
   addNewCopiedBook() {
@@ -273,13 +266,17 @@ export class AdminManageBooksComponent implements OnInit {
       if (result.clearAll) {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
+        this.fireservice.books.push(this.book)
+        this.filterBooks()
+        this.loadBookDetails(this.book)
+        this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+
+        console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.fireservice.books.length)
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
-        //ftodo any cloud functions that needs to go here?
       }
       if (result.copyBook) {
         this.addNewCopiedBook()
         this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
-        //todo any cloud functions that needs to go here?
       }
     });
   }
@@ -302,8 +299,10 @@ export class AdminManageBooksComponent implements OnInit {
     if (confirm("Are you sure you want to delete this book?")) {
       this.fireservice.deleteBook(this.book.id)
       this.filterBooks()
+      this.bookControl.setValue(null)
+      this.clearBookDetails()
+      this.addAuthorBtn()
       this._snackBar.open("The book has been deleted", "X", {"duration": 8000})
-      //todo listen skal genopfriskes i frontend så bogen også er væk derfra, for den bliver slettet i databasen.
     }
     else {
 
@@ -333,7 +332,6 @@ export class AdminManageBooksDialogComponent {
   }
 
   newBookCopyBook() {
-    //todo skal laves med cloud functions
     this.dialogRef.close({copyBook: "copyBook"});
   }
 

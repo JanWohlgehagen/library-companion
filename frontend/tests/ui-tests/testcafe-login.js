@@ -1,6 +1,6 @@
 import {ClientFunction} from 'testcafe';
 
-fixture('User Registration')
+fixture('Login')
   .page('localhost:8100/login');
 
 test('LoginIncorrectly_Wrong_Email', async test => {

@@ -9,7 +9,6 @@ import * as config from '../../firebaseconfig.js';
 import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {MockDataService} from "../mock_data/mock-data.service";
 
 
 @Injectable({
