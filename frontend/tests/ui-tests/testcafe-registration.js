@@ -7,8 +7,12 @@ test('RegisterIncorrectly_Wrong_Email_Format', async test => {
   const getLocation = ClientFunction(() => document.location.href)
 
   await test
+    .typeText('#register-name', 'John Doe')
+    .typeText('#register-email', '@examplecom')
+    .typeText('#register-password', 'pw12345')
+    .typeText('#register-confirmPassword', 'pw12345')
     .takeScreenshot()
-    .click('body > app-root > mat-toolbar > button.mat-mdc-menu-trigger.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted')
+    .click('#register-registerBtn')
     .takeScreenshot()
     .expect(getLocation()).contains('register')
 })
