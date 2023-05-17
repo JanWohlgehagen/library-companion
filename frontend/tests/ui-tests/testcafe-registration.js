@@ -8,6 +8,8 @@ test('RegisterIncorrectly_Wrong_Email_Format', async test => {
 
   await test
     .takeScreenshot()
+    .click('body > app-root > mat-toolbar > button.mat-mdc-menu-trigger.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted')
+    .takeScreenshot()
     .expect(getLocation()).contains('register')
 })
 

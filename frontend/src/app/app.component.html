@@ -10,7 +10,7 @@
   <button *ngIf="firebaseservice.auth.currentUser" mat-button [matMenuTriggerFor]="userMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
-  <button mat-button *ngIf="!firebaseservice.auth.currentUser " [matMenuTriggerFor]="signMenu" id="navBtn-anon">
+  <button mat-button *ngIf="!firebaseservice.auth.currentUser " [matMenuTriggerFor]="signMenu">
     <mat-icon style="scale:2">account_circle</mat-icon>
   </button>
 
