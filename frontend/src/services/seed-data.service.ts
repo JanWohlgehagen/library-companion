@@ -36,10 +36,11 @@ export class SeedDataService {
     }
     let authUser: User[] = [
       {admin: true, books: [b], email: "Tobias@gmail.com", imageUrl: "", joinDate: new Date(), name: "Tobias Rasmussen"},
-      {admin: false, books: [], email: "Simon@gil.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
+      {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: "", joinDate: new Date(), name: "Mikkel Theut Meier"},
       {admin: false, books: [b], email: "Jan@gmail.com", imageUrl: "", joinDate: new Date(), name: "Jan Wohlgehagen"},
       {admin: false, books: [b], email: "Simon@gmail.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
-      {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: "", joinDate: new Date(), name: "Mikkel Theut Meier"}
+      {admin: false, books: [], email: "Simon@gil.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"}
+
     ]
 
     const batch = this.firestore.batch()
