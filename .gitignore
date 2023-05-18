@@ -11,12 +11,15 @@ firebase-debug.*.log*
 frontend/tests/ui-tests/screenshots/*
 screenshots/
 
+#ng environments
+frontend/src/environments/environment.development.ts
+frontend/src/environments/environment.ts
+
 # Firebase cache
 .firebase/
 
-firebaseconfig.js
-
 # Firebase config
+firebaseconfig.js
 
 # Uncomment this if you'd like others to create their own Firebase project.
 # For a team working on the same Firebase project(s), it is recommended to leave
@@ -113,4 +116,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-
+frontend/src/environments/environment.ts

@@ -37,6 +37,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatListModule} from "@angular/material/list";
 import {MatChipsModule} from "@angular/material/chips";
+import { AboutUsComponent } from './about-us/about-us.component';
+import {GoogleMapsModule} from "@angular/google-maps";
+import {MatTableModule} from "@angular/material/table";
 
 
 
@@ -54,6 +57,7 @@ import {MatChipsModule} from "@angular/material/chips";
     RegistrationComponent,
     AdminManageBooksDialogComponent,
     RegistrationComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,7 +87,9 @@ import {MatChipsModule} from "@angular/material/chips";
     MatAutocompleteModule,
     MatListModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    GoogleMapsModule,
+    MatTableModule
   ],
   providers: [MatSnackBar, Overlay, MatDialog],
   bootstrap: [AppComponent]

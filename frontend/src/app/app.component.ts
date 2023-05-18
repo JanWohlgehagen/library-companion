@@ -78,4 +78,8 @@ export class AppComponent {
    await this.firebaseservice.sign_out();
    this._snackbar.open("You have signed out.", "Close", {duration:3000})
   }
+
+  navigateToAboutUs() {
+    this.router.navigate(["about-us"])
+  }
 }
