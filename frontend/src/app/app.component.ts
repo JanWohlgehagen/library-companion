@@ -78,4 +78,11 @@ export class AppComponent {
    await this.firebaseservice.sign_out();
    this._snackbar.open("You have signed out.", "Close", {duration:3000})
   }
+
+  isAdmin():boolean{
+    if(this.firebaseservice.loggedInUser == undefined){
+      return false;
+    }
+     return this.firebaseservice.auth.currentUser && this.firebaseservice.loggedInUser.admin
+  }
 }

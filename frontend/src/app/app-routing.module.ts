@@ -9,17 +9,19 @@ import {UserSettingsComponent} from "./user-settings/user-settings.component";
 import {BookInfoComponent} from "./book-info/book-info.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {AuthguardService} from "../services/authguard.service";
+import {AuthguardAdminService} from "../services/authguard-admin.service";
 
 const routes: Routes = [
+  //{path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
   {path: 'login', component: LoginAndRegistrationComponent, title: 'Login'},
   {path: 'register', component: RegistrationComponent, title: 'Register'},
-  {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books'},
-  {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users'},
+  {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books', canActivate:[AuthguardAdminService]},
+  {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users', canActivate:[AuthguardAdminService]},
   {path: 'user-dashboard/browse-books', component: UserBrowseBooksComponent, title: 'Browse Books'},
   {path: 'user-dashboard/checkout', component: UserCheckoutComponent, title: 'Checkout', canActivate: [AuthguardService]},
   {path: 'user-dashboard/settings', component: UserSettingsComponent, title: 'Settings'},
   {path: 'book-info', component: BookInfoComponent, title: 'Book-info'},
-  {path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
+  //{path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
 
 ];
 

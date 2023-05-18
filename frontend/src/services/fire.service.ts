@@ -50,9 +50,7 @@ export class FireService {
     this.getBooks()
     this.auth.onAuthStateChanged( (user) =>{
       if (user) {
-        this.setUser()
         this.intercept();
-         this.router.navigate(["/user-dashboard/browse-books"])
       }
     })
   }
@@ -140,6 +138,7 @@ export class FireService {
             this.firestore.collection("User").doc(result.user?.uid).set(
               user)
             this.setUser()
+            this.router.navigate(["/user-dashboard/browse-books"])
           })
         } else return
       }).catch((error) => {
