@@ -13,6 +13,7 @@ screenshots/
 
 #ng environments
 frontend/src/environments/environment.ts
+frontend/src/environments/environment.development.ts
 
 # Firebase cache
 .firebase/
@@ -115,5 +116,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-frontend/src/environments/environment.ts
-frontend/src/environments/environment.development.ts
+
