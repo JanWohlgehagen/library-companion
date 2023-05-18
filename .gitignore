@@ -12,7 +12,6 @@ frontend/tests/ui-tests/screenshots/*
 screenshots/
 
 #ng environments
-frontend/src/environments/environment.development.ts
 frontend/src/environments/environment.ts
 
 # Firebase cache
