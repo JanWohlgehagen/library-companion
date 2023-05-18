@@ -85,4 +85,8 @@ export class AppComponent {
     }
      return this.firebaseservice.auth.currentUser && this.firebaseservice.loggedInUser.admin
   }
+  
+  navigateToAboutUs() {
+    this.router.navigate(["about-us"])
+  }
 }

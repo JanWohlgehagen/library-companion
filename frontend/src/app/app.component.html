@@ -42,13 +42,15 @@
     <button mat-menu-item *ngIf="isAdmin()"  (click)="navigateToAdminManBooks()">Manage Books</button>
     <button mat-menu-item (click)="navigateToProfile()">User Profile</button>
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
-    <button mat-menu-item (click)="SeedData()">Seed Data</button>
+    <button mat-menu-item (click)="navigateToAboutUs()">About us</button>
     <button mat-menu-item (click)="signOut()">Log Out</button>
+    <button mat-menu-item (click)="SeedData()">Seed Data</button>
   </mat-menu>
 
   <mat-menu #signMenu="matMenu">
     <button mat-menu-item (click)="navigateToSignIn()" id="navBtn-signIn"> Sign in</button>
     <button mat-menu-item (click)="navigateToRegister()" id="navBtn-register"> Register</button>
+    <button mat-menu-item (click)="navigateToAboutUs()">About us</button>
     <button mat-menu-item (click)="SeedData()">Seed Data</button>
   </mat-menu>
 </mat-toolbar>

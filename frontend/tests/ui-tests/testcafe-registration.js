@@ -16,6 +16,20 @@ test('RegisterIncorrectly_Wrong_Email_Format', async test => {
     .takeScreenshot()
     .expect(getLocation()).contains('register')
 })
+
+test('RegisterIncorrectly_Wrong_Email_Format', async test => {
+  const getLocation = ClientFunction(() => document.location.href)
+
+  await test
+    .typeText('#register-name', 'John Doe')
+    .typeText('#register-email', '@examplecom')
+    .typeText('#register-password', 'pw12345')
+    .typeText('#register-confirmPassword', 'pw12345')
+    .takeScreenshot()
+    .click('#register-registerBtn')
+    .takeScreenshot()
+    .expect(getLocation()).contains('register')
+})
 test('RegisterIncorrectly_Wrong_Password_Confirmation', async test => {
   const getLocation = ClientFunction(() => document.location.href)
 

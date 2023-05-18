@@ -13,7 +13,7 @@ const limiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
-app.use(cors(), limiter);
+app.use(cors());
 
 const validateFirebaseIdToken = async (req, res, next) => {
     try {
@@ -68,6 +68,7 @@ app.put("/updateBorrowedBooks", validateFirebaseIdToken, async(req, res) => {
 
         var userId = req.body.userId
         var borrowedBooks = req.body.borrowedBooks
+    console.log(typeof borrowedBooks[0].book.releaseYear)
         //console.log(borrowedBooks)
         await admin.firestore().collection('User').doc(userId).update({
             books: borrowedBooks
@@ -86,6 +87,33 @@ app.delete("/deleteUser", validateFirebaseIdToken, async (req,res) => {
 
    await admin.auth().deleteUser(userId)
 
+})
+
+app.post("/createBook", validateFirebaseIdToken, async (req, res) => {
+    var doc = await admin.firestore().collection('Book').add(req.body)
+            await admin.firestore().collection("Book").doc(doc._resourcePath.id)
+                .update({
+                    id: doc._resourcePath.id
+                })
+})
 
 
+
+app.delete("/deleteBook/:bookId", validateFirebaseIdToken, async (req, res) => {
+    const doc = await admin.firestore().collection("Book").doc(req.params.bookId).get();
+try {
+    const deleteResult = await admin.firestore().collection("Book").doc(doc.id).delete();
+    return res.json(deleteResult);
+} catch (e) {
+    console.log(e)
+}})
+
+app.put("/updateBook", validateFirebaseIdToken, async (req, res) => {
+    let book = req.body.book
+    try {
+        const updateResult = await admin.firestore().collection("Book").doc(book.id).set(book);
+        return res.json(updateResult)
+    } catch (e) {
+        console.log(e)
+    }
 })

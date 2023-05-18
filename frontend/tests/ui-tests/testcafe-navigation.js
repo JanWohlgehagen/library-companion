@@ -1,6 +1,6 @@
 import {ClientFunction} from 'testcafe';
 
-fixture('User Registration')
+fixture('Navigation')
   .page('localhost:8100');
 
 test('Browse->Login', async test => {

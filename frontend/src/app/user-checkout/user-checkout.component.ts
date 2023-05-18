@@ -45,8 +45,10 @@ export class UserCheckoutComponent {
         overDue :false
       }
       console.log(book)
+      console.log(typeof book.book.releaseYear)
       this.firebase.loggedInUser?.books?.push(book)
     })
+    this.firebase.updateBorrowedBookOnUser(this.firebase.loggedInUser);
     this.firebase.shoppingCartCache = this.firebase.shoppingCart;
     this.firebase.shoppingCart = []
   }

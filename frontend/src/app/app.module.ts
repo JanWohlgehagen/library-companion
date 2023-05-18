@@ -5,10 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAndRegistrationComponent } from './login-and-registration/login-and-registration.component';
-import {
-  AdminManageBooksComponent,
-  AdminManageBooksDialogComponent
-} from './admin-manage-books/admin-manage-books.component';
+import {  AdminManageBooksComponent,  AdminManageBooksDialogComponent} from './admin-manage-books/admin-manage-books.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserBrowseBooksComponent } from './user-browse-books/user-browse-books.component';
@@ -40,6 +37,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatListModule} from "@angular/material/list";
 import {MatChipsModule} from "@angular/material/chips";
+import { AboutUsComponent } from './about-us/about-us.component';
+import {GoogleMapsModule} from "@angular/google-maps";
+import {MatTableModule} from "@angular/material/table";
 
 
 
@@ -57,6 +57,7 @@ import {MatChipsModule} from "@angular/material/chips";
     RegistrationComponent,
     AdminManageBooksDialogComponent,
     RegistrationComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +87,9 @@ import {MatChipsModule} from "@angular/material/chips";
     MatAutocompleteModule,
     MatListModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    GoogleMapsModule,
+    MatTableModule
   ],
   providers: [MatSnackBar, Overlay, MatDialog],
   bootstrap: [AppComponent]

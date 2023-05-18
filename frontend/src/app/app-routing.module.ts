@@ -10,9 +10,10 @@ import {BookInfoComponent} from "./book-info/book-info.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {AuthguardService} from "../services/authguard.service";
 import {AuthguardAdminService} from "../services/authguard-admin.service";
+import {AboutUsComponent} from "./about-us/about-us.component";
 
 const routes: Routes = [
-  //{path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
+  {path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
   {path: 'login', component: LoginAndRegistrationComponent, title: 'Login'},
   {path: 'register', component: RegistrationComponent, title: 'Register'},
   {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books', canActivate:[AuthguardAdminService]},
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'user-dashboard/checkout', component: UserCheckoutComponent, title: 'Checkout', canActivate: [AuthguardService]},
   {path: 'user-dashboard/settings', component: UserSettingsComponent, title: 'Settings'},
   {path: 'book-info', component: BookInfoComponent, title: 'Book-info'},
-  //{path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
+  {path: 'about-us', component: AboutUsComponent, title: 'About-us'},
+  {path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
 
 ];
 
