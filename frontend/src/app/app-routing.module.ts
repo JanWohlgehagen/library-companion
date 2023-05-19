@@ -14,6 +14,7 @@ import {AboutUsComponent} from "./about-us/about-us.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 
 const routes: Routes = [
+  {path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
     {path: 'login',
       children:[
         {path: '', component: LoginComponent, title: 'Login'},
