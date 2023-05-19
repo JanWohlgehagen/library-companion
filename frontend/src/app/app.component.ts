@@ -35,7 +35,7 @@ export class AppComponent {
   }
 
   navigateToRegister() {
-    this.router.navigate(["register"])
+    this.router.navigate(["login/register"])
 
   }
 
@@ -85,7 +85,7 @@ export class AppComponent {
     }
      return this.firebaseservice.auth.currentUser && this.firebaseservice.loggedInUser.admin
   }
-  
+
   navigateToAboutUs() {
     this.router.navigate(["about-us"])
   }

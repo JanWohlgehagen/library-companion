@@ -224,9 +224,7 @@ export class FireService {
 
       let leaseDateTimeStamp: Date;
       if (b["leaseDate"]["seconds"]) {
-        console.log(b["leaseDate"]["seconds"])
         leaseDateTimeStamp = new Date(new firebase.firestore.Timestamp(b["leaseDate"]["seconds"], b["leaseDate"]["nanoseconds"]).toDate().toString())
-        console.log(leaseDateTimeStamp)
       } else {
         leaseDateTimeStamp = new Date(b["leaseDate"])
       }

@@ -14,18 +14,31 @@ import {AboutUsComponent} from "./about-us/about-us.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 
 const routes: Routes = [
-  {path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
-  {path: 'login', component: LoginComponent, title: 'Login'},
-  {path: 'register', component: RegistrationComponent, title: 'Register'},
-  {path: 'reset', component: ResetPasswordComponent, title: 'Reset',  canActivate: [AuthguardService]},
-  {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books', canActivate:[AuthguardAdminService]},
-  {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users', canActivate:[AuthguardAdminService]},
-  {path: 'user-dashboard/browse-books', component: UserBrowseBooksComponent, title: 'Browse Books'},
-  {path: 'user-dashboard/checkout', component: UserCheckoutComponent, title: 'Checkout', canActivate: [AuthguardService]},
-  {path: 'user-dashboard/settings', component: UserSettingsComponent, title: 'Settings'},
-  {path: 'book-info', component: BookInfoComponent, title: 'Book-info'},
-  {path: 'about-us', component: AboutUsComponent, title: 'About-us'},
-  {path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
+    {path: 'login',
+      children:[
+        {path: '', component: LoginComponent, title: 'Login'},
+        {path: 'register', component: RegistrationComponent, title: 'Register'},
+        {path: 'reset', component: ResetPasswordComponent, title: 'Reset',  canActivate: [AuthguardService]},
+      ]},
+
+    {path: 'admin-dashboard',
+      children:[
+        {path: 'manage-books', component: AdminManageBooksComponent, title: 'Manage Books', canActivate:[AuthguardAdminService]},
+        {path: 'manage-users', component: AdminManageUsersComponent, title: 'Manage Users', canActivate:[AuthguardAdminService]},
+      ]},
+
+    {path: 'user-dashboard',
+      children:[
+        {path: 'checkout',  component: UserCheckoutComponent, title: 'Checkout', canActivate: [AuthguardService]},
+        {path: 'settings', component: UserSettingsComponent, title: 'Settings'},
+        {path: 'browse-books', component: UserBrowseBooksComponent, title: 'Browse Books',
+          children:[
+            {path: 'book-info', component: BookInfoComponent, title: 'Book-info'}
+          ]},
+      ]},
+    {path: 'about-us', component: AboutUsComponent, title: 'About-us'},
+    //{path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
+
 
 ];
 
