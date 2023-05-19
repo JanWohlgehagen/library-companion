@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {ResolveFn, RouterModule, Routes} from '@angular/router';
-import {LoginAndRegistrationComponent} from "./login-and-registration/login-and-registration.component";
+import {LoginComponent} from "./login/login.component";
 import {AdminManageBooksComponent} from "./admin-manage-books/admin-manage-books.component";
 import {AdminManageUsersComponent} from "./admin-manage-users/admin-manage-users.component";
 import {UserBrowseBooksComponent} from "./user-browse-books/user-browse-books.component";
@@ -8,14 +8,16 @@ import {UserCheckoutComponent} from "./user-checkout/user-checkout.component";
 import {UserSettingsComponent} from "./user-settings/user-settings.component";
 import {BookInfoComponent} from "./book-info/book-info.component";
 import {RegistrationComponent} from "./registration/registration.component";
-import {AuthguardService} from "../services/authguard.service";
-import {AuthguardAdminService} from "../services/authguard-admin.service";
+import {AuthguardService} from "../services/Authguard/authguard.service";
+import {AuthguardAdminService} from "../services/Authguard/authguard-admin.service";
 import {AboutUsComponent} from "./about-us/about-us.component";
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 
 const routes: Routes = [
   {path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
-  {path: 'login', component: LoginAndRegistrationComponent, title: 'Login'},
+  {path: 'login', component: LoginComponent, title: 'Login'},
   {path: 'register', component: RegistrationComponent, title: 'Register'},
+  {path: 'reset', component: ResetPasswordComponent, title: 'Reset',  canActivate: [AuthguardService]},
   {path: 'admin-dashboard/manage-books', component: AdminManageBooksComponent, title: 'Manage Books', canActivate:[AuthguardAdminService]},
   {path: 'admin-dashboard/manage-users', component: AdminManageUsersComponent, title: 'Manage Users', canActivate:[AuthguardAdminService]},
   {path: 'user-dashboard/browse-books', component: UserBrowseBooksComponent, title: 'Browse Books'},

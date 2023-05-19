@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
-import {FireService} from "./fire.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FireService} from "../fire.service";
 
 @Injectable({
   providedIn: 'root'

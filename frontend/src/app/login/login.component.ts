@@ -2,17 +2,21 @@ import { Component } from '@angular/core';
 import {FireService} from "../../services/fire.service";
 
 @Component({
-  selector: 'app-login-and-registration',
-  templateUrl: './login-and-registration.component.html',
-  styleUrls: ['./login-and-registration.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class LoginAndRegistrationComponent {
+export class LoginComponent {
   email: any;
   password: any;
   checked: any;
 
 
   constructor(public firebaseservice: FireService ) {
+
+  }
+
+  resetPassword() {
 
   }
 }

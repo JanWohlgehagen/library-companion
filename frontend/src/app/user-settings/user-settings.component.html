@@ -31,26 +31,11 @@
     <div *ngIf="edit_email" class="grid-tile-save-email">
       <button (click)="edit_email_function(new_email)" class="edit-save-button" style="background-color: #00b278" mat-raised-button color="primary">Save</button>
     </div>
-
-    <div class="grid-tile-password-hidden">
-      <mat-form-field appearance="outline">
-        <mat-label>Current password</mat-label>
-        <input matInput [(ngModel)]="password_placeholder">
-      </mat-form-field>
-    </div>
-    <div *ngIf="edit_password" class="grid-tile-password-input">
-      <mat-form-field style="width: 100%" appearance="outline">
-        <mat-label>New password</mat-label>
-        <input matInput [(ngModel)]="new_password" type="password">
-      </mat-form-field>
-    </div>
     <div class="grid-tile-edit-password">
-      <button (click)="flip_password_state()" class="edit-save-button" mat-raised-button color="primary">Edit</button>
-      <button *ngIf="edit_password" (click)="flip_password_state()" class="edit-save-button" mat-raised-button color="warn">Cancel</button>
+      <button  mat-raised-button color="primary" routerLink="/reset">Reset Password</button>
     </div>
-    <div *ngIf="edit_password" class="grid-tile-save-password">
-      <button (click)="edit_password_function()" class="edit-save-button" style="background-color: #00b278" mat-raised-button color="primary">Save</button>
-    </div>
+
+
 
   </div> <!-- User settings div -->
   <div class="grid-wrapper">

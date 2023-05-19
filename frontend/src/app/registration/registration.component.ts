@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {FireService} from "../../services/fire.service";
-import {FormBuilder, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({

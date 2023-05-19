@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginAndRegistrationComponent } from './login-and-registration/login-and-registration.component';
+import { LoginComponent } from './login/login.component';
 import {  AdminManageBooksComponent,  AdminManageBooksDialogComponent} from './admin-manage-books/admin-manage-books.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
@@ -40,13 +40,14 @@ import {MatChipsModule} from "@angular/material/chips";
 import { AboutUsComponent } from './about-us/about-us.component';
 import {GoogleMapsModule} from "@angular/google-maps";
 import {MatTableModule} from "@angular/material/table";
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginAndRegistrationComponent,
+    LoginComponent,
     AdminManageBooksComponent,
     AdminManageUsersComponent,
     UserSettingsComponent,
@@ -58,6 +59,7 @@ import {MatTableModule} from "@angular/material/table";
     AdminManageBooksDialogComponent,
     RegistrationComponent,
     AboutUsComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
