@@ -35,19 +35,6 @@ export class UserSettingsComponent implements OnInit{
     this.edit_email = !this.edit_email
   }
 
-  async edit_password_function(){
-    console.log(this.new_password.valueOf())
-    await this.fireservice.update_password(this.new_password).then(() =>{
-      this.snack.open("password successfully updated.", "Close", {duration:3000})
-    }).catch(() => {
-      this.snack.open("Could not update password, try again.", "Close", {duration:3000})
-    })
-    this.flip_password_state()
-  }
-  flip_password_state() {
-    this.edit_password = !this.edit_password
-  }
-
   updateUserAvatar($event) {
     const img = $event.target.files[0];
     this.fireservice.updateUserAvatar(img)
