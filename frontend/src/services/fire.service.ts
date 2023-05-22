@@ -300,4 +300,8 @@ export class FireService {
     axios.delete(this.baseAxiosURL + "deleteUser", {data: {userId: userId}})
   }
 
+  sendMail(u: User, b: BorrowedBook) {
+    axios.post(this.baseAxiosURL + "sendMail", {user:u, borrowedBook: b})
+
+  }
 }
