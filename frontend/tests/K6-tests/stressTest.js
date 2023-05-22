@@ -5,14 +5,14 @@ export const options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse:false,
   stages: [
-    { duration: '2s', target: 100}, // below normal load
-    { duration: '5s', target: 100},
-    { duration: '2s', target: 200}, // normal load
-    { duration: '5s', target: 200},
-    { duration: '2s', target: 300}, // around the breaking point
-    { duration: '5s', target: 300},
-    { duration: '2s', target: 400}, // beyond the breaking point
-    { duration: '5s', target: 400},
+    { duration: '2s', target: 10}, // below normal load
+    { duration: '5s', target: 10},
+    { duration: '2s', target: 20}, // normal load
+    { duration: '5s', target: 20},
+    { duration: '2s', target: 30}, // around the breaking point
+    { duration: '5s', target: 30},
+    { duration: '2s', target: 40}, // beyond the breaking point
+    { duration: '5s', target: 40},
     { duration: '10s', target: 0} // scale down. Recovery stage.
   ],
   thresholds: {
