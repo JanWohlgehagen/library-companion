@@ -6,7 +6,7 @@ export const options = {
   noConnectionReuse:false,
   stages: [
     { duration: '1m', target: 10},
-    { duration: '2m', target: 10},
+    { duration: '1m', target: 10}, //5min
     { duration: '1m', target: 0}
   ],
   thresholds: {
