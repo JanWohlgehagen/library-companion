@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Loader} from "@googlemaps/js-api-loader"
-import {environment} from "../../environments/environment.development";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-about-us',

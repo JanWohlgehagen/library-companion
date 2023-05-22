@@ -33,7 +33,7 @@ app.put('/Avatar', validateFirebaseIdToken, async (req, res) => {
     var img = req.rawBody;
     var userid = req.headers.userid;
 
-    const bucket = admin.storage().bucket('gs://library-companion-1049c.appspot.com/');
+    const bucket = admin.storage().bucket('gs://library-companion-1049c.appspot.com');
     const file = bucket.file(`avatars/${userid}.jpg`)
     const stream = file.createWriteStream({
         resumable: false

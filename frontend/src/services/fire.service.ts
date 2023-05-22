@@ -4,6 +4,7 @@ import axios from "axios";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import {environment} from "../environments/environment";
 
 import * as config from '../../firebaseconfig.js';
 import {Book, BorrowedBook, User} from "../Types/types";
@@ -29,7 +30,7 @@ export class FireService {
   loggedInUser: User | any
 
 
-  baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
+  baseAxiosURL: string = `${environment.api_baseURL}`
 
   constructor(private router: Router, private matSnackbar: MatSnackBar) {
     this.firebaseApplication = firebase.initializeApp(config.firebaseConfig);
@@ -37,11 +38,10 @@ export class FireService {
     this.firestore = firebase.firestore();
     this.storage = firebase.storage();
 
-    this.firestore.useEmulator('localhost', 8081);
-    this.auth.useEmulator('http://localhost:9099');
-    this.storage.useEmulator('localhost', 9199);
+    //this.firestore.useEmulator('localhost', 8081);
+    //this.auth.useEmulator('http://localhost:9099');
+    //this.storage.useEmulator('localhost', 9199);
 
-    //this.books = mock.get_books(100)
     this.book = this.books[0]
     this.getUsers()
     this.getBooks()
