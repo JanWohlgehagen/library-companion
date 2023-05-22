@@ -14,6 +14,6 @@ export const options = {
 };
 
 export default () => {
-  let response = http.get("http://127.0.0.1:5001/library-companion-1049c/us-central1/api/books");
+  let response = http.get("http://localhost:8001/library-companion-1049c/us-central1/api/books");
   sleep(1);
 };
