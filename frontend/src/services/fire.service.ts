@@ -72,7 +72,6 @@ export class FireService {
 
   async getBooks() {
     await this.firestore.collection("Book").onSnapshot(snapshot => {
-
       snapshot.docChanges().forEach(change => {
         let book = this.convertJsonToBook(change.doc.id, change.doc.data())
         if (change.type == "added") {
@@ -87,6 +86,7 @@ export class FireService {
         }
       })
     })
+    this.cachedBooks = this.books;
   }
 
   async setUser() {

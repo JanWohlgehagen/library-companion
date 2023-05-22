@@ -59,6 +59,8 @@ export class SeedDataService {
     }
 
     await batch.commit()
+
+
     this.seedDataBooks()
 
   }
@@ -185,7 +187,7 @@ export class SeedDataService {
       { name: 'Fjodor Dostojevskij', id: Math.floor(Math.random() * 1000000).toString()},
     ];
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 100; i++) {
       let book: Book = {
         ISBN: Math.floor(Math.random() * 10000000000000),
         authors: [authors[Math.floor(Math.random() * authors.length)]],

@@ -17,7 +17,7 @@ app.use(cors());
 
 const validateFirebaseIdToken = async (req, res, next) => {
     try {
-        const token = req.headers?.authorization;
+        const token = req.headers?.Authorization;
         functions.logger.log(token)
         req.user = await admin.auth().verifyIdToken(token);
         return next();
