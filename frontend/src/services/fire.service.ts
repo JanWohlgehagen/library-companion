@@ -46,6 +46,14 @@ export class FireService {
     this.book = this.books[0]
     this.getUsers()
     this.getBooks()
+
+    if(!this.auth.currentUser){
+      this.loggedInUser = undefined
+      this.auth.signOut()
+    }
+
+
+
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.intercept();
@@ -56,10 +64,7 @@ export class FireService {
   async getUsers() {
     await this.firestore.collection("User").onSnapshot(snapshot => {
       snapshot.docChanges().forEach(changes => {
-        const storage = firebase.storage();
-        const pathReference = storage.ref('avatars').child(changes.doc.id + '.jpg').getDownloadURL()
-
-        let user = this.convertJsonToUser(changes.doc.id, changes.doc.data(), pathReference)
+        let user = this.convertJsonToUser(changes.doc.id, changes.doc.data())
         if (changes.type == "added") {
           this.users.push(user);
         }
@@ -69,6 +74,11 @@ export class FireService {
         }
         if (changes.type == "removed") {
           this.users = this.users.filter(ussr => ussr.id != user.id);
+        }
+        if (changes.doc.id == this.auth.currentUser?.uid){
+          const storage = firebase.storage();
+          const pathReference = storage.ref('avatars').child(changes.doc.id + '.jpg').getDownloadURL()
+          this.loggedInUser.imageUrl = pathReference;
         }
       })
     })
@@ -93,11 +103,12 @@ export class FireService {
     })
   }
 
-  async setUser() {
-    await this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then(async (result) => {
+  setUser() {
+    this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then(async (result) => {
         const storage = firebase.storage();
+        this.loggedInUser = this.convertJsonToUser(result.id, result.data())
         const pathReference = await storage.ref('avatars').child( result.id + '.jpg').getDownloadURL()
-        this.loggedInUser = this.convertJsonToUser(result.id, result.data(), pathReference)
+        this.loggedInUser.imageUrl = pathReference
       }
     )
 
@@ -162,7 +173,6 @@ export class FireService {
       const storage = firebase.storage();
       storage.ref('avatars/' + this.loggedInUser.id + '.jpg').getDownloadURL().then((url) => {
         this.loggedInUser.imageUrl = url
-        console.log(url)
       });
     }).catch(err => {
       console.log(err)
@@ -225,7 +235,7 @@ export class FireService {
     this.shoppingCartCache = []
   }
 
-  private convertJsonToUser(id, data, downloadURL): User {
+  private convertJsonToUser(id, data): User {
     let books: Book[] = data["books"]
     let borrowedBooks: BorrowedBook[] = []
     books.forEach(b => {
@@ -259,7 +269,7 @@ export class FireService {
       id: id,
       name: data["name"],
       admin: data["admin"],
-      imageUrl: downloadURL,
+      imageUrl: "",
       joinDate: data["joinDate"],
       email: data["email"],
       books: borrowedBooks

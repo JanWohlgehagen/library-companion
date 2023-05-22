@@ -12,6 +12,7 @@ export class AuthguardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if(this.fireservice.auth.currentUser === null){
+      this.fireservice.sign_out()
       this.router.navigate(["/login"])
       return false
     }

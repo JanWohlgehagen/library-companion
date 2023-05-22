@@ -31,7 +31,7 @@ const routes: Routes = [
     {path: 'user-dashboard',
       children:[
         {path: 'checkout',  component: UserCheckoutComponent, title: 'Checkout', canActivate: [AuthguardService]},
-        {path: 'settings', component: UserSettingsComponent, title: 'Settings'},
+        {path: 'settings', component: UserSettingsComponent, title: 'Settings', canActivate: [AuthguardService]},
         {path: 'browse-books', component: UserBrowseBooksComponent, title: 'Browse Books',
           children:[
             {path: 'book-info', component: BookInfoComponent, title: 'Book-info'}
