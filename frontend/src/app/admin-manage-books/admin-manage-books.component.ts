@@ -197,7 +197,6 @@ export class AdminManageBooksComponent implements OnInit {
     this.displayTitle(book)
     this.loadBookDetails(book)
 
-    // this.fireservice.updateBook(book) //todo skal laves - this.book skal opdateres
     this.fireService.updateBook(book)
 
     // possible check before showing message, and show error message if, if statement returns false.
@@ -252,36 +251,36 @@ export class AdminManageBooksComponent implements OnInit {
     const dialogRef = this.dialog.open(AdminManageBooksDialogComponent, {
       data: {name: this.name},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async result => {
       if(result.cancel) {
+        close()
       }
       if (result.clearAll) {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
-        this.fireService.createBook(this.book)
-        console.log("component this.book.id after creating = " + this.book.id + " <<")
-        this.fireService.books.push(this.book)
-
-        this.filterBooks()
-        this.loadBookDetails(this.book)
-        this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+        await this.newBookButtonMethods()
 
         console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.fireService.books.length)
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
-      }
+        }
       if (result.copyBook) {
         this.addNewCopiedBook()
-        this.fireService.createBook(this.book)
-        this.fireService.books.push(this.book)
-
-        this.filterBooks()
-        this.loadBookDetails(this.book)
-        this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+        await this.newBookButtonMethods()
 
         console.log("Made a copy of current book - this is the new number of books: " + this.fireService.books.length)
         this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
       }
     });
+  }
+
+  async newBookButtonMethods() {
+    const id = (await this.fireService.createBook(this.book)).data;
+    this.fireService.books.push(this.book)
+
+    this.book.id = id;
+    this.filterBooks()
+    this.loadBookDetails(this.book)
+    this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
   }
 
   deleteAuthorBtn(a: Author) {
@@ -330,7 +329,7 @@ export class AdminManageBooksDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
 
-  onNoClick(): void {
+  cancelClick(): void {
     this.dialogRef.close({cancel: "cancel"});
   }
 

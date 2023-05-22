@@ -95,8 +95,6 @@ app.post("/createBook", validateFirebaseIdToken, async (req, res) => {
                 .update({
                     id: doc._resourcePath.id
                 })
-    console.log("doc.resourcePath.id = ")
-    console.log(doc._resourcePath.id)
     res.send(doc._resourcePath.id)
 })
 
@@ -113,8 +111,7 @@ try {
 
 app.put("/updateBook", validateFirebaseIdToken, async (req, res) => {
     let book = req.body.book
-    console.log("book = ")
-    console.log(book)
+    console.log("book = " + book)
     try {
         const updateResult = await admin.firestore().collection("Book").doc(book.id).set(book);
         return res.json(updateResult)

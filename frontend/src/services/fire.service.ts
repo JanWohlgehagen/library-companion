@@ -167,16 +167,13 @@ export class FireService {
     })
   }
 
-  createBook(book) {
-    axios.post(this.baseAxiosURL + "createBook", book, {
-      }
-    ).then(success => {
-      console.log("success data = ")
-      console.log(success.data)
-      this.book.id = success.data
-    }).catch(err => {
-      console.log(err)
-    })
+  async createBook(book){
+    return ( axios.post<string>(this.baseAxiosURL + "createBook", book, {}))
+
+    /*console.log("success data = ")
+    console.log(success.data)
+    this.book.id = success.data*/
+
   }
 
   deleteBook(bookId) {
@@ -193,8 +190,8 @@ export class FireService {
       .then(() => {
         console.log("this book was updated: " + book.name)
       }).catch((error) => {
-      console.log(error)
-    })
+        console.log(error)
+      })
   }
 
 
@@ -237,7 +234,7 @@ export class FireService {
       let Borrowedbook: BorrowedBook = {
         book: book,
         leaseDate: new Date(leaseDateTimeStamp),
-        dueDate: new Date( dueDateTimeStamp),
+        dueDate: new Date(dueDateTimeStamp),
         overDue: b["overDue"]
 
       }
@@ -306,7 +303,7 @@ export class FireService {
   }
 
   sendMail(u: User, b: BorrowedBook) {
-    axios.post(this.baseAxiosURL + "sendMail", {user:u, borrowedBook: b})
+    axios.post(this.baseAxiosURL + "sendMail", {user: u, borrowedBook: b})
 
   }
 }
