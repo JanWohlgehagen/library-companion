@@ -51,10 +51,10 @@ pipeline {
                         }
                         stage("Run K6 tests")
                         {
-                        steps{
-                            sh "k6 run /var/lib/jenkins/workspace/frontend/tests/K6-tests/loadTest.js"
-                            sh "k6 run /var/lib/jenkins/workspace/frontend/tests/K6-tests/stressTest.js"
-                        }
+                            steps{
+                                sh "k6 run frontend/tests/K6-tests/loadTest.js"
+                                sh "k6 run frontend/tests/K6-tests/stressTest.js"
+                            }
                         }
                         stage("Take down containers") {
                             steps {
