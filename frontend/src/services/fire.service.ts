@@ -306,4 +306,17 @@ export class FireService {
     axios.post(this.baseAxiosURL + "sendMail", {user: u, borrowedBook: b})
 
   }
+
+  updateBookImage(img: any) {
+    /*axios.put(this.baseAxiosURL + 'bookImage', img, {
+      headers: {
+        'Content-Type': img.type,
+        userid: this.auth.currentUser?.uid
+      }
+    }).then(success => {
+      this.loggedInUser.imageUrl = success.data
+    }).catch(err => {
+      console.log(err)
+    })*/
+  }
 }

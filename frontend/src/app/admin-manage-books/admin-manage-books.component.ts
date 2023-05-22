@@ -9,16 +9,14 @@ import {DateAdapter} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FireService} from "../../services/fire.service";
+import firebase from "firebase/compat";
+import firestore = firebase.firestore;
 
 
 export interface Tag {
   name: string;
 }
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-admin-manage-books',
@@ -249,25 +247,23 @@ export class AdminManageBooksComponent implements OnInit {
 
   addNewBookBtn(): void {
     const dialogRef = this.dialog.open(AdminManageBooksDialogComponent, {
-      data: {name: this.name},
+      data: {name: this.fireService.loggedInUser.name},
     });
     dialogRef.afterClosed().subscribe(async result => {
       if(result.cancel) {
-        close()
+        this.dialog.closeAll()
       }
       if (result.clearAll) {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
         await this.newBookButtonMethods()
 
-        console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.fireService.books.length)
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
         }
       if (result.copyBook) {
         this.addNewCopiedBook()
         await this.newBookButtonMethods()
 
-        console.log("Made a copy of current book - this is the new number of books: " + this.fireService.books.length)
         this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
       }
     });
@@ -311,11 +307,13 @@ export class AdminManageBooksComponent implements OnInit {
     }
   }
 
+  updateBookImage($event) {
+    const img = $event.target.files[0];
+    this.fireService.updateBookImage(img)
+  }
 
 
 }
-
-
 
 @Component({
   selector: 'app-admin-manage-books',
@@ -324,10 +322,13 @@ export class AdminManageBooksComponent implements OnInit {
 export class AdminManageBooksDialogComponent {
 
 
-  constructor(
+  constructor(public fireService: FireService,
     public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: FireService,
+  ) {
+    console.log(data.loggedInUser)
+    console.log(fireService.loggedInUser)
+  }
 
   cancelClick(): void {
     this.dialogRef.close({cancel: "cancel"});

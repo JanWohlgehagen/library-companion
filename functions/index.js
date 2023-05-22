@@ -169,3 +169,24 @@ app.get("books", (req, res) => {
     })
     res.send(books)
 })
+
+/*app.put('/bookImage', validateFirebaseIdToken, async (req, res) => {
+    const img = req.rawBody;
+
+    const bucket = admin.storage().bucket('gs://library-companion-1049c.appspot.com/');
+    const file = bucket.file(`avatars/${userid}.jpg`)
+    const stream = file.createWriteStream({
+        resumable: false
+    });
+
+    stream.write(Buffer.from(img));
+    stream.end();
+
+    const [uploadResult] = await file.getMetadata();
+
+    await admin.firestore().collection('Book').doc(bookid)
+        .update({
+            imageUrl: uploadResult.mediaLink
+        })
+    res.send(uploadResult.mediaLink)
+})*/

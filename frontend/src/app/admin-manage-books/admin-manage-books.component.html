@@ -31,7 +31,8 @@
           </form>
         </div>
         <div class="bookPicture" style="float: right; width: 90px; height: 98px; box-sizing: border-box; padding: 10px; margin-right: 1vw">
-          <img style="max-height: 80px; min-height: 80px" [src]="inputPicture" ngDefaultControl [(ngModel)]="inputPicture">
+          <img (click)="img_upload.click()" style="max-height: 80px; min-height: 80px" [src]="inputPicture" ngDefaultControl [(ngModel)]="inputPicture">
+          <input #img_upload hidden type="file" (change)="updateBookImage($event)">
         </div>
       </div>
       <div class="middleSectionInner" style="float: right; width: auto; height: auto">
