@@ -43,7 +43,7 @@ export class AboutUsComponent implements OnInit{
   }
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: DaysAndHours[] = [
   {day: "Bank holidays", hours: 'May vary'},
   {day: "Monday", hours: '08-22'},
   {day: "Tuesday", hours: '08-22'},
@@ -51,11 +51,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {day: "Thursday", hours: '08-22'},
   {day: "Friday", hours: '08-18'},
   {day: "Saturday", hours: '10-18'},
-  {day: "sunday", hours: '10-18'},
+  {day: "Sunday", hours: '10-18'},
 
 
 ];
-export interface PeriodicElement {
+export interface DaysAndHours {
   day: string;
   hours: string;
 }
