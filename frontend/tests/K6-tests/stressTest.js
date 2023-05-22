@@ -5,15 +5,9 @@ export const options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse:false,
   stages: [
-    { duration: '2s', target: 100}, // below normal load
-    { duration: '5s', target: 100},
-    { duration: '2s', target: 200}, // normal load
-    { duration: '5s', target: 200},
-    { duration: '2s', target: 300}, // around the breaking point
-    { duration: '5s', target: 300},
-    { duration: '2s', target: 400}, // beyond the breaking point
-    { duration: '5s', target: 400},
-    { duration: '10s', target: 0} // scale down. Recovery stage.
+    { duration: '1m', target: 40}, // Ramp up to 40 - "high load"
+    { duration: '10m', target: 40}, // Stay at high load for 30 min
+    { duration: '1m', target: 40} // scale down. Recovery stage.
   ],
   thresholds: {
     http_req_failed: ['rate<0.01'],
