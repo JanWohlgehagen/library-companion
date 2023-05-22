@@ -169,9 +169,14 @@ export class FireService {
 
   createBook(book) {
     axios.post(this.baseAxiosURL + "createBook", book, {
-        //todo error handling
       }
-    )
+    ).then(success => {
+      console.log("success data = ")
+      console.log(success.data)
+      this.book.id = success.data
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   deleteBook(bookId) {

@@ -1,7 +1,7 @@
 <div class="main" style="overflow: auto; width: auto; display: block; height: 92.7%">
 
 
-  <div class="manageBooks" style="float: left; width: 100vw; height: 100%; box-sizing: border-box; padding: 10px; overflow-y: auto; background-color: lightgrey">
+  <div class="manageBooks" style="float: left; width: 100vw; height: 100%; box-sizing: border-box; padding: 10px; overflow-y: auto">
     <div class="manageBooksInner" style="float: left; width: auto; height: auto; box-sizing: border-box; padding: 10px">
       <div class="topBarInner" style="float: left; width: 100%; height: auto; box-sizing: border-box; padding: 10px">
         <h1 class="manageBooksText" style="float: left">
@@ -40,7 +40,7 @@
             <div style="float: left; width: auto">
               <mat-form-field class="titleInputField" appearance="fill" style="margin-inline: 5px; width: auto; min-width: 20vw">
                 <mat-label>Title</mat-label>
-                <input ngDefaultControl [(ngModel)]="inputTitleText" type="text" matInput required style="width: auto">
+                <input ngDefaultControl [(ngModel)]="inputTitleText" type="text" matInput required style="width: 100vw">
                 <mat-error *ngIf="inputTitleText==null">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill" style="margin-inline: 5px; width: 40%; min-width: 160px; height: 40%; min-height: 20px;">
@@ -136,7 +136,7 @@
       </div>
       <div class="bottomSectionInner" style="float: left; width: 100%; height: 100%">
         <div class="bottomSectionInnerRight" style="float: right; width: auto; height: auto; box-sizing: border-box; padding: 10px">
-          <button (click)="saveBookBtn(saveBook)" mat-raised-button class="saveBookBtn" style="background-color: #03e179; float: right; width: auto; height: 56px; margin-inline: 5px">
+          <button (click)="saveBookBtn(book)" mat-raised-button class="saveBookBtn" style="background-color: #03e179; float: right; width: auto; height: 56px; margin-inline: 5px">
             Save
           </button>
         </div>

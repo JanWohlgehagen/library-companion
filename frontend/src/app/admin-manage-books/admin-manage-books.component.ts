@@ -45,13 +45,11 @@ export class AdminManageBooksComponent implements OnInit {
   inputLiteraryText: string = "";
   inputPicture?: string = ""
   inputTagText: string[] | any = [];
-  saveBook: Book | any;
   book: Book | any; //empty book
-
   name: string | undefined;
 
 
-  constructor(public fireservice: FireService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
+  constructor(public fireService: FireService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
               private _snackBar: MatSnackBar) {
     this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
     if (this.inputAuthorText.length == 0) {
@@ -99,7 +97,7 @@ export class AdminManageBooksComponent implements OnInit {
 
   private _filterSearch(name: string): Book[] {
     const search = name.toString().toLowerCase();
-    return this.fireservice.books.filter(f => f.title.toLowerCase().includes(search) ||
+    return this.fireService.books.filter(f => f.title.toLowerCase().includes(search) ||
       f.ISBN.toString().includes(name) || this.checkAuthorName(search, f)
     );
   }
@@ -144,7 +142,6 @@ export class AdminManageBooksComponent implements OnInit {
 
   loadBookDetails(book: Book) {
     this.book = book;
-    this.saveBook = book
     this.inputTitleText = book.title
 
     this.inputAuthorText = []
@@ -180,7 +177,6 @@ export class AdminManageBooksComponent implements OnInit {
 
   saveBookBtn(book: Book) {
     this.book = book;
-    this.saveBook = book
     book.title = this.inputTitleText
     book.authors = this.inputAuthorText
     book.releaseYear = this.inputReleaseYear
@@ -202,7 +198,7 @@ export class AdminManageBooksComponent implements OnInit {
     this.loadBookDetails(book)
 
     // this.fireservice.updateBook(book) //todo skal laves - this.book skal opdateres
-    this.fireservice.updateBook(book)
+    this.fireService.updateBook(book)
 
     // possible check before showing message, and show error message if, if statement returns false.
     this._snackBar.open("Book has been saved", "X", {"duration": 8000})
@@ -212,7 +208,7 @@ export class AdminManageBooksComponent implements OnInit {
     this.filteredBooks = this.bookControl.valueChanges.pipe(
       startWith(null),
       map(
-        (book: string | null) => (book ? this._filterSearch(book) : this.fireservice.books.slice())),);
+        (book: string | null) => (book ? this._filterSearch(book) : this.fireService.books.slice())),);
   }
 
   clearBookDetails() {
@@ -249,14 +245,6 @@ export class AdminManageBooksComponent implements OnInit {
       id: "",
       title: this.inputTitleText
     }
-
-    this.fireservice.createBook(this.book)
-    this.fireservice.books.push(this.book)
-    this.filterBooks()
-    this.loadBookDetails(this.book)
-    this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
-
-    console.log("Made a copy of current book - this is the new number of books: " + this.fireservice.books.length)
   }
 
 
@@ -270,17 +258,27 @@ export class AdminManageBooksComponent implements OnInit {
       if (result.clearAll) {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
-        this.fireservice.createBook(this.book)
-        this.fireservice.books.push(this.book)
+        this.fireService.createBook(this.book)
+        console.log("component this.book.id after creating = " + this.book.id + " <<")
+        this.fireService.books.push(this.book)
+
         this.filterBooks()
         this.loadBookDetails(this.book)
         this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
 
-        console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.fireservice.books.length)
+        console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.fireService.books.length)
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
       }
       if (result.copyBook) {
         this.addNewCopiedBook()
+        this.fireService.createBook(this.book)
+        this.fireService.books.push(this.book)
+
+        this.filterBooks()
+        this.loadBookDetails(this.book)
+        this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+
+        console.log("Made a copy of current book - this is the new number of books: " + this.fireService.books.length)
         this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
       }
     });
@@ -302,7 +300,7 @@ export class AdminManageBooksComponent implements OnInit {
 
   deleteBookBtn() {
     if (confirm("Are you sure you want to delete this book?")) {
-      this.fireservice.deleteBook(this.book.id)
+      this.fireService.deleteBook(this.book.id)
       this.filterBooks()
       this.bookControl.setValue(null)
       this.clearBookDetails()
