@@ -285,7 +285,6 @@ export class FireService {
     }
 
     return book;
-
   }
 
   updateBorrowedBookOnUser(u: User) {
@@ -298,6 +297,17 @@ export class FireService {
   deleteUser(u: User) {
     let userId = u.id
     axios.delete(this.baseAxiosURL + "deleteUser", {data: {userId: userId}})
+  }
+
+  forgotPassword(Email:string){
+
+    let user = this.firestore.collection("User").where("email", "==", Email)
+      .get()
+      .then(value => value.docs[0].data())
+
+    if(user != undefined){
+      axios.post(this.baseAxiosURL +)
+    }
   }
 
 }

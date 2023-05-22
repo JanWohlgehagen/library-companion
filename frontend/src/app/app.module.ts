@@ -41,6 +41,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import {GoogleMapsModule} from "@angular/google-maps";
 import {MatTableModule} from "@angular/material/table";
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -60,6 +61,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RegistrationComponent,
     AboutUsComponent,
     ResetPasswordComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

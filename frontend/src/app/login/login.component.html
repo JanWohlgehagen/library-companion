@@ -13,7 +13,7 @@
         <mat-checkbox [(ngModel)]="checked"> Remember Me </mat-checkbox>
       </mat-card-actions>
       <mat-card-actions align="end" style="float: bottom">
-        <button mat-button>Forgot Password?</button>
+        <button mat-button routerLink="/login/forgot-password">Forgot Password?</button>
       </mat-card-actions>
       <mat-card-actions>
         <button mat-raised-button (click)="firebaseservice.login(email, password)" style="background-color: #03e179; width: 200vh; border-radius: 30px " id="login-loginBtn">Login</button>

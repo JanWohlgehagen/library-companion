@@ -12,6 +12,7 @@ import {AuthguardService} from "../services/Authguard/authguard.service";
 import {AuthguardAdminService} from "../services/Authguard/authguard-admin.service";
 import {AboutUsComponent} from "./about-us/about-us.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 
 const routes: Routes = [
   {path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
@@ -20,6 +21,7 @@ const routes: Routes = [
         {path: '', component: LoginComponent, title: 'Login'},
         {path: 'register', component: RegistrationComponent, title: 'Register'},
         {path: 'reset', component: ResetPasswordComponent, title: 'Reset',  canActivate: [AuthguardService]},
+        {path: 'forgot-password', component: ForgotPasswordComponent, title: 'ForgotPassword'},
       ]},
 
     {path: 'admin-dashboard',
