@@ -20,7 +20,6 @@ export class UserBrowseBooksComponent{
   public searchText: string = '';
 
 
-
   constructor( public firebaseservice: FireService, private router : Router, private snack: MatSnackBar) {
     this.books = firebaseservice.books;
     this.books_cache = firebaseservice.cachedBooks;

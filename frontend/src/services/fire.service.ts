@@ -310,4 +310,8 @@ export class FireService {
     }
   }
 
+  sendMail(u: User, b: BorrowedBook) {
+    axios.post(this.baseAxiosURL + "sendMail", {user:u, borrowedBook: b})
+
+  }
 }

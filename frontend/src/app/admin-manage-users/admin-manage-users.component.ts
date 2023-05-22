@@ -4,6 +4,7 @@ import {BorrowedBook, User} from "../../Types/types"
 import {FormControl} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs"
 import {FireService} from "../../services/fire.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class AdminManageUsersComponent {
   formControl= new FormControl('');
 
 
-  constructor( public fireService : FireService) {
+  constructor( public fireService : FireService, private snackback : MatSnackBar) {
     this.getUsers()
     console.log(this.Users)
 
@@ -55,7 +56,8 @@ export class AdminManageUsersComponent {
   }
 
   sendMail(u: User, b: BorrowedBook) {
-
+    this.fireService.sendMail(u,b)
+    this.snackback.open("You've sent a mail to: " + u.name, "Ok", {duration : 3000})
   }
 
   MoveForward() {
