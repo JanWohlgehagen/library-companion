@@ -147,7 +147,7 @@ app.post("/sendMail", validateFirebaseIdToken, (req, res ) => {
     }
 })
 
-app.get("books", (req, res) => {
+app.get("/books", (req, res) => {
     let books = []
     admin.firestore().collection("Book").onSnapshot(snapshot => {
 
