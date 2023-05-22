@@ -33,7 +33,7 @@ app.put('/Avatar', validateFirebaseIdToken, async (req, res) => {
     var img = req.rawBody;
     var userid = req.headers.userid;
 
-    const bucket = admin.storage().bucket('gs://library-companion-1049c.appspot.com');
+    const bucket = admin.storage().bucket('gs://library-companion-1049c.appspot.com/');
     const file = bucket.file(`avatars/${userid}.jpg`)
     const stream = file.createWriteStream({
         resumable: false
@@ -41,14 +41,7 @@ app.put('/Avatar', validateFirebaseIdToken, async (req, res) => {
 
     stream.write(Buffer.from(img));
     stream.end();
-
-    const [uploadResult] = await file.getMetadata();
-
-    await admin.firestore().collection('User').doc(userid)
-        .update({
-            imageUrl: uploadResult.mediaLink
-        })
-    res.send(uploadResult.mediaLink)
+    res.send()
 })
 
 app.put('/Email', async (req, res) => {

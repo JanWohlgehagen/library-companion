@@ -10,6 +10,7 @@ import * as config from '../../firebaseconfig.js';
 import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {delay} from "rxjs";
 
 
 @Injectable({
@@ -55,7 +56,10 @@ export class FireService {
   async getUsers() {
     await this.firestore.collection("User").onSnapshot(snapshot => {
       snapshot.docChanges().forEach(changes => {
-        let user = this.convertJsonToUser(changes.doc.id, changes.doc.data())
+        const storage = firebase.storage();
+        const pathReference = storage.ref('avatars').child(changes.doc.id + '.jpg').getDownloadURL()
+
+        let user = this.convertJsonToUser(changes.doc.id, changes.doc.data(), pathReference)
         if (changes.type == "added") {
           this.users.push(user);
         }
@@ -90,8 +94,10 @@ export class FireService {
   }
 
   async setUser() {
-    await this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then((result) => {
-        this.loggedInUser = this.convertJsonToUser(result.id, result.data())
+    await this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then(async (result) => {
+        const storage = firebase.storage();
+        const pathReference = await storage.ref('avatars').child( result.id + '.jpg').getDownloadURL()
+        this.loggedInUser = this.convertJsonToUser(result.id, result.data(), pathReference)
       }
     )
 
@@ -145,17 +151,26 @@ export class FireService {
 
   }
 
-  updateUserAvatar(img) {
+  async updateUserAvatar(img) {
     axios.put(this.baseAxiosURL + 'Avatar', img, {
       headers: {
         'Content-Type': img.type,
         userid: this.auth.currentUser?.uid
       }
-    }).then(success => {
-      this.loggedInUser.imageUrl = success.data
+    }).then(async success => {
+      await this.delay(3500) // to let the storage cloud catch up
+      const storage = firebase.storage();
+      storage.ref('avatars/' + this.loggedInUser.id + '.jpg').getDownloadURL().then((url) => {
+        this.loggedInUser.imageUrl = url
+        console.log(url)
+      });
     }).catch(err => {
       console.log(err)
     })
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   updateUserEmail(new_email: string) {
@@ -210,7 +225,7 @@ export class FireService {
     this.shoppingCartCache = []
   }
 
-  private convertJsonToUser(id, data): User {
+  private convertJsonToUser(id, data, downloadURL): User {
     let books: Book[] = data["books"]
     let borrowedBooks: BorrowedBook[] = []
     books.forEach(b => {
@@ -232,18 +247,19 @@ export class FireService {
       let Borrowedbook: BorrowedBook = {
         book: book,
         leaseDate: new Date(leaseDateTimeStamp),
-        dueDate: new Date( dueDateTimeStamp),
+        dueDate: new Date(dueDateTimeStamp),
         overDue: b["overDue"]
 
       }
       borrowedBooks.push(Borrowedbook)
     })
 
+
     let user: User = {
       id: id,
       name: data["name"],
       admin: data["admin"],
-      imageUrl: data["imageUrl"],
+      imageUrl: downloadURL,
       joinDate: data["joinDate"],
       email: data["email"],
       books: borrowedBooks

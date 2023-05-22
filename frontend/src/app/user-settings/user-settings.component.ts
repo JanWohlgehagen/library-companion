@@ -12,16 +12,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class UserSettingsComponent implements OnInit{
   public user: User | any;
   public edit_email: boolean = false;
-  public edit_password: boolean = false;
   public new_email: string = '';
-  public new_password: string = '';
-  public password_placeholder: string = '* * * * * * * * * * * *';
 
   constructor(public fireservice: FireService, private snack: MatSnackBar) {
    }
 
   async edit_email_function(new_email: string){
-    console.log(this.new_email.valueOf())
     await this.fireservice.update_email(this.new_email).then(() =>{
       this.fireservice.updateUserEmail(new_email);
       this.snack.open("password successfully updated.", "Close", {duration:3000})
@@ -43,6 +39,5 @@ export class UserSettingsComponent implements OnInit{
   ngOnInit(): void {
     this.user = this.fireservice.loggedInUser;
     this.user?.books?.sort((book_a, book_b) => (book_a.overDue < book_b.overDue) ? 1 : -1)
-    console.log(this.user.books)
   }
 }
