@@ -26,7 +26,7 @@ export class SeedDataService {
 
   }
 
-  async seedDataToAuth() {
+  async seedData() {
     let book = this.mock.get_books(1)[0];
     let b : BorrowedBook = {
       book:book,
@@ -146,6 +146,28 @@ export class SeedDataService {
 
     ]
 
+    const images = [
+      "https://images-eu.bookshop.org/images/9781594743061.jpg?height=500&v=v4-c2fea925da6180c3472476dd74ebb988",
+      "https://i.guim.co.uk/img/media/af1ea48f1eeaab4300691b35f585d326e6ed24bb/0_0_784_1200/master/784.jpg?width=700&quality=85&auto=format&fit=max&s=07b76b55b36cf2f0b56086c33d9e2763",
+      "https://cdn.cp.adobe.io/content/2/rendition/fa6be485-e39a-4659-ad7a-c1fc16c9d8ec/artwork/947753ed-108c-4c4a-812e-c03b252058d0/version/0/format/jpg/dimension/width/size/400",
+      "https://miblart.com/wp-content/uploads/2020/12/october-illustration-6-768x1152.jpg",
+      "https://bukovero.com/wp-content/uploads/2016/07/Harry_Potter_and_the_Cursed_Child_Special_Rehearsal_Edition_Book_Cover.jpg",
+      "https://rivetedlit.b-cdn.net/wp-content/uploads/2020/01/all-this-time-9781534466340_xlg.jpg",
+      "https://d4804za1f1gw.cloudfront.net/wp-content/uploads/sites/5/2021/11/97801437748531.jpg",
+      "https://cdn.vox-cdn.com/thumbor/p-gGrwlaU4rLikEAgYhupMUhIJc=/0x0:1650x2475/1200x0/filters:focal(0x0:1650x2475):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/13757614/817BsplxI9L.jpg",
+      "https://images.penguinrandomhouse.com/cover/9780593230985",
+      "https://www.creativeparamita.com/wp-content/uploads/2021/01/The-Girl-Who-Never-1.jpg",
+      "https://images.penguinrandomhouse.com/cover/9780593230985",
+      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-business-leadership-book-cover-design-template-dce2f5568638ad4643ccb9e725e5d6ff.jpg?ts=1637017516",
+      "https://cdn.myportfolio.com/560d16623f9c2df9615744dfab551b3d/e50c016f-b6a8-4666-8fb8-fe6bd5fd9fec_rw_1920.jpeg?h=dc627898fc5eac88aa791fb2b124ecbd",
+      "https://images.penguinrandomhouse.com/cover/9780593548042",
+      "https://static01.nyt.com/images/2014/02/05/books/05before-and-after-slide-T6H2/05before-and-after-slide-T6H2-superJumbo.jpg?quality=75&auto=webp&disable=upscale",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnT0SsPdWeMiz0br1Z6eETDeVA-fvhCvclmA&usqp=CAU",
+      "https://marketplace.canva.com/EAFbLYNYfow/1/0/501w/canva-wst-colorful-illustration-young-adult-book-cover-r-0QRjPlFP8.jpg",
+      "https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzI1NDA0NDIx/image-placeholder-title.jpg",
+      "https://thebooksatchel.com/wp-content/uploads/2020/07/follow-me-to-the-ground.jpg"
+    ]
+
     const authors = [
       { name: 'H. C. Andersen', id: Math.floor(Math.random() * 1000000).toString()},
       { name: 'Stephen Kind', id: Math.floor(Math.random() * 1000000).toString()},
@@ -171,7 +193,7 @@ export class SeedDataService {
         description: description[Math.floor(Math.random() * description.length)].description,
         edition: Math.floor(Math.random() * 10) + 1,
         id: Math.floor(Math.random() * 1000000).toString(),
-        imageUrl: 'https://images-eu.bookshop.org/images/9781594743061.jpg?height=500&v=v4-c2fea925da6180c3472476dd74ebb988',
+        imageUrl: images[Math.floor(Math.random() * images.length)],
         language: [languages[Math.floor(Math.random() * languages.length)]],
         literaryType: literary_type[Math.floor(Math.random() * literary_type.length)],
         lix: Math.floor(Math.random() * 100),
