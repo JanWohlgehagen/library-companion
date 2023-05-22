@@ -243,12 +243,10 @@ export class FireService {
       id: id,
       name: data["name"],
       admin: data["admin"],
-      imageUrl: data["admin"],
+      imageUrl: data["imageUrl"],
       joinDate: data["joinDate"],
       email: data["email"],
       books: borrowedBooks
-
-
     }
     return user
   }
