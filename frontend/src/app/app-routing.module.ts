@@ -31,14 +31,14 @@ const routes: Routes = [
     {path: 'user-dashboard',
       children:[
         {path: 'checkout',  component: UserCheckoutComponent, title: 'Checkout', canActivate: [AuthguardService]},
-        {path: 'settings', component: UserSettingsComponent, title: 'Settings'},
-        {path: 'browse-books', component: UserBrowseBooksComponent, title: 'Browse Books',
+        {path: 'settings', component: UserSettingsComponent, title: 'Settings', canActivate: [AuthguardService]},
+        {path: 'browse-books',
           children:[
+            {path: '', component: UserBrowseBooksComponent, title: 'Browse Books'},
             {path: 'book-info', component: BookInfoComponent, title: 'Book-info'}
           ]},
       ]},
-    {path: 'about-us', component: AboutUsComponent, title: 'About-us'},
-    //{path: '**', component: UserBrowseBooksComponent, title: 'Browse Books'}
+    {path: 'about-us', component: AboutUsComponent, title: 'About-us'}
 
 
 ];

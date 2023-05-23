@@ -12,16 +12,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class UserSettingsComponent implements OnInit{
   public user: User | any;
   public edit_email: boolean = false;
-  public edit_password: boolean = false;
   public new_email: string = '';
-  public new_password: string = '';
-  public password_placeholder: string = '* * * * * * * * * * * *';
 
   constructor(public fireservice: FireService, private snack: MatSnackBar) {
    }
 
   async edit_email_function(new_email: string){
-    console.log(this.new_email.valueOf())
     await this.fireservice.update_email(this.new_email).then(() =>{
       this.fireservice.updateUserEmail(new_email);
       this.snack.open("password successfully updated.", "Close", {duration:3000})
@@ -35,19 +31,6 @@ export class UserSettingsComponent implements OnInit{
     this.edit_email = !this.edit_email
   }
 
-  async edit_password_function(){
-    console.log(this.new_password.valueOf())
-    await this.fireservice.update_password(this.new_password).then(() =>{
-      this.snack.open("password successfully updated.", "Close", {duration:3000})
-    }).catch(() => {
-      this.snack.open("Could not update password, try again.", "Close", {duration:3000})
-    })
-    this.flip_password_state()
-  }
-  flip_password_state() {
-    this.edit_password = !this.edit_password
-  }
-
   updateUserAvatar($event) {
     const img = $event.target.files[0];
     this.fireservice.updateUserAvatar(img)
@@ -56,6 +39,5 @@ export class UserSettingsComponent implements OnInit{
   ngOnInit(): void {
     this.user = this.fireservice.loggedInUser;
     this.user?.books?.sort((book_a, book_b) => (book_a.overDue < book_b.overDue) ? 1 : -1)
-    console.log(this.user.books)
   }
 }

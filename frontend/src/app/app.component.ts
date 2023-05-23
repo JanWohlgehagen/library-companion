@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FireService} from "../services/fire.service";
 import {Book, User} from "../Types/types";
 import {Router} from "@angular/router";
@@ -10,14 +10,17 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent{
 
 
 
   constructor(public firebaseservice: FireService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart =[]
 
+    if (!this.firebaseservice.auth.currentUser)
+      this.firebaseservice.loggedInUser = undefined
   }
+
 
   navigateToProfile() {
     this.router.navigate(["user-dashboard/settings"])
@@ -69,7 +72,7 @@ export class AppComponent {
   }
 
   SeedData() {
-    this.data.seedDataToAuth()
+    this.data.seedData()
     this._snackbar.open("Data is add to the database", "Close", {duration:3000})
   }
 

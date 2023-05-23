@@ -41,14 +41,7 @@ app.put('/Avatar', validateFirebaseIdToken, async (req, res) => {
 
     stream.write(Buffer.from(img));
     stream.end();
-
-    const [uploadResult] = await file.getMetadata();
-
-    await admin.firestore().collection('User').doc(userid)
-        .update({
-            imageUrl: uploadResult.mediaLink
-        })
-    res.send(uploadResult.mediaLink)
+    res.send()
 })
 
 app.put('/Email', async (req, res) => {
@@ -149,7 +142,7 @@ app.post("/sendMail", validateFirebaseIdToken, (req, res ) => {
     }
 })
 
-app.get("books", (req, res) => {
+app.get("/books", (req, res) => {
     let books = []
     admin.firestore().collection("Book").onSnapshot(snapshot => {
 

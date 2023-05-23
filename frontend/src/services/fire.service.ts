@@ -4,11 +4,13 @@ import axios from "axios";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import {environment} from "../environments/environment";
 
 import * as config from '../../firebaseconfig.js';
 import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {delay} from "rxjs";
 
 
 @Injectable({
@@ -29,7 +31,7 @@ export class FireService {
   loggedInUser: User | any
 
 
-  baseAxiosURL: string = 'http://127.0.0.1:5001/library-companion-1049c/us-central1/api/'
+  baseAxiosURL: string = `${environment.api_baseURL}`
 
   constructor(private router: Router, private matSnackbar: MatSnackBar) {
     this.firebaseApplication = firebase.initializeApp(config.firebaseConfig);
@@ -37,14 +39,21 @@ export class FireService {
     this.firestore = firebase.firestore();
     this.storage = firebase.storage();
 
-    this.firestore.useEmulator('localhost', 8081);
-    this.auth.useEmulator('http://localhost:9099');
-    this.storage.useEmulator('localhost', 9199);
+    //this.firestore.useEmulator('localhost', 8081);
+    //this.auth.useEmulator('http://localhost:9099');
+    //this.storage.useEmulator('localhost', 9199);
 
-    //this.books = mock.get_books(100)
     this.book = this.books[0]
     this.getUsers()
     this.getBooks()
+
+    if(!this.auth.currentUser){
+      this.loggedInUser = undefined
+      this.auth.signOut()
+    }
+
+
+
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.intercept();
@@ -65,6 +74,11 @@ export class FireService {
         }
         if (changes.type == "removed") {
           this.users = this.users.filter(ussr => ussr.id != user.id);
+        }
+        if (changes.doc.id == this.auth.currentUser?.uid){
+          const storage = firebase.storage();
+          const pathReference = storage.ref('avatars').child(changes.doc.id + '.jpg').getDownloadURL()
+          this.loggedInUser.imageUrl = pathReference;
         }
       })
     })
@@ -89,9 +103,12 @@ export class FireService {
     })
   }
 
-  async setUser() {
-    await this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then((result) => {
+  setUser() {
+    this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then(async (result) => {
+        const storage = firebase.storage();
         this.loggedInUser = this.convertJsonToUser(result.id, result.data())
+        const pathReference = await storage.ref('avatars').child( result.id + '.jpg').getDownloadURL()
+        this.loggedInUser.imageUrl = pathReference
       }
     )
 
@@ -145,17 +162,25 @@ export class FireService {
 
   }
 
-  updateUserAvatar(img) {
+  async updateUserAvatar(img) {
     axios.put(this.baseAxiosURL + 'Avatar', img, {
       headers: {
         'Content-Type': img.type,
         userid: this.auth.currentUser?.uid
       }
-    }).then(success => {
-      this.loggedInUser.imageUrl = success.data
+    }).then(async success => {
+      await this.delay(3500) // to let the storage cloud catch up
+      const storage = firebase.storage();
+      storage.ref('avatars/' + this.loggedInUser.id + '.jpg').getDownloadURL().then((url) => {
+        this.loggedInUser.imageUrl = url
+      });
     }).catch(err => {
       console.log(err)
     })
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   updateUserEmail(new_email: string) {
@@ -241,16 +266,15 @@ export class FireService {
       borrowedBooks.push(Borrowedbook)
     })
 
+
     let user: User = {
       id: id,
       name: data["name"],
       admin: data["admin"],
-      imageUrl: data["admin"],
+      imageUrl: "",
       joinDate: data["joinDate"],
       email: data["email"],
       books: borrowedBooks
-
-
     }
     return user
   }
