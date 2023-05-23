@@ -27,39 +27,43 @@ export class SeedDataService {
   }
 
   async seedData() {
-    let book = this.mock.get_books(1)[0];
-    let b : BorrowedBook = {
-      book:book,
-      overDue:false,
-      dueDate: new Date(),
-      leaseDate: new Date()
-    }
-    let authUser: User[] = [
-      {admin: true, books: [b], email: "Tobias@gmail.com", imageUrl: "", joinDate: new Date(), name: "Tobias Rasmussen"},
-      {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: "", joinDate: new Date(), name: "Mikkel Theut Meier"},
-      {admin: false, books: [b], email: "Jan@gmail.com", imageUrl: "", joinDate: new Date(), name: "Jan Wohlgehagen"},
-      {admin: false, books: [b], email: "Simon@gmail.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"},
-      {admin: false, books: [], email: "Simon@gil.com", imageUrl: "", joinDate: new Date(), name: "Simon Tved Nielsen"}
 
-    ]
+    firebase.storage().ref('avatars').child( 'AvatarProfile.jpg').getDownloadURL().then( async img => {
+      let book = this.mock.get_books(1)[0];
+      let b : BorrowedBook = {
+        book:book,
+        overDue:false,
+        dueDate: new Date(),
+        leaseDate: new Date()
+      }
+      let authUser: User[] = [
+        {admin: true, books: [b], email: "Tobias@gmail.com", imageUrl: img, joinDate: new Date(), name: "Tobias Rasmussen"},
+        {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: img, joinDate: new Date(), name: "Mikkel Theut Meier"},
+        {admin: false, books: [b], email: "Jan@gmail.com", imageUrl: img, joinDate: new Date(), name: "Jan Wohlgehagen"},
+        {admin: false, books: [b], email: "Simon@gmail.com", imageUrl: img, joinDate: new Date(), name: "Simon Tved Nielsen"},
+        {admin: false, books: [], email: "Simon@gil.com", imageUrl: img, joinDate: new Date(), name: "Simon Tved Nielsen"}
 
-    const batch = this.firestore.batch()
-    for (let i = 0; i < authUser.length; i++) {
+      ]
 
-     await this.auth.createUserWithEmailAndPassword(authUser[i].email, "1234567").then(result => {
-        if (result.user) {
-          result.user.updateProfile({
-            displayName: authUser[i].name
-          }).then(async () => {
-            authUser[i].id = result.user?.uid;
-            await batch.set(this.firestore.collection("User").doc(result.user?.uid), authUser[i])
-          })
-        } else return
-      })
-    }
+      const batch = this.firestore.batch()
+      for (let i = 0; i < authUser.length; i++) {
 
-    await batch.commit()
-    this.seedDataBooks()
+        await this.auth.createUserWithEmailAndPassword(authUser[i].email, "1234567").then(result => {
+          if (result.user) {
+            result.user.updateProfile({
+              displayName: authUser[i].name
+            }).then(async () => {
+              authUser[i].id = result.user?.uid;
+              await batch.set(this.firestore.collection("User").doc(result.user?.uid), authUser[i])
+            })
+          } else return
+        })
+      }
+
+      await batch.commit()
+      this.seedDataBooks()
+    })
+
 
   }
   seedDataBooks(){

@@ -11,6 +11,7 @@ import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {delay} from "rxjs";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 
 @Injectable({
@@ -76,9 +77,6 @@ export class FireService {
           this.users = this.users.filter(ussr => ussr.id != user.id);
         }
         if (changes.doc.id == this.auth.currentUser?.uid){
-          const storage = firebase.storage();
-          const pathReference = storage.ref('avatars').child(changes.doc.id + '.jpg').getDownloadURL()
-          this.loggedInUser.imageUrl = pathReference;
         }
       })
     })
@@ -105,10 +103,7 @@ export class FireService {
 
   setUser() {
     this.firestore.collection("User").doc(this.auth.currentUser?.uid).get().then(async (result) => {
-        const storage = firebase.storage();
         this.loggedInUser = this.convertJsonToUser(result.id, result.data())
-        const pathReference = await storage.ref('avatars').child( result.id + '.jpg').getDownloadURL()
-        this.loggedInUser.imageUrl = pathReference
       }
     )
 
@@ -125,6 +120,7 @@ export class FireService {
 
 //TODO - NOT FINISHED
   async register(name: string, email: string, password: string) {
+    firebase.storage().ref('avatars').child( 'AvatarProfile.jpg').getDownloadURL().then( async img => {
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(result => {
         if (result.user) {
@@ -136,7 +132,7 @@ export class FireService {
               email: email,
               books: [],
               id: result.user?.uid,
-              imageUrl: "",
+              imageUrl: img,
               joinDate: new Date(),
               name: name
             }
@@ -148,6 +144,7 @@ export class FireService {
         } else return
       }).catch((error) => {
       this.matSnackbar.open(error, 'close', {duration: 3000});
+    })
     })
   }
 
@@ -171,9 +168,12 @@ export class FireService {
     }).then(async success => {
       await this.delay(3500) // to let the storage cloud catch up
       const storage = firebase.storage();
-      storage.ref('avatars/' + this.loggedInUser.id + '.jpg').getDownloadURL().then((url) => {
+      storage.ref('avatars/' +  this.auth.currentUser?.uid + '.jpg').getDownloadURL().then((url) => {
         this.loggedInUser.imageUrl = url
-      });
+        this.firestore.collection("User").doc(this.auth.currentUser?.uid).update({
+          imageUrl: url
+        })
+      }).catch(error => {console.log(error)});
     }).catch(err => {
       console.log(err)
     })
@@ -269,7 +269,7 @@ export class FireService {
       id: id,
       name: data["name"],
       admin: data["admin"],
-      imageUrl: "",
+      imageUrl: data["imageUrl"],
       joinDate: data["joinDate"],
       email: data["email"],
       books: borrowedBooks
