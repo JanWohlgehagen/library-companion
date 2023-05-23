@@ -307,11 +307,6 @@ export class AdminManageBooksComponent implements OnInit {
     }
   }
 
-  updateBookImage($event) {
-    const img = $event.target.files[0];
-    this.fireService.updateBookImage(img)
-  }
-
 
 }
 

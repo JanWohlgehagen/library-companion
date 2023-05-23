@@ -30,9 +30,10 @@
             </mat-form-field>
           </form>
         </div>
-        <div class="bookPicture" style="float: right; width: 90px; height: 98px; box-sizing: border-box; padding: 10px; margin-right: 1vw">
-          <img (click)="img_upload.click()" style="max-height: 80px; min-height: 80px" [src]="inputPicture" ngDefaultControl [(ngModel)]="inputPicture">
-          <input #img_upload hidden type="file" (change)="updateBookImage($event)">
+        <div class="bookPicture" style="float: right; width: 85px; height: 110px; box-sizing: border-box;
+         margin-right: 1vw; border-radius: 5%; border: 1px solid #00b278;">
+          <img (click)="img_upload.click()" style="height: 100%; width: 100%" [src]="inputPicture" ngDefaultControl [(ngModel)]="inputPicture" alt="">
+          <input #img_upload hidden type="file" (change)="fireService.updateBookImage($event)">
         </div>
       </div>
       <div class="middleSectionInner" style="float: right; width: auto; height: auto">
@@ -137,7 +138,8 @@
       </div>
       <div class="bottomSectionInner" style="float: left; width: 100%; height: 100%">
         <div class="bottomSectionInnerRight" style="float: right; width: auto; height: auto; box-sizing: border-box; padding: 10px">
-          <button (click)="saveBookBtn(book)" mat-raised-button class="saveBookBtn" style="background-color: #03e179; float: right; width: auto; height: 56px; margin-inline: 5px">
+          <button (click)="saveBookBtn(book)" mat-raised-button class="saveBookBtn" style="background-color: #03e179;
+          float: right; width: auto; height: 56px; margin-inline: 5px">
             Save
           </button>
         </div>

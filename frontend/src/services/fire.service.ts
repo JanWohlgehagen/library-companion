@@ -308,15 +308,15 @@ export class FireService {
   }
 
   updateBookImage(img: any) {
-    /*axios.put(this.baseAxiosURL + 'bookImage', img, {
+    axios.put(this.baseAxiosURL + 'bookImage', img, {
       headers: {
         'Content-Type': img.type,
-        userid: this.auth.currentUser?.uid
+        bookId: this.book.id
       }
-    }).then(success => {
+    }).then(async success => {
       this.loggedInUser.imageUrl = success.data
     }).catch(err => {
       console.log(err)
-    })*/
+    })
   }
 }
