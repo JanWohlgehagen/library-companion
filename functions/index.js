@@ -13,7 +13,7 @@ const limiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
-app.use(cors());
+app.use(cors(), limiter);
 
 const validateFirebaseIdToken = async (req, res, next) => {
     try {
