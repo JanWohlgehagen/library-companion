@@ -39,9 +39,9 @@ export class FireService {
     this.firestore = firebase.firestore();
     this.storage = firebase.storage();
 
-    //this.firestore.useEmulator('localhost', 8081);
-    //this.auth.useEmulator('http://localhost:9099');
-    //this.storage.useEmulator('localhost', 9199);
+    this.firestore.useEmulator('localhost', 8081);
+    this.auth.useEmulator('http://localhost:9099');
+    this.storage.useEmulator('localhost', 9199);
 
     this.book = this.books[0]
     this.getUsers()
@@ -331,14 +331,19 @@ export class FireService {
 
   }
 
-  updateBookImage(img: any) {
+  async updateBookImage(img) {
+    console.log("hej kører du?")
     axios.put(this.baseAxiosURL + 'bookImage', img, {
       headers: {
         'Content-Type': img.type,
-        bookId: this.book.id
+        bookid: this.book.id
       }
     }).then(async success => {
-      this.loggedInUser.imageUrl = success.data
+      await this.delay(3500) // to let the storage cloud catch up
+      const storage = firebase.storage();
+      storage.ref('bookImages/' + this.book.id + '.jpg').getDownloadURL().then((url) => {
+        this.book.imageUrl = url
+      });
     }).catch(err => {
       console.log(err)
     })

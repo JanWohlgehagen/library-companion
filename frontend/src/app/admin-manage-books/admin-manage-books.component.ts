@@ -140,6 +140,7 @@ export class AdminManageBooksComponent implements OnInit {
 
   loadBookDetails(book: Book) {
     this.book = book;
+    this.fireService.book = book
     this.inputTitleText = book.title
 
     this.inputAuthorText = []
@@ -174,7 +175,7 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   saveBookBtn(book: Book) {
-    this.book = book;
+    this.book = book
     book.title = this.inputTitleText
     book.authors = this.inputAuthorText
     book.releaseYear = this.inputReleaseYear
@@ -242,6 +243,7 @@ export class AdminManageBooksComponent implements OnInit {
       id: "",
       title: this.inputTitleText
     }
+    this.fireService.book = this.book
   }
 
 
@@ -285,6 +287,13 @@ export class AdminManageBooksComponent implements OnInit {
     })
   }
 
+  updateBookImage($event) {
+    const img = $event.target.files[0];
+    this.fireService.updateBookImage(img).then(() => {
+      this.book.imageUrl = this.fireService.book.imageUrl
+    })
+  }
+
   addAuthorBtn() {
     let author: Author = {
       name: "",
@@ -315,14 +324,9 @@ export class AdminManageBooksComponent implements OnInit {
   templateUrl: './admin-manage-books-add-book-dialog.component.html',
 })
 export class AdminManageBooksDialogComponent {
+  constructor(public fireService: FireService, public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>)
+  {
 
-
-  constructor(public fireService: FireService,
-    public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: FireService,
-  ) {
-    console.log(data.loggedInUser)
-    console.log(fireService.loggedInUser)
   }
 
   cancelClick(): void {
@@ -336,4 +340,5 @@ export class AdminManageBooksDialogComponent {
   newBookClearAll() {
     this.dialogRef.close({clearAll: "clearAll"});
   }
+
 }

@@ -24,7 +24,7 @@ const routes: Routes = [
 
     {path: 'admin-dashboard',
       children:[
-        {path: 'manage-books', component: AdminManageBooksComponent, title: 'Manage Books', canActivate:[AuthguardAdminService]},
+        {path: 'manage-books', component: AdminManageBooksComponent, title: 'Manage Books'},
         {path: 'manage-users', component: AdminManageUsersComponent, title: 'Manage Users', canActivate:[AuthguardAdminService]},
       ]},
 

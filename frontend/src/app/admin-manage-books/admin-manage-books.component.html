@@ -33,7 +33,7 @@
         <div class="bookPicture" style="float: right; width: 85px; height: 110px; box-sizing: border-box;
          margin-right: 1vw; border-radius: 5%; border: 1px solid #00b278;">
           <img (click)="img_upload.click()" style="height: 100%; width: 100%" [src]="inputPicture" ngDefaultControl [(ngModel)]="inputPicture" alt="">
-          <input #img_upload hidden type="file" (change)="fireService.updateBookImage($event)">
+          <input #img_upload hidden type="file" (change)="updateBookImage($event)">
         </div>
       </div>
       <div class="middleSectionInner" style="float: right; width: auto; height: auto">
