@@ -12,9 +12,9 @@ export class AuthguardAdminService implements CanActivate{
   constructor(private fireservice: FireService, private router: Router, private snackbar: MatSnackBar) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.fireservice.loggedInUser = this.fireservice.setUser()
+    this.fireservice.setUser()
     if(this.fireservice.loggedInUser == undefined){
-      this.router.navigate(["login"])
+      this.router.navigate(["/login"])
       this.snackbar.open("You are not authorized, to view this page", "Close", {duration:3000})
       return false
     }
