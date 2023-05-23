@@ -71,8 +71,9 @@ export class AppComponent{
      this.router.navigate(["admin-dashboard/manage-users"])
   }
 
-  SeedData() {
-    this.data.seedData()
+  SeedData($event) {
+    let img = $event.target.files[0]
+    this.data.seedData(img)
     this._snackbar.open("Data is add to the database", "Close", {duration:3000})
   }
 
