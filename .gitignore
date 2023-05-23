@@ -14,6 +14,7 @@ screenshots/
 #ng environments
 frontend/src/environments/environment.ts
 frontend/src/environments/environment.development.ts
+frontend/src/environments/environment.prod.ts
 
 # Firebase cache
 .firebase/

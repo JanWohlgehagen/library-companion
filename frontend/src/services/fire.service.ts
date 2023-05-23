@@ -10,8 +10,6 @@ import * as config from '../../firebaseconfig.js';
 import {Book, BorrowedBook, User} from "../Types/types";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {delay} from "rxjs";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 
 @Injectable({
@@ -40,9 +38,9 @@ export class FireService {
     this.firestore = firebase.firestore();
     this.storage = firebase.storage();
 
-    //this.firestore.useEmulator('localhost', 8081);
-    //this.auth.useEmulator('http://localhost:9099');
-    //this.storage.useEmulator('localhost', 9199);
+    if(environment.developmentMode){
+      this.useEmulators()
+    }
 
     this.book = this.books[0]
     this.getUsers()
@@ -60,6 +58,12 @@ export class FireService {
         this.intercept();
       }
     })
+  }
+
+  useEmulators(){
+    this.firestore.useEmulator('localhost', 8081);
+    this.auth.useEmulator('http://localhost:9099');
+    this.storage.useEmulator('localhost', 9199);
   }
 
   async getUsers() {
