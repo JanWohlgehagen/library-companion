@@ -236,6 +236,7 @@ export class FireService {
 
   async sign_out() {
     await this.auth.signOut()
+    this.loggedInUser = undefined;
     this.router.navigate(["/login"])
     this.shoppingCart = []
     this.shoppingCartCache = []

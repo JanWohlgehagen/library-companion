@@ -64,15 +64,13 @@ export class SeedDataService {
 
         await batch.commit()
         this.auth.signOut()
-        this.seedDataBooks()
-
       })
     })
 
   }
 
 
-  seedDataBooks() {
+ async seedDataBooks() {
     const tags = [
       'penis',
       'large',
@@ -202,8 +200,8 @@ export class SeedDataService {
       {name: 'Agatha Christie', id: Math.floor(Math.random() * 1000000).toString()},
       {name: 'Fjodor Dostojevskij', id: Math.floor(Math.random() * 1000000).toString()},
     ];
-
-    for (let i = 0; i < 50; i++) {
+    const batch = this.firestore.batch()
+    for (let i = 0; i < 500; i++) {
       let book: Book = {
         ISBN: Math.floor(Math.random() * 10000000000000),
         authors: [authors[Math.floor(Math.random() * authors.length)]],
@@ -231,8 +229,12 @@ export class SeedDataService {
         title: titles[Math.floor(Math.random() * titles.length)]
 
       }
-      this.firestore.collection("Book").doc(book.id).set({book})
+      await batch.set(this.firestore.collection("Book").doc(book.id),{book})
     }
+
+   await batch.commit()
+
   }
+
 }
 

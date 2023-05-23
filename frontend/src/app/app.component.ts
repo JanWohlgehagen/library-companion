@@ -74,7 +74,15 @@ export class AppComponent{
   SeedData($event) {
     let img = $event.target.files[0]
     this.data.seedData(img)
-    this._snackbar.open("Data is add to the database", "Close", {duration:3000})
+    this._snackbar.open("User are add to the database", "Close", {duration:3000})
+  }
+
+  seed
+  seedDatabooks(){
+    this.data.seedDataBooks().then(() =>{
+      this._snackbar.open("Book are add to the database", "Close", {duration:3000})
+    })
+
   }
 
   async signOut() {

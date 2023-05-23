@@ -75,7 +75,7 @@ export class UserBrowseBooksComponent{
 
   setBook(book: any) {
     this.firebaseservice.book= book
-    this.router.navigate(["book-info"])
+    this.router.navigate(["user-dashboard/browse-books/book-info"])
 
   }
 }
