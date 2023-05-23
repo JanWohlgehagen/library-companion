@@ -13,7 +13,7 @@ const limiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
-app.use(cors());
+app.use(cors(), limiter);
 
 const validateFirebaseIdToken = async (req, res, next) => {
     try {
@@ -88,6 +88,7 @@ app.post("/createBook", validateFirebaseIdToken, async (req, res) => {
                 .update({
                     id: doc._resourcePath.id
                 })
+    res.send(doc._resourcePath.id)
 })
 
 
@@ -103,6 +104,7 @@ try {
 
 app.put("/updateBook", validateFirebaseIdToken, async (req, res) => {
     let book = req.body.book
+    console.log("book = " + book)
     try {
         const updateResult = await admin.firestore().collection("Book").doc(book.id).set(book);
         return res.json(updateResult)
@@ -159,4 +161,20 @@ app.get("/books", (req, res) => {
         })
     })
     res.send(books)
+})
+
+app.put('/bookImage', async (req, res) => {
+    var img = req.rawBody;
+    var bookId = req.headers.bookid;
+    console.log(req.headers.bookid)
+
+    const bucket = admin.storage().bucket('gs://library-companion-1049c.appspot.com/');
+    const file = bucket.file(`bookImages/${bookId}.jpg`)
+    const stream = file.createWriteStream({
+        resumable: false
+    });
+
+    stream.write(Buffer.from(img));
+    stream.end();
+    res.send()
 })

@@ -9,16 +9,14 @@ import {DateAdapter} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FireService} from "../../services/fire.service";
+import firebase from "firebase/compat";
+import firestore = firebase.firestore;
 
 
 export interface Tag {
   name: string;
 }
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-admin-manage-books',
@@ -45,13 +43,11 @@ export class AdminManageBooksComponent implements OnInit {
   inputLiteraryText: string = "";
   inputPicture?: string = ""
   inputTagText: string[] | any = [];
-  saveBook: Book | any;
   book: Book | any; //empty book
-
   name: string | undefined;
 
 
-  constructor(public fireservice: FireService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
+  constructor(public fireService: FireService, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog,
               private _snackBar: MatSnackBar) {
     this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
     if (this.inputAuthorText.length == 0) {
@@ -99,7 +95,7 @@ export class AdminManageBooksComponent implements OnInit {
 
   private _filterSearch(name: string): Book[] {
     const search = name.toString().toLowerCase();
-    return this.fireservice.books.filter(f => f.title.toLowerCase().includes(search) ||
+    return this.fireService.books.filter(f => f.title.toLowerCase().includes(search) ||
       f.ISBN.toString().includes(name) || this.checkAuthorName(search, f)
     );
   }
@@ -144,7 +140,7 @@ export class AdminManageBooksComponent implements OnInit {
 
   loadBookDetails(book: Book) {
     this.book = book;
-    this.saveBook = book
+    this.fireService.book = book
     this.inputTitleText = book.title
 
     this.inputAuthorText = []
@@ -179,8 +175,7 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   saveBookBtn(book: Book) {
-    this.book = book;
-    this.saveBook = book
+    this.book = book
     book.title = this.inputTitleText
     book.authors = this.inputAuthorText
     book.releaseYear = this.inputReleaseYear
@@ -201,8 +196,7 @@ export class AdminManageBooksComponent implements OnInit {
     this.displayTitle(book)
     this.loadBookDetails(book)
 
-    // this.fireservice.updateBook(book) //todo skal laves - this.book skal opdateres
-    this.fireservice.updateBook(book)
+    this.fireService.updateBook(book)
 
     // possible check before showing message, and show error message if, if statement returns false.
     this._snackBar.open("Book has been saved", "X", {"duration": 8000})
@@ -212,7 +206,7 @@ export class AdminManageBooksComponent implements OnInit {
     this.filteredBooks = this.bookControl.valueChanges.pipe(
       startWith(null),
       map(
-        (book: string | null) => (book ? this._filterSearch(book) : this.fireservice.books.slice())),);
+        (book: string | null) => (book ? this._filterSearch(book) : this.fireService.books.slice())),);
   }
 
   clearBookDetails() {
@@ -249,46 +243,54 @@ export class AdminManageBooksComponent implements OnInit {
       id: "",
       title: this.inputTitleText
     }
-
-    this.fireservice.createBook(this.book)
-    this.fireservice.books.push(this.book)
-    this.filterBooks()
-    this.loadBookDetails(this.book)
-    this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
-
-    console.log("Made a copy of current book - this is the new number of books: " + this.fireservice.books.length)
+    this.fireService.book = this.book
   }
 
 
   addNewBookBtn(): void {
     const dialogRef = this.dialog.open(AdminManageBooksDialogComponent, {
-      data: {name: this.name},
+      data: {name: this.fireService.loggedInUser.name},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async result => {
       if(result.cancel) {
+        this.dialog.closeAll()
       }
       if (result.clearAll) {
         this.book = this.makeEmptyBook()
         this.clearBookDetails()
-        this.fireservice.createBook(this.book)
-        this.fireservice.books.push(this.book)
-        this.filterBooks()
-        this.loadBookDetails(this.book)
-        this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+        await this.newBookButtonMethods()
 
-        console.log("Cleared book details and made a new clean book - this is the new number of books: " + this.fireservice.books.length)
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
-      }
+        }
       if (result.copyBook) {
         this.addNewCopiedBook()
+        await this.newBookButtonMethods()
+
         this._snackBar.open("Book copied! - Remember to Save", "X", {"duration": 8000})
       }
     });
   }
 
+  async newBookButtonMethods() {
+    const id = (await this.fireService.createBook(this.book)).data;
+    this.fireService.books.push(this.book)
+
+    this.book.id = id;
+    this.filterBooks()
+    this.loadBookDetails(this.book)
+    this.bookControl.setValue(this.book.title + ", ed. " + this.book.edition)
+  }
+
   deleteAuthorBtn(a: Author) {
     this.inputAuthorText = this.inputAuthorText.filter(author => {
       return author.name != a.name
+    })
+  }
+
+  updateBookImage($event) {
+    const img = $event.target.files[0];
+    this.fireService.updateBookImage(img).then(() => {
+      this.book.imageUrl = this.fireService.book.imageUrl
     })
   }
 
@@ -302,7 +304,7 @@ export class AdminManageBooksComponent implements OnInit {
 
   deleteBookBtn() {
     if (confirm("Are you sure you want to delete this book?")) {
-      this.fireservice.deleteBook(this.book.id)
+      this.fireService.deleteBook(this.book.id)
       this.filterBooks()
       this.bookControl.setValue(null)
       this.clearBookDetails()
@@ -315,24 +317,19 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
 
-
 }
-
-
 
 @Component({
   selector: 'app-admin-manage-books',
   templateUrl: './admin-manage-books-add-book-dialog.component.html',
 })
 export class AdminManageBooksDialogComponent {
+  constructor(public fireService: FireService, public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>)
+  {
 
+  }
 
-  constructor(
-    public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
-
-  onNoClick(): void {
+  cancelClick(): void {
     this.dialogRef.close({cancel: "cancel"});
   }
 
@@ -343,4 +340,5 @@ export class AdminManageBooksDialogComponent {
   newBookClearAll() {
     this.dialogRef.close({clearAll: "clearAll"});
   }
+
 }

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Hi "name here" {{data.name}}</h1>
+<h1 mat-dialog-title>Hi  {{fireService.loggedInUser?.name}}</h1>
 <div mat-dialog-content>
   <p style="color: black">Would you like to copy currently selected book or start from scratch?</p>
   <p style="color: black">Remember to click "Save" when you're done</p>
@@ -6,5 +6,5 @@
 <div mat-dialog-actions style="width: max-content; margin: auto; padding: 10px">
   <button mat-raised-button (click)="newBookCopyBook()">Copy book</button>
   <button mat-raised-button (click)="newBookClearAll()">Clear all - new book</button>
-  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button (click)="cancelClick()">Cancel</button>
 </div>

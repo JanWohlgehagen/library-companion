@@ -192,11 +192,13 @@ export class FireService {
     })
   }
 
-  createBook(book) {
-    axios.post(this.baseAxiosURL + "createBook", book, {
-        //todo error handling
-      }
-    )
+  async createBook(book){
+    return ( axios.post<string>(this.baseAxiosURL + "createBook", book, {}))
+
+    /*console.log("success data = ")
+    console.log(success.data)
+    this.book.id = success.data*/
+
   }
 
   deleteBook(bookId) {
@@ -213,8 +215,8 @@ export class FireService {
       .then(() => {
         console.log("this book was updated: " + book.name)
       }).catch((error) => {
-      console.log(error)
-    })
+        console.log(error)
+      })
   }
 
 
@@ -325,7 +327,25 @@ export class FireService {
   }
 
   sendMail(u: User, b: BorrowedBook) {
-    axios.post(this.baseAxiosURL + "sendMail", {user:u, borrowedBook: b})
+    axios.post(this.baseAxiosURL + "sendMail", {user: u, borrowedBook: b})
 
+  }
+
+  async updateBookImage(img) {
+    console.log("hej kører du?")
+    axios.put(this.baseAxiosURL + 'bookImage', img, {
+      headers: {
+        'Content-Type': img.type,
+        bookid: this.book.id
+      }
+    }).then(async success => {
+      await this.delay(3500) // to let the storage cloud catch up
+      const storage = firebase.storage();
+      storage.ref('bookImages/' + this.book.id + '.jpg').getDownloadURL().then((url) => {
+        this.book.imageUrl = url
+      });
+    }).catch(err => {
+      console.log(err)
+    })
   }
 }
