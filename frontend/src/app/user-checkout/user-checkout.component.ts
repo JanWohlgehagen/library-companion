@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {MockDataService} from "../../mock_data/mock-data.service";
-import {Book, BorrowedBook, User} from "../../Types/types";
-import {MatStepper} from "@angular/material/stepper";
+import {Book, BorrowedBook} from "../../Types/types";
 import {FireService} from "../../services/fire.service";
 
 @Component({
@@ -28,7 +26,7 @@ export class UserCheckoutComponent {
     this.lease_expiration = new Date()
     this.lease_expiration.setDate(this.lease_expiration.getDate() + 28)
 
-    if(this.firebase.loggedInUser){
+    if (this.firebase.loggedInUser) {
       this.user_name = this.firebase.loggedInUser.name
       this.user_email = this.firebase.loggedInUser.email
     }
@@ -38,14 +36,12 @@ export class UserCheckoutComponent {
     this.order_confirmed = true;
     let duedate = new Date()
     this.firebase.shoppingCart.forEach(b => {
-      let book : BorrowedBook={
+      let book: BorrowedBook = {
         book: b,
         leaseDate: new Date(),
-        dueDate : new Date( duedate.setDate( duedate.getDate()+28)),
-        overDue :false
+        dueDate: new Date(duedate.setDate(duedate.getDate() + 28)),
+        overDue: false
       }
-      console.log(book)
-      console.log(typeof book.book.releaseYear)
       this.firebase.loggedInUser?.books?.push(book)
     })
     this.firebase.updateBorrowedBookOnUser(this.firebase.loggedInUser);
@@ -54,7 +50,7 @@ export class UserCheckoutComponent {
   }
 
   remove_item_from_cart(book: Book) {
-    this.firebase.shoppingCart =  this.firebase.shoppingCart.filter(b => {
+    this.firebase.shoppingCart = this.firebase.shoppingCart.filter(b => {
       return b.id != book.id;
     })
   }

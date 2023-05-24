@@ -38,19 +38,19 @@ export class FireService {
     this.firestore = firebase.firestore();
     this.storage = firebase.storage();
 
-    if(environment.developmentMode){
+    if (environment.developmentMode) {
       this.useEmulators()
     }
 
     this.book = this.books[0]
     this.getUsers()
     this.getBooks()
+    this.cachedBooks = this.books;
 
-    if(!this.auth.currentUser){
+    if (!this.auth.currentUser) {
       this.loggedInUser = undefined
       this.auth.signOut()
     }
-
 
 
     this.auth.onAuthStateChanged((user) => {
@@ -60,7 +60,7 @@ export class FireService {
     })
   }
 
-  useEmulators(){
+  useEmulators() {
     this.firestore.useEmulator('localhost', 8081);
     this.auth.useEmulator('http://localhost:9099');
     this.storage.useEmulator('localhost', 9199);
@@ -80,7 +80,7 @@ export class FireService {
         if (changes.type == "removed") {
           this.users = this.users.filter(ussr => ussr.id != user.id);
         }
-        if (changes.doc.id == this.auth.currentUser?.uid){
+        if (changes.doc.id == this.auth.currentUser?.uid) {
         }
       })
     })
@@ -124,31 +124,31 @@ export class FireService {
 
 //TODO - NOT FINISHED
   async register(name: string, email: string, password: string) {
-    firebase.storage().ref('avatars').child( 'AvatarProfile.jpg').getDownloadURL().then( async img => {
-    this.auth.createUserWithEmailAndPassword(email, password)
-      .then(result => {
-        if (result.user) {
-          return result.user.updateProfile({
-            displayName: name
-          }).then(() => {
-            let user: User = {
-              admin: false,
-              email: email,
-              books: [],
-              id: result.user?.uid,
-              imageUrl: img,
-              joinDate: new Date(),
-              name: name
-            }
-            this.firestore.collection("User").doc(result.user?.uid).set(
-              user)
-            this.setUser()
-            this.router.navigate(["/user-dashboard/browse-books"])
-          })
-        } else return
-      }).catch((error) => {
-      this.matSnackbar.open(error, 'close', {duration: 3000});
-    })
+    firebase.storage().ref('avatars').child('AvatarProfile.jpg').getDownloadURL().then(async img => {
+      this.auth.createUserWithEmailAndPassword(email, password)
+        .then(result => {
+          if (result.user) {
+            return result.user.updateProfile({
+              displayName: name
+            }).then(() => {
+              let user: User = {
+                admin: false,
+                email: email,
+                books: [],
+                id: result.user?.uid,
+                imageUrl: img,
+                joinDate: new Date(),
+                name: name
+              }
+              this.firestore.collection("User").doc(result.user?.uid).set(
+                user)
+              this.setUser()
+              this.router.navigate(["/user-dashboard/browse-books"])
+            })
+          } else return
+        }).catch((error) => {
+        this.matSnackbar.open(error, 'close', {duration: 3000});
+      })
     })
   }
 
@@ -172,19 +172,21 @@ export class FireService {
     }).then(async success => {
       await this.delay(3500) // to let the storage cloud catch up
       const storage = firebase.storage();
-      storage.ref('avatars/' +  this.auth.currentUser?.uid + '.jpg').getDownloadURL().then((url) => {
+      storage.ref('avatars/' + this.auth.currentUser?.uid + '.jpg').getDownloadURL().then((url) => {
         this.loggedInUser.imageUrl = url
         this.firestore.collection("User").doc(this.auth.currentUser?.uid).update({
           imageUrl: url
         })
-      }).catch(error => {console.log(error)});
+      }).catch(error => {
+        console.log(error)
+      });
     }).catch(err => {
       console.log(err)
     })
   }
 
   delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   updateUserEmail(new_email: string) {
@@ -196,19 +198,13 @@ export class FireService {
     })
   }
 
-  async createBook(book){
-    return ( axios.post<string>(this.baseAxiosURL + "createBook", book, {}))
-
-    /*console.log("success data = ")
-    console.log(success.data)
-    this.book.id = success.data*/
-
+  async createBook(book) {
+    return (axios.post<string>(this.baseAxiosURL + "createBook", book, {}))
   }
 
   deleteBook(bookId) {
     axios.delete(this.baseAxiosURL + "deleteBook/" + bookId, {}
     ).then(() => {
-      console.log("this book was deleted: " + bookId)
     }).catch((error) => {
       console.log(error)
     })
@@ -217,7 +213,6 @@ export class FireService {
   async updateBook(book) {
     await axios.put(this.baseAxiosURL + "updateBook", {book: book})
       .then(() => {
-        console.log("this book was updated: " + book.name)
       }).catch((error) => {
         console.log(error)
       })
@@ -261,8 +256,7 @@ export class FireService {
         leaseDateTimeStamp = new Date(b["leaseDate"])
       }
       var overdue = false
-      if (dueDateTimeStamp < new Date())
-      {
+      if (dueDateTimeStamp < new Date()) {
         overdue = true;
       }
 
@@ -342,7 +336,6 @@ export class FireService {
   }
 
   async updateBookImage(img) {
-    console.log("hej kører du?")
     axios.put(this.baseAxiosURL + 'bookImage', img, {
       headers: {
         'Content-Type': img.type,

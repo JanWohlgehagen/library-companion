@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BorrowedBook, User} from "../../Types/types";
+import {User} from "../../Types/types";
 import {FireService} from "../../services/fire.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -9,20 +9,20 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss']
 })
-export class UserSettingsComponent implements OnInit{
+export class UserSettingsComponent implements OnInit {
   public user: User | any;
   public edit_email: boolean = false;
   public new_email: string = '';
 
   constructor(public fireservice: FireService, private snack: MatSnackBar) {
-   }
+  }
 
-  async edit_email_function(new_email: string){
-    await this.fireservice.update_email(this.new_email).then(() =>{
+  async edit_email_function(new_email: string) {
+    await this.fireservice.update_email(this.new_email).then(() => {
       this.fireservice.updateUserEmail(new_email);
-      this.snack.open("password successfully updated.", "Close", {duration:3000})
+      this.snack.open("password successfully updated.", "Close", {duration: 3000})
     }).catch(() => {
-      this.snack.open("Could not update password, try again.", "Close", {duration:3000})
+      this.snack.open("Could not update password, try again.", "Close", {duration: 3000})
     })
     this.flip_email_state()
   }
