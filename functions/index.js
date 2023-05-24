@@ -118,7 +118,7 @@ app.post("/sendMail", validateFirebaseIdToken, (req, res ) => {
     let user = req.body.user
 
     let Email = {
-        to: "MikkelTheut@gmail.com",
+        to: user.email,
         message:{
             subject: "Reminder to deliver book.",
             html: "Dear " + user.name + " <br> " +

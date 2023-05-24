@@ -260,12 +260,17 @@ export class FireService {
       } else {
         leaseDateTimeStamp = new Date(b["leaseDate"])
       }
+      var overdue = false
+      if (dueDateTimeStamp < new Date())
+      {
+        overdue = true;
+      }
 
       let Borrowedbook: BorrowedBook = {
         book: book,
         leaseDate: new Date(leaseDateTimeStamp),
         dueDate: new Date(dueDateTimeStamp),
-        overDue: b["overDue"]
+        overDue: overdue
 
       }
       borrowedBooks.push(Borrowedbook)

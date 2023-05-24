@@ -30,18 +30,18 @@ export class SeedDataService {
     this.storage.ref("avatars").child("AvatarProfile").put(img).then(async imgURL => {
 
       imgURL.ref.getDownloadURL().then(async img => {
-
+        let date = new Date()
         let book = this.mock.get_books(1)[0];
         let b : BorrowedBook = {
           book:book,
           overDue:false,
-          dueDate: new Date(),
+          dueDate: new Date (date.setDate(date.getDate()-8)),
           leaseDate: new Date()
         }
         let authUser: User[] = [
           {admin: true, books: [b], email: "Tobias@gmail.com", imageUrl: img, joinDate: new Date(), name: "Tobias Rasmussen"},
           {admin: false, books: [b], email: "Mikkel@gmail.com", imageUrl: img, joinDate: new Date(), name: "Mikkel Theut Meier"},
-          {admin: false, books: [b], email: "Jan@gmail.com", imageUrl: img, joinDate: new Date(), name: "Jan Wohlgehagen"},
+          {admin: false, books: [b], email: "Jan.wohlgehagen@gmail.com", imageUrl: img, joinDate: new Date(), name: "Jan Wohlgehagen"},
           {admin: false, books: [b], email: "Simon@gmail.com", imageUrl: img, joinDate: new Date(), name: "Simon Tved Nielsen"},
           {admin: false, books: [], email: "Simon@gil.com", imageUrl: img, joinDate: new Date(), name: "Simon Tved Nielsen"}
 
