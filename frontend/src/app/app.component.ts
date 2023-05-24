@@ -12,19 +12,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class AppComponent{
 
-
-
-<<<<<<< HEAD
-  constructor(public firebaseservice: FireService, private router: Router, private _snackbar: MatSnackBar) {
-<<<<<<< HEAD
-    this.firebaseservice.shoppingCart = []
-=======
   constructor(public firebaseservice: FireService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart =[]
->>>>>>> parent of a367aa4 (Removed seeding)
-=======
-    this.firebaseservice.shoppingCart =[]
->>>>>>> parent of cc96ac7 (removed dead code, optimised imports and lines)
 
     if (!this.firebaseservice.auth.currentUser)
       this.firebaseservice.loggedInUser = undefined
@@ -80,16 +69,12 @@ export class AppComponent{
      this.router.navigate(["admin-dashboard/manage-users"])
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   SeedData($event) {
     let img = $event.target.files[0]
     this.data.seedData(img)
     this._snackbar.open("User are add to the database", "Close", {duration:3000})
   }
-
-  seed
+  
   seedDatabooks(){
     this.data.seedDataBooks().then(() =>{
       this._snackbar.open("Book are add to the database", "Close", {duration:3000})
@@ -97,10 +82,6 @@ export class AppComponent{
 
   }
 
->>>>>>> parent of a367aa4 (Removed seeding)
-=======
-
->>>>>>> parent of cc96ac7 (removed dead code, optimised imports and lines)
   async signOut() {
 
    await this.firebaseservice.sign_out();
