@@ -26,7 +26,7 @@ export class UserBrowseBooksComponent{
   }
 
   increment_items_shown() {
-    this.amount_of_items_shown += this.amount_of_items_shown_increment_factor;
+    this.amount_of_items_shown = this.amount_of_items_shown_increment_factor + this.amount_of_items_shown;
   }
   reset_items_shown() {
     this.amount_of_items_shown = this.amount_of_items_shown_increment_factor;
@@ -39,8 +39,8 @@ export class UserBrowseBooksComponent{
   }
 
   set_amount_of_items_shown_increment_factor($event) {
-    this.amount_of_items_shown_increment_factor = $event.value;
-    this.amount_of_items_shown = $event.value;
+    this.amount_of_items_shown_increment_factor = Number($event.value);
+    this.amount_of_items_shown = Number($event.value);
   }
 
   sort_books_by($event) {
