@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FireService} from "../services/fire.service";
-import {Book} from "../Types/types";
+import {Book, User} from "../Types/types";
 import {Router} from "@angular/router";
+import {SeedDataService} from "../services/seed-data.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -9,11 +10,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
 
 
   constructor(public firebaseservice: FireService, private router: Router, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart = []
+
 
     if (!this.firebaseservice.auth.currentUser)
       this.firebaseservice.loggedInUser = undefined

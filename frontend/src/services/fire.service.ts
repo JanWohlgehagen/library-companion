@@ -45,7 +45,7 @@ export class FireService {
     this.book = this.books[0]
     this.getUsers()
     this.getBooks()
-    this.cachedBooks = this.books;
+    this.cachedBooks = this.books
 
     if (!this.auth.currentUser) {
       this.loggedInUser = undefined
