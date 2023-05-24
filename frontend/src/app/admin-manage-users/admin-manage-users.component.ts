@@ -24,7 +24,6 @@ export class AdminManageUsersComponent {
 
   constructor( public fireService : FireService, private snackback : MatSnackBar) {
     this.getUsers()
-    console.log(this.Users)
 
     // @ts-ignore
     this.filteredUsers = this.formControl.valueChanges.pipe(startWith(null),
@@ -39,7 +38,6 @@ export class AdminManageUsersComponent {
   }
 
   extendBook(u:User, b:BorrowedBook) {
-    console.log(b.dueDate)
     b.dueDate.setDate(b.dueDate.getDate()+14);
      var replaceindex = u.books?.findIndex( element => element = b)
     // @ts-ignore
@@ -51,7 +49,6 @@ export class AdminManageUsersComponent {
     }
 
     this.fireService.updateBorrowedBookOnUser(u)
-    console.log(b.dueDate)
 
   }
 
