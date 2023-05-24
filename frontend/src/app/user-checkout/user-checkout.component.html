@@ -77,7 +77,7 @@
               <p><strong>Name: {{firebase.loggedInUser?.name}}</strong></p>
               <p><strong>email: {{firebase.loggedInUser?.email}}</strong></p>
               <p *ngIf="order_confirmed" style="font-size: 20px"><strong>Your order have been placed - you can collect it at your convenience.</strong></p>
-              <p *ngIf="order_confirmed" style="margin: auto; border-bottom-color: black; border-bottom-style: solid; border-bottom-width: 2px; width: fit-content"
+              <p routerLink="about-us" *ngIf="order_confirmed" style="margin: auto; border-bottom-color: black; border-bottom-style: solid; border-bottom-width: 2px; width: fit-content"
                  matTooltip="Monday to Sunday 07:00-22:00"
               >Our opening hours.</p>
             </div>
