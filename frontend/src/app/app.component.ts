@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FireService} from "../services/fire.service";
-import {Book, User} from "../Types/types";
+import {Book} from "../Types/types";
 import {Router} from "@angular/router";
-import {SeedDataService} from "../services/seed-data.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -14,7 +13,7 @@ export class AppComponent{
 
 
 
-  constructor(public firebaseservice: FireService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
+  constructor(public firebaseservice: FireService, private router: Router, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart =[]
 
     if (!this.firebaseservice.auth.currentUser)
@@ -71,19 +70,6 @@ export class AppComponent{
      this.router.navigate(["admin-dashboard/manage-users"])
   }
 
-  SeedData($event) {
-    let img = $event.target.files[0]
-    this.data.seedData(img)
-    this._snackbar.open("User are add to the database", "Close", {duration:3000})
-  }
-
-  seed
-  seedDatabooks(){
-    this.data.seedDataBooks().then(() =>{
-      this._snackbar.open("Book are add to the database", "Close", {duration:3000})
-    })
-
-  }
 
   async signOut() {
 
