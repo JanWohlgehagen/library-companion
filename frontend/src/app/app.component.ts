@@ -74,7 +74,7 @@ export class AppComponent{
     this.data.seedData(img)
     this._snackbar.open("User are add to the database", "Close", {duration:3000})
   }
-  
+
   seedDatabooks(){
     this.data.seedDataBooks().then(() =>{
       this._snackbar.open("Book are add to the database", "Close", {duration:3000})
