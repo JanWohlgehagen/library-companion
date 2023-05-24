@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {delay, Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {Author, Book} from "../../Types/types";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -287,11 +287,19 @@ export class AdminManageBooksComponent implements OnInit {
     })
   }
 
-  updateBookImage($event) {
+  async updateBookImage($event) {
     const img = $event.target.files[0];
-    this.fireService.updateBookImage(img).then(() => {
-      this.book.imageUrl = this.fireService.book.imageUrl
+    await this.fireService.updateBookImage(img).then(async r => {
+      /*this.inputPicture = img.imageUrl*/
+      await this.delay(3000)
+      this.book = this.fireService.book
+      this.inputPicture = this.book.imageUrl
+      this.loadBookDetails(this.book)
     })
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   addAuthorBtn() {
