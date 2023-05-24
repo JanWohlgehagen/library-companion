@@ -10,16 +10,21 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent{
+
 
 
 <<<<<<< HEAD
   constructor(public firebaseservice: FireService, private router: Router, private _snackbar: MatSnackBar) {
+<<<<<<< HEAD
     this.firebaseservice.shoppingCart = []
 =======
   constructor(public firebaseservice: FireService, private router: Router, private data: SeedDataService, private _snackbar: MatSnackBar) {
     this.firebaseservice.shoppingCart =[]
 >>>>>>> parent of a367aa4 (Removed seeding)
+=======
+    this.firebaseservice.shoppingCart =[]
+>>>>>>> parent of cc96ac7 (removed dead code, optimised imports and lines)
 
     if (!this.firebaseservice.auth.currentUser)
       this.firebaseservice.loggedInUser = undefined
@@ -56,9 +61,9 @@ export class AppComponent {
 
   }
 
-  remove_item_from_cart($event: MouseEvent, b: Book) {
+  remove_item_from_cart($event: MouseEvent,b: Book) {
     $event.stopPropagation();
-    this.firebaseservice.shoppingCart = this.firebaseservice.shoppingCart.filter(bo => bo.id != b.id)
+    this.firebaseservice.shoppingCart = this.firebaseservice.shoppingCart.filter( bo => bo.id !=b.id)
 
   }
 
@@ -72,9 +77,10 @@ export class AppComponent {
   }
 
   navigateToAdminManUsers() {
-    this.router.navigate(["admin-dashboard/manage-users"])
+     this.router.navigate(["admin-dashboard/manage-users"])
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   SeedData($event) {
@@ -92,17 +98,20 @@ export class AppComponent {
   }
 
 >>>>>>> parent of a367aa4 (Removed seeding)
+=======
+
+>>>>>>> parent of cc96ac7 (removed dead code, optimised imports and lines)
   async signOut() {
 
-    await this.firebaseservice.sign_out();
-    this._snackbar.open("You have signed out.", "Close", {duration: 3000})
+   await this.firebaseservice.sign_out();
+   this._snackbar.open("You have signed out.", "Close", {duration:3000})
   }
 
-  isAdmin(): boolean {
-    if (this.firebaseservice.loggedInUser == undefined) {
+  isAdmin():boolean{
+    if(this.firebaseservice.loggedInUser == undefined){
       return false;
     }
-    return this.firebaseservice.auth.currentUser && this.firebaseservice.loggedInUser.admin
+     return this.firebaseservice.auth.currentUser && this.firebaseservice.loggedInUser.admin
   }
 
   navigateToAboutUs() {

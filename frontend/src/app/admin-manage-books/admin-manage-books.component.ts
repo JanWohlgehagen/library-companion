@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {delay, Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {Author, Book} from "../../Types/types";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
 import {DateAdapter} from '@angular/material/core';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FireService} from "../../services/fire.service";
+import firebase from "firebase/compat";
+import firestore = firebase.firestore;
 
 
 export interface Tag {
@@ -250,7 +252,7 @@ export class AdminManageBooksComponent implements OnInit {
       data: {name: this.fireService.loggedInUser.name},
     });
     dialogRef.afterClosed().subscribe(async result => {
-      if (result.cancel) {
+      if(result.cancel) {
         this.dialog.closeAll()
       }
       if (result.clearAll) {
@@ -259,7 +261,7 @@ export class AdminManageBooksComponent implements OnInit {
         await this.newBookButtonMethods()
 
         this._snackBar.open("You're working on a new book! - remember to Save", "X", {"duration": 8000})
-      }
+        }
       if (result.copyBook) {
         this.addNewCopiedBook()
         await this.newBookButtonMethods()
@@ -297,7 +299,7 @@ export class AdminManageBooksComponent implements OnInit {
   }
 
   delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   addAuthorBtn() {
@@ -316,7 +318,8 @@ export class AdminManageBooksComponent implements OnInit {
       this.clearBookDetails()
       this.addAuthorBtn()
       this._snackBar.open("The book has been deleted", "X", {"duration": 8000})
-    } else {
+    }
+    else {
 
     }
   }
@@ -329,7 +332,8 @@ export class AdminManageBooksComponent implements OnInit {
   templateUrl: './admin-manage-books-add-book-dialog.component.html',
 })
 export class AdminManageBooksDialogComponent {
-  constructor(public fireService: FireService, public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>) {
+  constructor(public fireService: FireService, public dialogRef: MatDialogRef<AdminManageBooksDialogComponent>)
+  {
 
   }
 

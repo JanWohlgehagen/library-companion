@@ -1,5 +1,8 @@
-import {Component} from '@angular/core';
-import {Book} from "../../Types/types";
+import {Component, OnDestroy} from '@angular/core';
+import {Author, Book, User} from "../../Types/types";
+import {MockDataService} from "../../mock_data/mock-data.service";
+import firebase from "firebase/compat";
+import {trigger} from "@angular/animations";
 import {FireService} from "../../services/fire.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -9,7 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './user-browse-books.component.html',
   styleUrls: ['./user-browse-books.component.scss']
 })
-export class UserBrowseBooksComponent {
+export class UserBrowseBooksComponent{
   public books: Book[];
   public books_cache: Book[];
   public amount_of_items_shown: number = 15;
@@ -17,7 +20,7 @@ export class UserBrowseBooksComponent {
   public searchText: string = '';
 
 
-  constructor(public firebaseservice: FireService, private router: Router, private snack: MatSnackBar) {
+  constructor( public firebaseservice: FireService, private router : Router, private snack: MatSnackBar) {
     this.books = firebaseservice.books;
     this.books_cache = firebaseservice.cachedBooks;
   }
@@ -25,7 +28,6 @@ export class UserBrowseBooksComponent {
   increment_items_shown() {
     this.amount_of_items_shown = this.amount_of_items_shown_increment_factor + this.amount_of_items_shown;
   }
-
   reset_items_shown() {
     this.amount_of_items_shown = this.amount_of_items_shown_increment_factor;
 
@@ -47,7 +49,7 @@ export class UserBrowseBooksComponent {
   }
 
   filter_fiction($event) {
-    if ($event.value.length === 1) {
+    if ($event.value.length === 1){
       this.books = this.books.filter(book => {
         return book.literaryType === $event.value[0];
       });
@@ -55,10 +57,12 @@ export class UserBrowseBooksComponent {
   }
 
   add_item_to_cart(book: Book) {
-    if (!this.firebaseservice.shoppingCart.find(element => element == book)) {
+    if(!this.firebaseservice.shoppingCart.find(element=> element == book))
+    {
       this.firebaseservice.shoppingCart.push(book)
-    } else {
-      this.snack.open("You've already booked this book.", "Close", {duration: 3000})
+    }
+    else {
+      this.snack.open("You've already booked this book.", "Close", {duration:3000})
     }
 
   }
@@ -70,7 +74,7 @@ export class UserBrowseBooksComponent {
   }
 
   setBook(book: any) {
-    this.firebaseservice.book = book
+    this.firebaseservice.book= book
     this.router.navigate(["user-dashboard/browse-books/book-info"])
 
   }

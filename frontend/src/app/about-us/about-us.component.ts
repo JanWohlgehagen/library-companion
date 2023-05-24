@@ -7,7 +7,7 @@ import {environment} from "../../environments/environment";
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss']
 })
-export class AboutUsComponent implements OnInit {
+export class AboutUsComponent implements OnInit{
   public init_lat;
   public init_long;
   public init_zoom;
@@ -27,7 +27,7 @@ export class AboutUsComponent implements OnInit {
     });
 
     loader.load().then(async () => {
-      const {Map} = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+      const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
       let map = new Map(document.getElementById("map") as HTMLElement, {
         center: {lat: this.init_lat, lng: this.init_long},
         zoom: this.init_zoom,
@@ -51,7 +51,6 @@ const ELEMENT_DATA: DaysAndHours[] = [
   {day: "Saturday", hours: '10-18'},
   {day: "Sunday", hours: '10-18'},
 ];
-
 export interface DaysAndHours {
   day: string;
   hours: string;
