@@ -44,23 +44,12 @@
     <button mat-menu-item (click)="navigateToMyBooks()">My Books</button>
     <button mat-menu-item (click)="navigateToAboutUs()">About us</button>
     <button mat-menu-item (click)="signOut()">Log Out</button>
-    <div>
-      <input type="file" (change)="SeedData($event)" hidden #fileInput>
-      <button mat-menu-item (click)="fileInput.click()">Seed DataUser</button>
-      <button mat-menu-item (click)="seedDatabooks()">Seed DataBooks</button>
-    </div>
   </mat-menu>
 
   <mat-menu #signMenu="matMenu">
     <button mat-menu-item (click)="navigateToSignIn()" id="navBtn-signIn"> Sign in</button>
     <button mat-menu-item (click)="navigateToRegister()" id="navBtn-register"> Register</button>
     <button mat-menu-item (click)="navigateToAboutUs()">About us</button>
-    <div>
-      <input type="file" (change)="SeedData($event)" hidden #fileInput>
-      <button mat-menu-item (click)="fileInput.click()">Seed DataUser</button>
-      <button mat-menu-item (click)="seedDatabooks()">Seed DataBooks</button>
-    </div>
-
   </mat-menu>
 </mat-toolbar>
 

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FireService} from "../services/fire.service";
-import {Book, User} from "../Types/types";
+import {Book} from "../Types/types";
 import {Router} from "@angular/router";
-import {SeedDataService} from "../services/seed-data.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
