@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {BorrowedBook, User} from "../../Types/types";
+import {User} from "../../Types/types";
 import {FireService} from "../../services/fire.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-
 
 @Component({
   selector: 'app-user-settings',
@@ -14,12 +13,12 @@ export class UserSettingsComponent implements OnInit{
   public edit_email: boolean = false;
   public new_email: string = '';
 
-  constructor(public fireservice: FireService, private snack: MatSnackBar) {
+  constructor(public fireService: FireService, private snack: MatSnackBar) {
    }
 
   async edit_email_function(new_email: string){
-    await this.fireservice.update_email(this.new_email).then(() =>{
-      this.fireservice.updateUserEmail(new_email);
+    await this.fireService.update_email(this.new_email).then(() =>{
+      this.fireService.updateUserEmail(new_email);
       this.snack.open("password successfully updated.", "Close", {duration:3000})
     }).catch(() => {
       this.snack.open("Could not update password, try again.", "Close", {duration:3000})
@@ -33,11 +32,11 @@ export class UserSettingsComponent implements OnInit{
 
   updateUserAvatar($event) {
     const img = $event.target.files[0];
-    this.fireservice.updateUserAvatar(img)
+    this.fireService.updateUserAvatar(img)
   }
 
   ngOnInit(): void {
-    this.user = this.fireservice.loggedInUser;
+    this.user = this.fireService.loggedInUser;
     this.user?.books?.sort((book_a, book_b) => (book_a.overDue < book_b.overDue) ? 1 : -1)
   }
 }

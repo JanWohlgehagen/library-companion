@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FireService} from "../../services/fire.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -14,16 +14,14 @@ export class RegistrationComponent {
   confirmPassword: string = "";
 
 
-  constructor(public firebaseservice: FireService, private matSnackbar: MatSnackBar ) {
-
+  constructor(public firebaseService: FireService, private matSnackbar: MatSnackBar ) {
   }
 
   register() {
     if (this.password == this.confirmPassword ){
-      this.firebaseservice.register(this.name, this.email, this.password);
+      this.firebaseService.register(this.name, this.email, this.password);
     } else {
       this.matSnackbar.open("Passwords must match", 'close', {duration: 3000});
     }
   }
-
 }

@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FireService} from "../../services/fire.service";
 import {MockDataService} from "../../mock_data/mock-data.service";
-import {Book} from "../../Types/types";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -11,11 +10,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class BookInfoComponent{
 
-  panelOpenState = false;
-
-
   constructor(public firebaseservice: FireService, private mockDataBook: MockDataService, private snackbar: MatSnackBar) {
-
   }
 
 
@@ -28,7 +23,6 @@ export class BookInfoComponent{
       descriptionText.style.overflow = "hidden"
       descriptionText.className = "gradient"
     }
-
   }
 
   addToCart() {

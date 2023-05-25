@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {MockDataService} from "../../mock_data/mock-data.service";
-import {Book, BorrowedBook, User} from "../../Types/types";
-import {MatStepper} from "@angular/material/stepper";
+import {Book, BorrowedBook} from "../../Types/types";
 import {FireService} from "../../services/fire.service";
 
 @Component({

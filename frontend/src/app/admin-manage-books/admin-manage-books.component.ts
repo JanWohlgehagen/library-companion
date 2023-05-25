@@ -1,16 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {delay, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {Author, Book} from "../../Types/types";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
 import {DateAdapter} from '@angular/material/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FireService} from "../../services/fire.service";
-import firebase from "firebase/compat";
-import firestore = firebase.firestore;
 
 
 export interface Tag {
@@ -198,7 +196,6 @@ export class AdminManageBooksComponent implements OnInit {
 
     this.fireService.updateBook(book)
 
-    // possible check before showing message, and show error message if, if statement returns false.
     this._snackBar.open("Book has been saved", "X", {"duration": 8000})
   }
 
@@ -290,7 +287,7 @@ export class AdminManageBooksComponent implements OnInit {
   async updateBookImage($event) {
     const img = $event.target.files[0];
     await this.fireService.updateBookImage(img).then(async r => {
-      /*this.inputPicture = img.imageUrl*/
+
       await this.delay(3000)
       this.book = this.fireService.book
       this.inputPicture = this.book.imageUrl

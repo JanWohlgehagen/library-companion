@@ -11,12 +11,6 @@ export class LoginComponent {
   password: any;
   checked: any;
 
-
-  constructor(public firebaseservice: FireService ) {
-
-  }
-
-  resetPassword() {
-
+  constructor(public firebaseService: FireService) {
   }
 }
