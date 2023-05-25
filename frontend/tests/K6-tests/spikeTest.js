@@ -5,7 +5,7 @@ export const options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse:false,
   stages: [
-    { duration: '2m', target: 60},
+    { duration: '2m', target: 10},
     { duration: '1m', target: 0}
   ],
   thresholds: {

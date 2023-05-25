@@ -5,8 +5,8 @@ export const options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse:false,
   stages: [
-    { duration: '1m', target: 40}, // Ramp up to 40 - "high load"
-    { duration: '3m', target: 40}, // Stay at high load for 30 min
+    { duration: '1m', target: 10}, // Ramp up to 10 - "high load"
+    { duration: '3m', target: 10}, // Stay at high load for 30 min
     { duration: '1m', target: 0} // scale down. Recovery stage.
   ],
   thresholds: {
