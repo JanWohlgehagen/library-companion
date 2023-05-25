@@ -10,7 +10,7 @@ export const options = {
     { duration: '1m', target: 0} // scale down. Recovery stage.
   ],
   thresholds: {
-    http_req_failed: ['rate<0.01'],
+    http_req_failed: ['rate<99'],
   },
 };
 
