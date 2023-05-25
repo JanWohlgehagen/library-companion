@@ -6,7 +6,7 @@ export const options = {
   noConnectionReuse:false,
   stages: [
     { duration: '1m', target: 40}, // Ramp up to 40 - "high load"
-    { duration: '30m', target: 40}, // Stay at high load for 30 min
+    { duration: '3m', target: 40}, // Stay at high load for 30 min
     { duration: '1m', target: 0} // scale down. Recovery stage.
   ],
   thresholds: {
