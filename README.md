@@ -1,6 +1,8 @@
 
 # Library Companion
 
+Source code: https://github.com/JanWohlgehagen/library-companion
+
 This project is for local libraries that wants a smart way to reach out online.
 
 The website helps users to browse through the libraries books, to see what is available and then to lease them - although they will have to physically go there and pick them up.
