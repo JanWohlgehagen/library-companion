@@ -100,6 +100,23 @@ This runs the program locally using a development environment which uses firebas
 
 Finally navigate to http://localhost:4200/ to see the program.
 
+# Seeding the database
+
+The development branch of this project comes with a functionality to seed data into the database, this can be found in the user menu in the header of the application.
+
+## Seed DataUser
+This option opens the file picker, where you pick the profile picture all seeders users will get (this can be changed later by logging in and changing the picture in profile settings) and then seeds users into the database. The seeded users will all have one borrowed book initially. 
+
+### Admin user
+The seeded users will have one admin account with the following credentials:
+Email: Tobias@gmail.com
+Password: 1234567
+
+For the other user credentials check your emulator suite.
+
+## Seed DataBooks
+This simply seeds 1000 books into the database.
+
 # Running Tests
 ## UI tests
 To run tests, navigate to "frontend/tests/ui-tests"
@@ -149,9 +166,7 @@ k6 run -v frontend/tests/K6-tests/spikeTest.js
 ```
 
 Doc. Reference: https://testcafe.io/documentation/402830/guides/basic-guides/run-tests
-## Depricated Libraries
 
-The application uses authguards which implements the interface CanActivate. This Library is depricates as of Angular 15, to learn more read here: https://angular.io/api/router/CanActivate
 ## Known Bugs *(aka features)*
 
 There are no known bugs
