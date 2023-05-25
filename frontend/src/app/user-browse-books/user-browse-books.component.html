@@ -78,11 +78,11 @@
 </div> <!-- div for the middle bar -->
 
 <div class="main-right" style="overflow-y: auto;">
-  <div *ngIf="firebaseservice.shoppingCart.length !=0" class="shopping-cart-title">
+  <div *ngIf="firebaseService.shoppingCart.length !=0" class="shopping-cart-title">
     <p style="padding-top: 5vh"><strong>Shopping Cart</strong></p>
   </div> <!-- spacer -->
-  <div *ngIf="firebaseservice.shoppingCart.length !=0" style="text-align: center">
-    <div (click)="setBook(book)" *ngFor="let book of firebaseservice.shoppingCart">
+  <div *ngIf="firebaseService.shoppingCart.length !=0" style="text-align: center">
+    <div (click)="setBook(book)" *ngFor="let book of firebaseService.shoppingCart">
       <div class="shopping-cart-item">
         <div class="grid-tile-image">
           <img ngSrc="{{book.imageUrl}}" height="100" width="50">

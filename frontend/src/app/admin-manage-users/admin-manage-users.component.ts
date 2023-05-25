@@ -12,23 +12,19 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./admin-manage-users.component.scss']
 })
 export class AdminManageUsersComponent {
-
+  formControl= new FormControl('');
   filteredUsers: Observable<User[]> | undefined
   Users: User[] = []
   searchText: string = "";
   start: number = 0;
   end: number = 30;
-  formControl = new FormControl('');
-
 
   constructor(public fireService: FireService, private snackback: MatSnackBar) {
     this.getUsers()
 
-    // @ts-ignore
     this.filteredUsers = this.formControl.valueChanges.pipe(startWith(null),
       map((value: string | null) =>
         (value ? this._filter(value) : this.Users.slice())),)
-
   }
 
   getUsers() {
@@ -44,9 +40,7 @@ export class AdminManageUsersComponent {
     if (b.dueDate > new Date()) {
       b.overDue = false;
     }
-
     this.fireService.updateBorrowedBookOnUser(u)
-
   }
 
   sendMail(u: User, b: BorrowedBook) {
@@ -55,7 +49,6 @@ export class AdminManageUsersComponent {
   }
 
   MoveForward() {
-
     this.start += 30;
     this.end += 30;
   }
@@ -68,17 +61,16 @@ export class AdminManageUsersComponent {
   _filter(value: string): User[] {
     var searchText = value.toLowerCase();
 
-
     return this.Users.filter(it => {
       return it.name.toLocaleLowerCase().includes(searchText) || it.email.toLocaleLowerCase().includes(searchText)
     });
   }
 
+
   deleteUser(u: User) {
     this.Users = this.Users.filter(user => {
       return user.id != u.id
     })
-    // @ts-ignore
     this.filteredUsers = this.formControl.valueChanges.pipe(startWith(null),
       map((value: string | null) =>
         (value ? this._filter(value) : this.Users.slice())),)
@@ -91,7 +83,5 @@ export class AdminManageUsersComponent {
       return b != book
     })
     this.fireService.updateBorrowedBookOnUser(u);
-
-
   }
 }

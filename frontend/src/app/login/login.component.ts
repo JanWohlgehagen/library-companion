@@ -11,7 +11,6 @@ export class LoginComponent {
   password: any;
   checked: any;
 
-  constructor(public firebaseservice: FireService) {
-
+  constructor(public firebaseService: FireService) {
   }
 }

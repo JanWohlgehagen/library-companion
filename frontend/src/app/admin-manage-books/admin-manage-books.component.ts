@@ -196,7 +196,6 @@ export class AdminManageBooksComponent implements OnInit {
 
     this.fireService.updateBook(book)
 
-    // possible check before showing message, and show error message if, if statement returns false.
     this._snackBar.open("Book has been saved", "X", {"duration": 8000})
   }
 
@@ -288,7 +287,7 @@ export class AdminManageBooksComponent implements OnInit {
   async updateBookImage($event) {
     const img = $event.target.files[0];
     await this.fireService.updateBookImage(img).then(async r => {
-      /*this.inputPicture = img.imageUrl*/
+
       await this.delay(3000)
       this.book = this.fireService.book
       this.inputPicture = this.book.imageUrl

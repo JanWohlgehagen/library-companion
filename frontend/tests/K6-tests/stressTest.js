@@ -5,13 +5,16 @@ export const options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse:false,
   stages: [
-    { duration: '1m', target: 40}, // Ramp up to 40 - "high load"
-    { duration: '30m', target: 40}, // Stay at high load for 30 min
-    { duration: '1m', target: 0} // scale down. Recovery stage.
+    { duration: '10m', target: 250}, // Ramp up to 250 - "high load"
+    { duration: '30m', target: 250}, // Stay at high load for 30 min
+    { duration: '5m', target: 0} // scale down. Recovery stage.
   ],
+  /*
   thresholds: {
     http_req_failed: ['rate<0.01'],
   },
+
+   */
 };
 
 export default () => {

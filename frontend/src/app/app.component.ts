@@ -9,37 +9,30 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-
 export class AppComponent {
 
 
-  constructor(public firebaseservice: FireService, private router: Router, private _snackbar: MatSnackBar) {
-    this.firebaseservice.shoppingCart = []
+  constructor(public firebaseService: FireService, private router: Router, private _snackbar: MatSnackBar) {
+    this.firebaseService.shoppingCart = []
 
-
-    if (!this.firebaseservice.auth.currentUser)
-      this.firebaseservice.loggedInUser = undefined
+    if (!this.firebaseService.auth.currentUser)
+      this.firebaseService.loggedInUser = undefined
   }
-
 
   navigateToProfile() {
     this.router.navigate(["user-dashboard/settings"])
-
   }
 
   navigateToMyBooks() {
     this.router.navigate(["user-dashboard/settings"])
-
   }
 
   navigateToSignIn() {
     this.router.navigate(["login"])
-
   }
 
   navigateToRegister() {
     this.router.navigate(["login/register"])
-
   }
 
   navigateToMyCart() {
@@ -47,15 +40,13 @@ export class AppComponent {
   }
 
   setBook(b: Book) {
-    this.firebaseservice.book = b;
+    this.firebaseService.book = b;
     this.router.navigate(["book-info"])
-
   }
 
   remove_item_from_cart($event: MouseEvent, b: Book) {
     $event.stopPropagation();
-    this.firebaseservice.shoppingCart = this.firebaseservice.shoppingCart.filter(bo => bo.id != b.id)
-
+    this.firebaseService.shoppingCart = this.firebaseService.shoppingCart.filter(bo => bo.id !=b.id)
   }
 
   navigateToBrowseBooks() {
@@ -72,16 +63,15 @@ export class AppComponent {
   }
 
   async signOut() {
-
-    await this.firebaseservice.sign_out();
+    await this.firebaseService.sign_out();
     this._snackbar.open("You have signed out.", "Close", {duration: 3000})
   }
 
-  isAdmin(): boolean {
-    if (this.firebaseservice.loggedInUser == undefined) {
+  isAdmin():boolean{
+    if(this.firebaseService.loggedInUser == undefined){
       return false;
     }
-    return this.firebaseservice.auth.currentUser && this.firebaseservice.loggedInUser.admin
+     return this.firebaseService.auth.currentUser && this.firebaseService.loggedInUser.admin
   }
 
   navigateToAboutUs() {

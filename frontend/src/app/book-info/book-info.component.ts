@@ -23,7 +23,6 @@ export class BookInfoComponent {
       descriptionText.style.overflow = "hidden"
       descriptionText.className = "gradient"
     }
-
   }
 
   addToCart() {

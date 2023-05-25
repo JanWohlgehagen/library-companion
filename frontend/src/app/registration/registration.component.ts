@@ -13,17 +13,14 @@ export class RegistrationComponent {
   password: string = "";
   confirmPassword: string = "";
 
-
-  constructor(public firebaseservice: FireService, private matSnackbar: MatSnackBar) {
-
+  constructor(public firebaseService: FireService, private matSnackbar: MatSnackBar ) {
   }
 
   register() {
-    if (this.password == this.confirmPassword) {
-      this.firebaseservice.register(this.name, this.email, this.password);
+    if (this.password == this.confirmPassword ){
+      this.firebaseService.register(this.name, this.email, this.password);
     } else {
       this.matSnackbar.open("Passwords must match", 'close', {duration: 3000});
     }
   }
-
 }

@@ -16,10 +16,9 @@ export class UserBrowseBooksComponent {
   public amount_of_items_shown_increment_factor: number = 15;
   public searchText: string = '';
 
-
-  constructor(public firebaseservice: FireService, private router: Router, private snack: MatSnackBar) {
-    this.books = firebaseservice.books;
-    this.books_cache = firebaseservice.cachedBooks;
+  constructor(public firebaseService: FireService, private router : Router, private snack: MatSnackBar) {
+    this.books = firebaseService.books;
+    this.books_cache = firebaseService.cachedBooks;
   }
 
   increment_items_shown() {
@@ -29,11 +28,9 @@ export class UserBrowseBooksComponent {
   reset_items_shown() {
     this.amount_of_items_shown = this.amount_of_items_shown_increment_factor;
 
-    // @ts-ignore
     var ChatBoxElement = document.querySelector('#main'); //Fetch chatbox element from dom
     // @ts-ignore
     ChatBoxElement.scroll({left: 0, top: 100, behavior: 'smooth'})
-
   }
 
   set_amount_of_items_shown_increment_factor($event) {
@@ -55,23 +52,23 @@ export class UserBrowseBooksComponent {
   }
 
   add_item_to_cart(book: Book) {
-    if (!this.firebaseservice.shoppingCart.find(element => element == book)) {
-      this.firebaseservice.shoppingCart.push(book)
-    } else {
-      this.snack.open("You've already booked this book.", "Close", {duration: 3000})
+    if(!this.firebaseService.shoppingCart.find(element=> element == book))
+    {
+      this.firebaseService.shoppingCart.push(book)
     }
-
+    else {
+      this.snack.open("You've already booked this book.", "Close", {duration:3000})
+    }
   }
 
   remove_item_from_cart(book: Book) {
-    this.firebaseservice.shoppingCart = this.firebaseservice.shoppingCart.filter(b => {
+    this.firebaseService.shoppingCart = this.firebaseService.shoppingCart.filter(b => {
       return b.id != book.id;
     })
   }
 
   setBook(book: any) {
-    this.firebaseservice.book = book
+    this.firebaseService.book= book
     this.router.navigate(["user-dashboard/browse-books/book-info"])
-
   }
 }

@@ -20,7 +20,6 @@ export class FireService {
   auth: firebase.auth.Auth;
   firestore: firebase.firestore.Firestore;
   storage: firebase.storage.Storage;
-
   books: Book[] = []
   cachedBooks: Book[] = []
   book: Book
@@ -110,7 +109,6 @@ export class FireService {
         this.loggedInUser = this.convertJsonToUser(result.id, result.data())
       }
     )
-
   }
 
   intercept() {
@@ -122,7 +120,6 @@ export class FireService {
       });
   }
 
-//TODO - NOT FINISHED
   async register(name: string, email: string, password: string) {
     firebase.storage().ref('avatars').child('AvatarProfile.jpg').getDownloadURL().then(async img => {
       this.auth.createUserWithEmailAndPassword(email, password)
@@ -160,7 +157,6 @@ export class FireService {
       .catch((error) => {
         this.matSnackbar.open("The login is invalid", 'close', {duration: 4000});
       });
-
   }
 
   async updateUserAvatar(img) {
@@ -265,7 +261,6 @@ export class FireService {
         leaseDate: new Date(leaseDateTimeStamp),
         dueDate: new Date(dueDateTimeStamp),
         overDue: overdue
-
       }
       borrowedBooks.push(Borrowedbook)
     })
@@ -311,18 +306,14 @@ export class FireService {
       numberOfPages: data["book"]["numberOfPages"],
       authors: data["book"]["authors"],
       publisher: data["book"]["publisher"]
-
     }
-
     return book;
-
   }
 
   updateBorrowedBookOnUser(u: User) {
     let userId = u.id
     let borrowedBooks = u.books
     axios.put(this.baseAxiosURL + "updateBorrowedBooks", {userId: userId, borrowedBooks: borrowedBooks})
-
   }
 
   deleteUser(u: User) {
@@ -332,7 +323,6 @@ export class FireService {
 
   sendMail(u: User, b: BorrowedBook) {
     axios.post(this.baseAxiosURL + "sendMail", {user: u, borrowedBook: b})
-
   }
 
   async updateBookImage(img) {
